@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-  
+
 # Custom bash prompt theme for 256-color terminals
 # Author: Alexander Bock
-# 
+#
 # Features:
 #   - Written in pure bash with no dependencies
 #   - Multiple predefined functions for displaying current username, hostname,
@@ -18,9 +18,9 @@
 #   1. (OPTIONAL) Run install.sh to set up a symlink to your home directory
 #   2. Add 'source <path_to_this_script>' in ~/.bashrc or ~/.profile etc.
 #   3. Call 'export PROMPT_COMMAND=__bash_powerline_prompt' after sourcing
-# 
+#
 # See 'CUSTOMISING.md' for help with customising this script.
- 
+
 __bash_powerline_prompt() {
     # Must come before anything else than could return an exit code
     local EXIT_STATUS=$?
@@ -54,7 +54,7 @@ __bash_powerline_prompt() {
     local SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
     local SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
     ######################################################################
- 
+
     ######################################################################
     # NON-CONFIGURABLE VARIABLES
     ######################################################################
@@ -102,7 +102,7 @@ __bash_powerline_prompt() {
     __reset_attributes() {
         printf "\[\e[0m"
     }
- 
+
     # Format a color as an ANSI escape sequence
     __format_color() {
         if [[ -z $1 && -z $2 ]]; then
@@ -111,15 +111,15 @@ __bash_powerline_prompt() {
 
         local fg_full='39'
         local bg_full='49'
- 
+
         if [[ -n $1 ]]; then
             fg_full=${FG_COLOR_PREFIX}$1
         fi
- 
+
         if [[ -n $2 ]]; then
             bg_full=${BG_COLOR_PREFIX}$2
         fi
-         
+
         # Colors are wrapped in '\[' and '\]' to tell bash not to count them towards line length
         printf "\[\e[%s;%sm\]" $fg_full $bg_full
     }
@@ -138,14 +138,14 @@ __bash_powerline_prompt() {
         local fg=$1
         local bg=$2
         local exit_status=$EXIT_STATUS
- 
+
         if [[ $exit_status != 0 ]]; then
             fg=$GIT_FG_DIRTY_COLOR
         fi
- 
-        printf "$(__format_color $fg $bg) $exit_status " 
+
+        printf "$(__format_color $fg $bg) $exit_status "
     }
- 
+
     # Prints the current username and host, and optionally the current python virtualenv
     __user_context() {
         local result="$(__get_username)$USER_CXT_SEPARATOR_SYMBOL$(__get_hostname)"
@@ -156,12 +156,12 @@ __bash_powerline_prompt() {
 
         printf "$(__format_color $1 $2) $result "
     }
- 
+
     # Prints the current directory
     __cwd_context() {
-        printf "$(__format_color $1 $2) $(__get_cwd) " 
+        printf "$(__format_color $1 $2) $(__get_cwd) "
     }
- 
+
     # Prints the current git branch (if any), a branch symbol and whether
     # the current branch is clean or dirty (via 'git status')
     __git_context() {
@@ -191,10 +191,10 @@ __bash_powerline_prompt() {
                 fi
             fi
         fi
- 
+
         printf " $git_branch "
     }
- 
+
     # Prints a section with a single command symbol
     __prompt_end() {
         printf "$(__format_color $1 $2) $COMMAND_SYMBOL "
