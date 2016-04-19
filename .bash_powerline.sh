@@ -124,6 +124,25 @@ __bash_powerline_prompt() {
         printf "\[\e[%s;%sm\]" $fg_full $bg_full
     }
 
+    # Get the current git branch. Use .git-prompt.sh if it is available
+    __get_current_git_branch() {
+        local git_branch=''
+
+        if [ -n "$(type __git_ps1)" ]; then
+            git_branch=" $(__git_ps1 '%s') $git_state"
+        else
+            git_branch=$(git symbolic-ref HEAD)
+
+            if [ $? -ne 0 ]; then
+                return ''
+            fi
+
+            git_branch=$(basename $git_branch)
+        fi
+
+        printf $git_branch
+    }
+
     ######################################################################
     # PREDEFINED SECTIONS
     ######################################################################
