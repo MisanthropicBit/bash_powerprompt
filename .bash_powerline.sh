@@ -199,15 +199,17 @@ __bash_powerline_prompt() {
                 git_state="$(__format_color $git_fg $2)$git_symbol"
                 git_branch="$(__format_color $1 $2)$GIT_BRANCH_SYMBOL"
 
-                if [ -n "$(type __git_ps1)" ]; then
-                    if [ -n "$GIT_BRANCH_COLOR" ]; then
-                        git_branch+="$(__format_color $GIT_BRANCH_COLOR $2)"
-                    fi
-
-                    git_branch+=" $(__git_ps1 '%s') $git_state"
-                else
-                    git_branch+=" $git_state"
+                if [ -n "$GIT_BRANCH_COLOR" ]; then
+                    git_branch+="$(__format_color $GIT_BRANCH_COLOR $2)"
                 fi
+
+                local temp_branch=$(__get_current_git_branch)
+
+                if [ -n "$temp_branch" ]; then
+                    git_branch+=" "
+                fi
+
+                git_branch+="$temp_branch $git_state"
             fi
         fi
 
