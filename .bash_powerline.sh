@@ -65,6 +65,21 @@ __bash_powerline_prompt() {
     local RESET_ATTRS='0'
     ######################################################################
 
+    # Returns the directory that this script is actually in
+    # Credits: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+    __get_script_dir() {
+        unset CDPATH
+        local source="${BASH_SOURCE[0]}"
+
+        while [ -L "$source" ]; do
+            local dir="$(cd -P "$(dirname "$source")" && pwd)"
+            source="$(readlink "$source")"
+            [[ $source != /* ]] && source="$dir/$source"
+        done
+
+        printf "$( cd -P "$( dirname "$source" )" && pwd )"
+    }
+
     # Returns a string representing the current OS, e.g. 'Darwin' for Mac systems
     __get_os_name() {
         printf "$(uname -s)"
