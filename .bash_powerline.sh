@@ -98,6 +98,10 @@ __bash_powerline_prompt() {
         printf $cwd
     }
 
+    __get_python_virtualenv() {
+        printf "$VIRTUAL_ENV"
+    }
+
     # Resets all ANSI attributes
     __reset_attributes() {
         printf "\[\e[0m"
@@ -168,9 +172,10 @@ __bash_powerline_prompt() {
     # Prints the current username and host, and optionally the current python virtualenv
     __user_context() {
         local result="$(__get_username)$USER_CXT_SEPARATOR_SYMBOL$(__get_hostname)"
+        local virtualenv=$(__get_python_virtualenv)
 
-        if [ -n "$VIRTUAL_ENV" ]; then
-            result+=" ($VIRTUAL_ENV)"
+        if [ -n "$virtualenv" ]; then
+            result+=" ($virtualenv)"
         fi
 
         printf "$(__format_color $1 $2) $result "
