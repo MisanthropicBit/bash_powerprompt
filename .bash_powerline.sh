@@ -131,7 +131,7 @@ __bash_powerline_prompt() {
         if [ -n "$(type __git_ps1)" ]; then
             git_branch=" $(__git_ps1 '%s') $git_state"
         else
-            git_branch=$(git symbolic-ref HEAD)
+            git_branch=" $(git symbolic-ref HEAD)"
 
             if [ $? -ne 0 ]; then
                 return ''
