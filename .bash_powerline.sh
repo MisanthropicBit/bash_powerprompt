@@ -40,7 +40,7 @@ __bash_powerline_prompt() {
     local GIT_BRANCH_SYMBOL="\xee\x82\xa0"  # Powerline symbol that looks like a git branch
     local GIT_CLEAN_SYMBOL="\xe2\x9c\x93"   # A checkmark (U+2713)
     local GIT_DIRTY_SYMBOL="\xe2\x9c\x97"   # A ballot x (U+2717)
-    local SEPARATOR_FG_COLOR=15             # Only used when the separator is not SOLID_ARROW_SYMBOL
+    local BASH_POWERLINE_SEPARATOR_FG_COLOR=15             # Only used when the separator is not SOLID_ARROW_SYMBOL
     local GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
     local GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
     local GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
@@ -60,6 +60,7 @@ __bash_powerline_prompt() {
         __set_theme
     }
 
+    # Set the defaults and let custom themes override them
     __set_defaults
 
     if [ -n "$BASH_POWERLINE_THEME" ]; then
@@ -97,7 +98,7 @@ __bash_powerline_prompt() {
             [[ $source != /* ]] && source="$dir/$source"
         done
 
-        printf "$( cd -P "$( dirname "$source" )" && pwd )"
+        printf "$(cd -P "$(dirname "$source")" && pwd)"
     }
 
     # Returns a string representing the current OS, e.g. 'Darwin' for Mac systems
@@ -280,7 +281,7 @@ __bash_powerline_prompt() {
             if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
                 __ps1+=$(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")
             else
-                __ps1+=$(printf "$(__format_color $SEPARATOR_FG_COLOR $bg)$PREVIOUS_SYMBOL")
+                __ps1+=$(printf "$(__format_color $BASH_POWERLINE_SEPARATOR_FG_COLOR $bg)$PREVIOUS_SYMBOL")
             fi
         fi
 
