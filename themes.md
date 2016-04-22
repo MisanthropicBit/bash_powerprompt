@@ -21,3 +21,16 @@ Uses only the system colors.
 ## Imperial
 
 ![Imperial theme](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/screenshots/imperial.png)
+
+## Snowflake
+
+Blueish with a unicode snowflake symbol
+
+
+## Gemish
+
+Use the gem unicode symbol
+
+## Coffe break
+
+Use the coffee unicode symbol and brown colors
