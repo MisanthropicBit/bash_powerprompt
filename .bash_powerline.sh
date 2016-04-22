@@ -49,10 +49,30 @@ __bash_powerline_prompt() {
     #
     # Note: There is an additional symbol in the array SEPARATORS for ending the
     # prompt
-    local FG_COLORS=(15 15 15 15 15)
-    local BG_COLORS=(65 60 167 110 221)
-    local SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
-    local SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
+    __set_defaults() {
+        BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)
+        BASH_POWERLINE_BG_COLORS=(65 60 167 110 221)
+        BASH_POWERLINE_SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
+        BASH_POWERLINE_SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
+    }
+
+    __load_theme() {
+        __set_theme
+    }
+
+    __set_defaults
+
+    if [ -n "$BASH_POWERLINE_THEME" ]; then
+        local theme_name="$(__get_script_dir)/themes/$BASH_POWERLINE_THEME.theme"
+
+        if [ -r "$theme_name" ]; then
+            source $theme_name
+            __set_theme
+        else
+            printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
+        fi
+    fi
+
     ######################################################################
 
     ######################################################################
@@ -246,10 +266,10 @@ __bash_powerline_prompt() {
     local PREVIOUS_BG_COLOR=''
 
     # Assemble the entire prompt command
-    for i in ${!SECTIONS[@]}; do
-        fg=${FG_COLORS[$i]}
-        bg=${BG_COLORS[$i]}
-        contents=$(${SECTIONS[$i]} $fg $bg)
+    for i in ${!BASH_POWERLINE_SECTIONS[@]}; do
+        fg=${BASH_POWERLINE_FG_COLORS[$i]}
+        bg=${BASH_POWERLINE_BG_COLORS[$i]}
+        contents=$(${BASH_POWERLINE_SECTIONS[$i]} $fg $bg)
 
         if [[ $IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
             continue
@@ -270,7 +290,7 @@ __bash_powerline_prompt() {
         PREVIOUS_CONTENTS=$contents
         PREVIOUS_FG_COLOR=$fg
         PREVIOUS_BG_COLOR=$bg
-        PREVIOUS_SYMBOL=${SEPARATORS[$i]}
+        PREVIOUS_SYMBOL=${BASH_POWERLINE_SEPARATORS[$i]}
     done
 
     # Handle the last separator
