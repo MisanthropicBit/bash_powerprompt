@@ -24,13 +24,13 @@ Uses only the system colors.
 
 ## Snowflake
 
-Blueish with a unicode snowflake symbol
-
+![Snowflake theme](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/screenshots/snowflake.png)
 
 ## Gemish
 
-Use the gem unicode symbol
+![Gemish theme](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/screenshots/gemish.png)
 
-## Coffe break
+## Coffee break
 
 Use the coffee unicode symbol and brown colors
+![Coffee break theme](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/screenshots/coffee_break.png)
