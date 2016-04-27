@@ -42,6 +42,10 @@ Use the coffee unicode symbol and brown colors
 
 ![Commander theme](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/screenshots/commander.png)
 
+### Git
+
+![Commander theme](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/screenshots/commander.png)
+
 <a name="system-colors-only-prompts"/ >
 ## System-colors only prompts
 
