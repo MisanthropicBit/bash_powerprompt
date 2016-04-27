@@ -196,7 +196,7 @@ __bash_powerline_prompt() {
 
         if type git > /dev/null; then
             if 2>/dev/null 1>&2 git status --ignore-submodules; then
-                if 2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'; then
+                if git status --ignore-submodules | grep 'nothing to commit' > /dev/null; then
                    git_fg=$GIT_FG_CLEAN_COLOR
                    git_symbol=$GIT_CLEAN_SYMBOL
                 fi
