@@ -51,13 +51,9 @@ __bash_powerline_prompt() {
     # prompt
     __set_defaults() {
         BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)
-        BASH_POWERLINE_BG_COLORS=(65 60 167 110 221)
+        BASH_POWERLINE_BG_COLORS=(6 25 90 72 160)
         BASH_POWERLINE_SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
         BASH_POWERLINE_SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
-    }
-
-    __load_theme() {
-        __set_theme
     }
 
     if [[ -n "$BASH_POWERLINE_THEME" && "$BASH_POWERLINE_THEME" != "$__BASH_POWERLINE_CACHED_THEME" ]]; then
