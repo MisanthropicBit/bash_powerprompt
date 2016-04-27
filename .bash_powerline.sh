@@ -60,15 +60,16 @@ __bash_powerline_prompt() {
         __set_theme
     }
 
-    # Set the defaults and let custom themes override them
-    __set_defaults
+    if [[ -n "$BASH_POWERLINE_THEME" && "$BASH_POWERLINE_THEME" != "$__BASH_POWERLINE_CACHED_THEME" ]]; then
+        local theme_path="$(__get_script_dir)/themes/$BASH_POWERLINE_THEME.theme"
 
-    if [ -n "$BASH_POWERLINE_THEME" ]; then
-        local theme_name="$(__get_script_dir)/themes/$BASH_POWERLINE_THEME.theme"
+        if [ -r "$theme_path" ]; then
+            # Set the defaults and let custom themes override them
+            __set_defaults
 
-        if [ -r "$theme_name" ]; then
-            source $theme_name
+            source $theme_path
             __set_theme
+            __BASH_POWERLINE_CACHED_THEME=$BASH_POWERLINE_THEME
         else
             printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
         fi
