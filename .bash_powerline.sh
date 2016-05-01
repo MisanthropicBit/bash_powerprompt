@@ -32,39 +32,23 @@ __bash_powerline_prompt() {
     local IGNORE_EMPTY_SECTIONS=0 # If enabled, do not display sections that return an empty string
 
     # Symbols and colors
-    local COMMAND_SYMBOL='$'                # Command symbol at the end of the prompt
     local SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol (U+e0b0)
     local THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol (U+e0b1)
-    local USER_CXT_SEPARATOR_SYMBOL='@'     # Separator between user- and hostnames
-    local PROMPT_END_SPACING=' '            # Spacing at the end of the prompt
-    local GIT_BRANCH_SYMBOL="\xee\x82\xa0"  # Powerline symbol that looks like a git branch
-    local GIT_CLEAN_SYMBOL="\xe2\x9c\x93"   # A checkmark (U+2713)
-    local GIT_DIRTY_SYMBOL="\xe2\x9c\x97"   # A ballot x (U+2717)
-    local BASH_POWERLINE_SEPARATOR_FG_COLOR=15             # Only used when the separator is not SOLID_ARROW_SYMBOL
-    local GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
-    local GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
-    local GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
-
-    # Layout variables for sections
-    #
-    # Note: There is an additional symbol in the array SEPARATORS for ending the
-    # prompt
-    __set_defaults() {
-        BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)
-        BASH_POWERLINE_BG_COLORS=(6 25 90 72 160)
-        BASH_POWERLINE_SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
-        BASH_POWERLINE_SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
-    }
 
     if [[ -n "$BASH_POWERLINE_THEME" && "$BASH_POWERLINE_THEME" != "$__BASH_POWERLINE_CACHED_THEME" ]]; then
-        local theme_path="$(__get_script_dir)/themes/$BASH_POWERLINE_THEME.theme"
+        local script_dir="$(__get_script_dir)"
+        local theme_path="$script_dir/themes/$BASH_POWERLINE_THEME.theme"
 
         if [ -r "$theme_path" ]; then
-            # Set the defaults and let custom themes override them
-            __set_defaults
-
-            source $theme_path
+            # Load the default theme and let custom themes override them
+            source "$script_dir/themes/default.theme"
             __set_theme
+
+            # Load the custom theme unless it is the default
+            if [ "$BASH_POWERLINE_THEME" != "default" ]; then
+                source $theme_path
+                __set_theme
+            fi
 
             # Cache the current theme
             __BASH_POWERLINE_CACHED_THEME=$BASH_POWERLINE_THEME
@@ -185,7 +169,7 @@ __bash_powerline_prompt() {
         local exit_status=$EXIT_STATUS
 
         if [[ $exit_status != 0 ]]; then
-            fg=$GIT_FG_DIRTY_COLOR
+            fg=$BASH_POWERLINE_GIT_FG_DIRTY_COLOR
         fi
 
         printf "$(__format_color $fg $bg) $exit_status "
@@ -193,7 +177,7 @@ __bash_powerline_prompt() {
 
     # Prints the current username and host, and optionally the current python virtualenv
     __user_context() {
-        local result="$(__get_username)$USER_CXT_SEPARATOR_SYMBOL$(__get_hostname)"
+        local result="$(__get_username)$BASH_POWERLINE_USER_CXT_SEPARATOR_SYMBOL$(__get_hostname)"
 
         if [ -n "$VIRTUAL_ENV" ]; then
             result+=" ($VIRTUAL_ENV)"
@@ -211,22 +195,22 @@ __bash_powerline_prompt() {
     # the current branch is clean or dirty (via 'git status')
     __git_context() {
         local git_state=""
-        local git_branch="$(__format_color $1 $2)$GIT_BRANCH_SYMBOL"
-        local git_fg=$GIT_FG_DIRTY_COLOR
-        local git_symbol=$GIT_DIRTY_SYMBOL
+        local git_branch="$(__format_color $1 $2)$BASH_POWERLINE_GIT_BRANCH_SYMBOL"
+        local git_fg=$BASH_POWERLINE_GIT_FG_DIRTY_COLOR
+        local git_symbol=$BASH_POWERLINE_GIT_DIRTY_SYMBOL
 
         if type git > /dev/null; then
             if 2>/dev/null 1>&2 git status --ignore-submodules; then
                 if 2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'; then
-                   git_fg=$GIT_FG_CLEAN_COLOR
-                   git_symbol=$GIT_CLEAN_SYMBOL
+                   git_fg=$BASH_POWERLINE_GIT_FG_CLEAN_COLOR
+                   git_symbol=$BASH_POWERLINE_GIT_CLEAN_SYMBOL
                 fi
 
                 git_state="$(__format_color $git_fg $2)$git_symbol"
-                git_branch="$(__format_color $1 $2)$GIT_BRANCH_SYMBOL"
+                git_branch="$(__format_color $1 $2)$BASH_POWERLINE_GIT_BRANCH_SYMBOL"
 
-                if [ -n "$GIT_BRANCH_COLOR" ]; then
-                    git_branch+="$(__format_color $GIT_BRANCH_COLOR $2)"
+                if [ -n "$BASH_POWERLINE_GIT_BRANCH_COLOR" ]; then
+                    git_branch+="$(__format_color $BASH_POWERLINE_GIT_BRANCH_COLOR $2)"
                 fi
 
                 local temp_branch=$(__get_current_git_branch)
@@ -244,7 +228,7 @@ __bash_powerline_prompt() {
 
     # Prints a section with a single command symbol
     __prompt_end() {
-        printf "$(__format_color $1 $2) $COMMAND_SYMBOL "
+        printf "$(__format_color $1 $2) $BASH_POWERLINE_COMMAND_SYMBOL "
     }
     ######################################################################
 
@@ -292,6 +276,6 @@ __bash_powerline_prompt() {
     # Must be called afterwards to reset all colors and attributes
     __ps1+=$(__reset_attributes)
 
-    __ps1+=$PROMPT_END_SPACING
+    __ps1+=$BASH_POWERLINE_PROMPT_END_SPACING
     export PS1=$__ps1
 }

@@ -1,0 +1,21 @@
+__set_theme() {
+    #BASH_POWERLINE_THEME='default'
+
+    BASH_POWERLINE_COMMAND_SYMBOL='$'               # Command symbol at the end of the prompt
+    BASH_POWERLINE_PROMPT_END_SPACING=' '           # Spacing at the end of the prompt
+    BASH_POWERLINE_USER_CXT_SEPARATOR_SYMBOL='@'    # Separator between user- and hostnames
+    BASH_POWERLINE_GIT_BRANCH_SYMBOL="\xee\x82\xa0" # Powerline symbol that looks like a git branch
+    BASH_POWERLINE_SEPARATOR_FG_COLOR=15            # Only used when the separator is not SOLID_ARROW_SYMBOL
+    BASH_POWERLINE_GIT_CLEAN_SYMBOL="\xe2\x9c\x93"  # A checkmark (U+2713)
+    BASH_POWERLINE_GIT_DIRTY_SYMBOL="\xe2\x9c\x97"  # A ballot x (U+2717)
+    BASH_POWERLINE_GIT_BRANCH_COLOR=                # The color of the current git branch (if any)
+    BASH_POWERLINE_GIT_FG_CLEAN_COLOR=76            # The color for a git branch with uncommitted files
+    BASH_POWERLINE_GIT_FG_DIRTY_COLOR=160           # The color for a git branch with a clean working directory
+
+    BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)
+    BASH_POWERLINE_BG_COLORS=(6 25 90 72 160)
+    BASH_POWERLINE_SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
+
+    # Note: There is an additional symbol in the array SEPARATORS for ending the prompt
+    BASH_POWERLINE_SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
+}
