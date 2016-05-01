@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 
 # Custom bash prompt theme for 256-color terminals
-# Author: Alexander Bock
+# Author: MisanthropicBit
 #
 # Features:
 #   - Written in pure bash with no dependencies
-#   - Multiple predefined functions for displaying current username, hostname,
-#     git branche, python virtualenv, directory and exit code of the last command
-#   - Uses fancy Unicode and Powerline symbols
-#   - Easily customisable and extensible
+#   - Easily customisable and extendable
+#   - Multiple predefined sections
+#   - Fancy Unicode and Powerline symbols
 #
 # Requirements:
-#   - A terminal/shell capable of displaying utf-8
+#   - A terminal capable of displaying utf-8
 #   - A patched powerline font set up with your terminal
 #
 # Installation:
 #   1. (OPTIONAL) Run install.sh to set up a symlink to your home directory
-#   2. Add 'source <path_to_this_script>' in ~/.bashrc or ~/.profile etc.
-#   3. Call 'export PROMPT_COMMAND=__bash_powerline_prompt' after sourcing
+#   2. Add the following to you in ~/.bashrc or ~/.profile etc.
+#
+#      if [ -e ~/.bash_powerline.sh ]; then
+#          source ~/.bash_powerline.sh
+#          export PROMPT_COMMAND=__bash_powerline_prompt
+#      fi
 #
 # See 'CUSTOMISING.md' for help with customising this script.
 
