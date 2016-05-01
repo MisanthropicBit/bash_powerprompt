@@ -65,6 +65,8 @@ __bash_powerline_prompt() {
 
             source $theme_path
             __set_theme
+
+            # Cache the current theme
             __BASH_POWERLINE_CACHED_THEME=$BASH_POWERLINE_THEME
         else
             printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
@@ -138,23 +140,14 @@ __bash_powerline_prompt() {
 
     # Format a color as an ANSI escape sequence
     __format_color() {
-        if [[ -z $1 && -z $2 ]]; then
-            printf ''
-        fi
-
-        local fg_full='39'
-        local bg_full='49'
-
-        if [[ -n $1 ]]; then
-            fg_full=${FG_COLOR_PREFIX}$1
-        fi
-
-        if [[ -n $2 ]]; then
-            bg_full=${BG_COLOR_PREFIX}$2
-        fi
-
         # Colors are wrapped in '\[' and '\]' to tell bash not to count them towards line length
-        printf "\[\e[%s;%sm\]" $fg_full $bg_full
+        if [ $# -gt 1 ]; then
+            printf "\[\e[$FG_COLOR_PREFIX%s;$BG_COLOR_PREFIX%sm\]" $1 $2
+        elif [ $# -gt 0 ]; then
+            printf "\[\e[$FG_COLOR_PREFIX%sm\]" $1
+        fi
+
+        printf ''
     }
 
     # Get the current git branch. Use .git-prompt.sh if it is available
@@ -293,7 +286,7 @@ __bash_powerline_prompt() {
 
     # Handle the last separator
     if [ -n "$PREVIOUS_SYMBOL" ]; then
-        __ps1+=$(printf "$(__format_color $PREVIOUS_BG_COLOR "")$SOLID_ARROW_SYMBOL")
+        __ps1+=$(printf "$(__reset_attributes)$(__format_color $PREVIOUS_BG_COLOR)$SOLID_ARROW_SYMBOL")
     fi
 
     # Must be called afterwards to reset all colors and attributes
