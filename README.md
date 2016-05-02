@@ -32,8 +32,7 @@ fi
 
 ## Customisation
 
-See
-[CUSTOMISING.md](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/CUSTOMISING.md)
-for configuration options and examples, and the [list of predefined
-themes](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/themes.md) or the
-[`vim-airline`](https://github.com/vim-airline/vim-airline/wiki/Screenshots) plugin for inspiration.
+You can change the appearance of the prompt using any of the [predefined
+themes](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/themes.md). To
+create your own theme, see
+[CUSTOMISING.md](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/CUSTOMISING.md).
