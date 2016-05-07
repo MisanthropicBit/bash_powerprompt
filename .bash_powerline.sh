@@ -52,7 +52,7 @@ __bash_powerline_prompt() {
 
     # Loads a given theme (reverts to the default theme on error)
     __load_theme() {
-        if [[ -n "$BASH_POWERLINE_THEME" && "$BASH_POWERLINE_THEME" != "$__BASH_POWERLINE_CACHED_THEME" ]]; then
+        if [[ -n "$BASH_POWERLINE_THEME" ]]; then
             local script_dir="$(__get_script_dir)"
             local theme_path="$script_dir/themes/$BASH_POWERLINE_THEME.theme"
 
@@ -66,9 +66,6 @@ __bash_powerline_prompt() {
                     source $theme_path
                     __set_theme
                 fi
-
-                # Cache the current theme
-                __BASH_POWERLINE_CACHED_THEME=$BASH_POWERLINE_THEME
             else
                 printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
             fi
