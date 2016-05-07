@@ -38,28 +38,6 @@ __bash_powerline_prompt() {
     local SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol (U+e0b0)
     local THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol (U+e0b1)
 
-    if [[ -n "$BASH_POWERLINE_THEME" && "$BASH_POWERLINE_THEME" != "$__BASH_POWERLINE_CACHED_THEME" ]]; then
-        local script_dir="$(__get_script_dir)"
-        local theme_path="$script_dir/themes/$BASH_POWERLINE_THEME.theme"
-
-        if [ -r "$theme_path" ]; then
-            # Load the default theme and let custom themes override them
-            source "$script_dir/themes/default.theme"
-            __set_theme
-
-            # Load the custom theme unless it is the default
-            if [ "$BASH_POWERLINE_THEME" != "default" ]; then
-                source $theme_path
-                __set_theme
-            fi
-
-            # Cache the current theme
-            __BASH_POWERLINE_CACHED_THEME=$BASH_POWERLINE_THEME
-        else
-            printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
-        fi
-    fi
-
     ######################################################################
 
     ######################################################################
@@ -71,6 +49,31 @@ __bash_powerline_prompt() {
     local RESET_BG_COLORS='49'
     local RESET_ATTRS='0'
     ######################################################################
+
+    # Loads a given theme (reverts to the default theme on error)
+    __load_theme() {
+        if [[ -n "$BASH_POWERLINE_THEME" && "$BASH_POWERLINE_THEME" != "$__BASH_POWERLINE_CACHED_THEME" ]]; then
+            local script_dir="$(__get_script_dir)"
+            local theme_path="$script_dir/themes/$BASH_POWERLINE_THEME.theme"
+
+            if [ -r "$theme_path" ]; then
+                # Load the default theme and let custom themes override them
+                source "$script_dir/themes/default.theme"
+                __set_theme
+
+                # Load the custom theme unless it is the default
+                if [ "$BASH_POWERLINE_THEME" != "default" ]; then
+                    source $theme_path
+                    __set_theme
+                fi
+
+                # Cache the current theme
+                __BASH_POWERLINE_CACHED_THEME=$BASH_POWERLINE_THEME
+            else
+                printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
+            fi
+        fi
+    }
 
     # Returns the directory that this script is actually in
     # Credits: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
@@ -233,7 +236,25 @@ __bash_powerline_prompt() {
     __prompt_end() {
         printf "$(__format_color $1 $2) $BASH_POWERLINE_COMMAND_SYMBOL "
     }
+
     ######################################################################
+
+    # Attempt to load the current theme
+    __load_theme
+
+    __print_separator() {
+        if [ -n "$PREVIOUS_SYMBOL" ]; then
+            # Handle the case where the solid powerline triangle symbol was used
+            if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
+                __ps1+=$(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")
+            else
+                # Any other separator needs its own colors
+                fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
+                bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
+                __ps1+=$(printf "$(__format_color $fg $bg)$PREVIOUS_SYMBOL")
+            fi
+        fi
+    }
 
     local __ps1=''
     local fg=''
@@ -253,18 +274,7 @@ __bash_powerline_prompt() {
             continue
         fi
 
-        if [ -n "$PREVIOUS_SYMBOL" ]; then
-            # Handle the case where the solid powerline triangle symbol was used
-            if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
-                __ps1+=$(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")
-            else
-                # Any other separator needs its own colors
-                fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
-                bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
-                __ps1+=$(printf "$(__format_color $fg $bg)$PREVIOUS_SYMBOL")
-            fi
-        fi
-
+        __print_separator
         __ps1+=$contents
 
         # Save curent settings
@@ -282,7 +292,7 @@ __bash_powerline_prompt() {
             # Any other separator needs its own colors
             fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
             bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
-            __ps1+=$(printf "$(__reset_attributes)$(__format_color $fg)$PREVIOUS_SYMBOL$SOLID_ARROW_SYMBOL")
+            __ps1+=$(printf "$(__reset_attributes)$(__format_color $fg)$PREVIOUS_SYMBOL")
         fi
     fi
 

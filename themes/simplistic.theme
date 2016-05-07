@@ -1,0 +1,27 @@
+__get_text() {
+    printf "$(__format_color $1 $2)on"
+}
+
+__get_username_colored() {
+    printf "$(__format_color $1 $2)$(__get_username)"
+}
+
+__get_current_git_branch_colored() {
+    printf "$(__format_color $1 $2)$(__get_current_git_branch)"
+}
+
+__set_theme() {
+    BASH_POWERLINE_THEME='simplistic'
+
+    BASH_POWERLINE_FG_COLORS=(113 15 129 27)
+
+    # Empty strings denote default colors
+    BASH_POWERLINE_BG_COLORS=('' '' '' '')
+    BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '' '' '')
+    BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '' '' '')
+
+    BASH_POWERLINE_COMMAND_SYMBOL="\xe2\x86\x92"
+    BASH_POWERLINE_PROMPT_END_SPACING=''
+    BASH_POWERLINE_SECTIONS=(__get_username_colored __get_text __get_current_git_branch_colored __prompt_end)
+    BASH_POWERLINE_SEPARATORS=(' ' ' ' '' '')
+}
