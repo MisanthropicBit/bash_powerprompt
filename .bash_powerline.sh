@@ -258,7 +258,10 @@ __bash_powerline_prompt() {
             if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
                 __ps1+=$(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")
             else
-                __ps1+=$(printf "$(__format_color $BASH_POWERLINE_SEPARATOR_FG_COLOR $bg)$PREVIOUS_SYMBOL")
+                # Any other separator needs its own colors
+                fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
+                bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
+                __ps1+=$(printf "$(__format_color $fg $bg)$PREVIOUS_SYMBOL")
             fi
         fi
 
@@ -271,9 +274,16 @@ __bash_powerline_prompt() {
         PREVIOUS_SYMBOL=${BASH_POWERLINE_SEPARATORS[$i]}
     done
 
-    # Handle the last separator
+    # Handle the last separator separately
     if [ -n "$PREVIOUS_SYMBOL" ]; then
-        __ps1+=$(printf "$(__reset_attributes)$(__format_color $PREVIOUS_BG_COLOR)$SOLID_ARROW_SYMBOL")
+        if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
+            __ps1+=$(printf "$(__reset_attributes)$(__format_color $PREVIOUS_BG_COLOR)$PREVIOUS_SYMBOL")
+        else
+            # Any other separator needs its own colors
+            fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
+            bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
+            __ps1+=$(printf "$(__reset_attributes)$(__format_color $fg)$PREVIOUS_SYMBOL$SOLID_ARROW_SYMBOL")
+        fi
     fi
 
     # Must be called afterwards to reset all colors and attributes
