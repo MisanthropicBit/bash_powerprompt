@@ -145,7 +145,7 @@ __bash_powerline_prompt() {
         local git_branch=''
 
         if [ -n "$(type __git_ps1)" ]; then
-            git_branch=" $(__git_ps1 '%s') $git_state"
+            git_branch="$(__git_ps1 '%s')"
         else
             git_branch=$(git symbolic-ref HEAD)
 
@@ -156,7 +156,7 @@ __bash_powerline_prompt() {
             git_branch=$(basename $git_branch)
         fi
 
-        printf $git_branch
+        printf "$git_branch"
     }
 
     ######################################################################
@@ -219,7 +219,7 @@ __bash_powerline_prompt() {
                     git_branch+="$(__format_color $BASH_POWERLINE_GIT_BRANCH_COLOR $2)"
                 fi
 
-                local temp_branch=$(__get_current_git_branch)
+                local temp_branch="$(__get_current_git_branch)"
 
                 if [ -n "$temp_branch" ]; then
                     git_branch+=" "
