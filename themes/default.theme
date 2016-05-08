@@ -1,6 +1,8 @@
 __set_theme() {
     #BASH_POWERLINE_THEME='default'
 
+    BASH_POWERLINE_IGNORE_EMPTY_SECTIONS=0 # If enabled, do not display sections that return an empty string
+
     BASH_POWERLINE_COMMAND_SYMBOL='$'               # Command symbol at the end of the prompt
     BASH_POWERLINE_PROMPT_END_SPACING=' '           # Spacing at the end of the prompt
     BASH_POWERLINE_USER_CXT_SEPARATOR_SYMBOL='@'    # Separator between user- and hostnames

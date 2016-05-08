@@ -32,7 +32,6 @@ __bash_powerline_prompt() {
     # USER CONFIGURABLE VARIABLES
     ######################################################################
     # Configuration
-    local IGNORE_EMPTY_SECTIONS=0 # If enabled, do not display sections that return an empty string
 
     # Symbols and colors
     local SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol (U+e0b0)
@@ -159,7 +158,7 @@ __bash_powerline_prompt() {
     ######################################################################
     # PREDEFINED SECTIONS
     ######################################################################
-    # Prints an empty section. Useful for when $IGNORE_EMPTY_SECTIONS is 0
+    # Prints an empty section. Useful for when $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS is 0
     # and you want a layout similar to the example layout of 'Turbo Boost'
     __empty_section() {
         printf ''
@@ -267,7 +266,7 @@ __bash_powerline_prompt() {
         bg=${BASH_POWERLINE_BG_COLORS[$i]}
         contents=$(${BASH_POWERLINE_SECTIONS[$i]} $fg $bg)
 
-        if [[ $IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
+        if [[ $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
             continue
         fi
 
