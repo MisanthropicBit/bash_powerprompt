@@ -121,6 +121,29 @@ __bash_powerline_prompt() {
         printf $cwd
     }
 
+    # Gets the last part of a path
+    __get_path_basename() {
+        basename "$1"
+    }
+
+    # Gets the n first elements of a path
+    __get_path_heads() {
+        local n=$2
+
+        if [ "${$1:0:1}" == '/' ]; then
+            n=$((n + 1))
+        fi
+
+        printf "$1" | cut -d/ "-f1-$n"
+    }
+
+    # Gets the n last elements of a path
+    __get_path_tails() {
+        local n=$2
+
+        printf "$1" | rev | cut -d/ -f1-"$n" | rev
+    }
+
     # Resets all ANSI attributes
     __reset_attributes() {
         printf "\[\e[0m"
