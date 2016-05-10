@@ -191,15 +191,13 @@ __bash_powerline_prompt() {
 
     # Prints the exit status of the last command
     __exit_status() {
-        local fg=$1
-        local bg=$2
         local exit_status=$EXIT_STATUS
 
         if [[ $exit_status != 0 ]]; then
             fg=$BASH_POWERLINE_GIT_FG_DIRTY_COLOR
         fi
 
-        printf "$(__format_color $fg $bg) $exit_status "
+        printf "$exit_status "
     }
 
     # Prints the current username and host, and optionally the current python virtualenv
@@ -210,12 +208,12 @@ __bash_powerline_prompt() {
             result+=" ($VIRTUAL_ENV)"
         fi
 
-        printf "$(__format_color $1 $2) $result "
+        printf "$result "
     }
 
     # Prints the current directory
     __cwd_context() {
-        printf "$(__format_color $1 $2) $(__get_cwd) "
+        printf "$(__get_cwd) "
     }
 
     # Prints the current git branch (if any), a branch symbol and whether
@@ -255,7 +253,7 @@ __bash_powerline_prompt() {
 
     # Prints a section with a single command symbol
     __prompt_end() {
-        printf "$(__format_color $1 $2) $BASH_POWERLINE_COMMAND_SYMBOL "
+        printf "$BASH_POWERLINE_COMMAND_SYMBOL"
     }
 
     ######################################################################
@@ -263,16 +261,17 @@ __bash_powerline_prompt() {
     # Attempt to load the current theme
     __load_theme
 
+    # Prints a single separator
     __print_separator() {
         if [ -n "$PREVIOUS_SYMBOL" ]; then
             # Handle the case where the solid powerline triangle symbol was used
             if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
-                __ps1+=$(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")
+                __ps1+=" $(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")"
             else
                 # Any other separator needs its own colors
                 fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
                 bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
-                __ps1+=$(printf "$(__format_color $fg $bg)$PREVIOUS_SYMBOL")
+                __ps1+="$(printf "$(__format_color $fg $bg)$PREVIOUS_SYMBOL")"
             fi
         fi
     }
@@ -289,7 +288,12 @@ __bash_powerline_prompt() {
     for i in ${!BASH_POWERLINE_SECTIONS[@]}; do
         fg=${BASH_POWERLINE_FG_COLORS[$i]}
         bg=${BASH_POWERLINE_BG_COLORS[$i]}
-        contents=$(${BASH_POWERLINE_SECTIONS[$i]} $fg $bg)
+
+        if [[ -n "$fg" || -n "$bg" ]]; then
+            contents="$(__format_color $fg $bg)$(${BASH_POWERLINE_SECTIONS[$i]})"
+        else
+            contents="${BASH_POWERLINE_SECTIONS[$i]}"
+        fi
 
         if [[ $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
             continue

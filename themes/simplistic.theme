@@ -1,33 +1,24 @@
-__get_text() {
-    printf "$(__format_color $1 $2)on"
-}
-
-__get_username_colored() {
-    printf "$(__format_color $1 $2)$(__get_username)"
-}
-
-__get_current_git_branch_colored() {
-    printf "$(__format_color $1 $2)$(__get_current_git_branch)"
+__echo_text() {
+    printf "$1"
 }
 
 __set_theme() {
     BASH_POWERLINE_THEME='simplistic'
-
-    # Empty strings denote default colors
-    BASH_POWERLINE_BG_COLORS=('' '' '' '')
-    BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '' '' '')
-    BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '' '' '')
-
     BASH_POWERLINE_COMMAND_SYMBOL="\xe2\x86\x92"
 
     if [ -n "$(__get_current_git_branch)" ]; then
-        BASH_POWERLINE_FG_COLORS=(113 15 129 27)
-        BASH_POWERLINE_SECTIONS=(__get_username_colored __get_text __get_current_git_branch_colored __prompt_end)
-        BASH_POWERLINE_SEPARATORS=(' ' ' ' '' '')
+        BASH_POWERLINE_BG_COLORS=('' '' '' '' '' '')
+        BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '' '' '')
+        BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '' '' '')
+        BASH_POWERLINE_FG_COLORS=(113 15 74 15 99 15)
+        BASH_POWERLINE_SECTIONS=(__get_username "__echo_text at" "__get_path_basename $(pwd)" "__echo_text on" "__get_current_git_branch" __prompt_end)
+        BASH_POWERLINE_SEPARATORS=(' ' ' ' ' ' ' ' ' ')
     else
-        BASH_POWERLINE_FG_COLORS=(113 27)
-        BASH_POWERLINE_SECTIONS=(__get_username_colored __prompt_end)
-        BASH_POWERLINE_SEPARATORS=('' '')
+        BASH_POWERLINE_BG_COLORS=('' '' '' '')
+        BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '')
+        BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '')
+        BASH_POWERLINE_FG_COLORS=(113 15 74 15)
+        BASH_POWERLINE_SECTIONS=(__get_username "__echo_text at" "__get_path_basename $(pwd)" __prompt_end)
+        BASH_POWERLINE_SEPARATORS=(' ' ' ' ' ')
     fi
-
 }
