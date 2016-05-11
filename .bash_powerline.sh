@@ -144,6 +144,16 @@ __bash_powerline_prompt() {
         printf "$1" | rev | cut -d/ -f1-"$n" | rev
     }
 
+    # Return the number of columns available to the prompt
+    __get_columns() {
+        # Get the environment variable or if that fails, get it from terminfo
+        if [ -n "$COLUMNS" ]; then
+            printf "$COLUMNS"
+        else
+            tput cols
+        fi
+    }
+
     # Resets all ANSI attributes
     __reset_attributes() {
         printf "\[\e[0m"
