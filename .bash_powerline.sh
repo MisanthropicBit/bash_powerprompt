@@ -42,6 +42,7 @@ __bash_powerline_prompt() {
     ######################################################################
     # NON-CONFIGURABLE VARIABLES
     ######################################################################
+    local COLOR_ESCAPDE_CODE='\033'
     local FG_COLOR_PREFIX='38;5;'
     local BG_COLOR_PREFIX='48;5;'
     local RESET_FG_COLORS='39'
@@ -156,16 +157,16 @@ __bash_powerline_prompt() {
 
     # Resets all ANSI attributes
     __reset_attributes() {
-        printf "\[\e[0m"
+        printf "\[$COLOR_ESCAPDE_CODE[0m"
     }
 
     # Format a color as an ANSI escape sequence
     __format_color() {
         # Colors are wrapped in '\[' and '\]' to tell bash not to count them towards line length
         if [ $# -gt 1 ]; then
-            printf "\[\e[$FG_COLOR_PREFIX%s;$BG_COLOR_PREFIX%sm\]" $1 $2
+            printf "\[$COLOR_ESCAPDE_CODE[$FG_COLOR_PREFIX%s;$BG_COLOR_PREFIX%sm\]" $1 $2
         elif [ $# -gt 0 ]; then
-            printf "\[\e[$FG_COLOR_PREFIX%sm\]" $1
+            printf "\[$COLOR_ESCAPDE_CODE[$FG_COLOR_PREFIX%sm\]" $1
         fi
 
         printf ''
