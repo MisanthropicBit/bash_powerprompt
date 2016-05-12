@@ -20,4 +20,13 @@ __set_theme() {
     # The separators between each section
     # NOTE: There is an additional symbol in the array for ending the prompt
     BASH_POWERLINE_SEPARATORS=($SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL $SOLID_ARROW_SYMBOL)
+
+    # The fore- and background colors for separators
+    # NOTE: Only applicable for symbols other than SOLID_ARROW_SYMBOL
+    BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '' '' '')
+    BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '' '' '')
+
+    # Padding on the left and right side of each section
+    BASH_POWERLINE_LEFT_PADDING=(' ' ' ' ' ' ' ' ' ')
+    BASH_POWERLINE_RIGHT_PADDING=('' '' '' '' ' ')
 }

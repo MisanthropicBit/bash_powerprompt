@@ -208,7 +208,7 @@ __bash_powerline_prompt() {
             fg=$BASH_POWERLINE_GIT_FG_DIRTY_COLOR
         fi
 
-        printf "$exit_status "
+        printf "$exit_status"
     }
 
     # Prints the current username and host, and optionally the current python virtualenv
@@ -219,12 +219,12 @@ __bash_powerline_prompt() {
             result+=" ($VIRTUAL_ENV)"
         fi
 
-        printf "$result "
+        printf "$result"
     }
 
     # Prints the current directory
     __cwd_context() {
-        printf "$(__get_cwd) "
+        printf "$(__get_cwd)"
     }
 
     # Prints the current git branch (if any), a branch symbol and whether
@@ -259,7 +259,7 @@ __bash_powerline_prompt() {
             fi
         fi
 
-        printf " $git_branch "
+        printf "$git_branch"
     }
 
     # Prints a section with a single command symbol
