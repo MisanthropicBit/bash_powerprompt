@@ -299,15 +299,16 @@ __bash_powerline_prompt() {
     for i in ${!BASH_POWERLINE_SECTIONS[@]}; do
         fg=${BASH_POWERLINE_FG_COLORS[$i]}
         bg=${BASH_POWERLINE_BG_COLORS[$i]}
-
-        if [[ -n "$fg" || -n "$bg" ]]; then
-            contents="$(__format_color $fg $bg)$(${BASH_POWERLINE_SECTIONS[$i]})"
-        else
-            contents="${BASH_POWERLINE_SECTIONS[$i]}"
-        fi
+        contents="$(${BASH_POWERLINE_SECTIONS[$i]})"
 
         if [[ $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
             continue
+        fi
+
+        contents="${BASH_POWERLINE_LEFT_PADDING[$i]}$contents${BASH_POWERLINE_RIGHT_PADDING[$i]}"
+
+        if [[ -n "$fg" || -n "$bg" ]]; then
+            contents="$(__format_color $fg $bg)$contents"
         fi
 
         __print_separator
