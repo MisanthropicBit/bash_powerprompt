@@ -1,4 +1,5 @@
 .DS_Store
+benchmark.sh
 path_test.sh
 .bash_powerline2.sh
 .zsh_powerline.zsh
