@@ -280,9 +280,9 @@ __bash_powerline_prompt() {
                 __ps1+=" $(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")"
             else
                 # Any other separator needs its own colors
-                fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
-                bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
-                __ps1+="$(printf "$(__format_color $fg $bg)$PREVIOUS_SYMBOL")"
+                local sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
+                local sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
+                __ps1+="$(printf "$(__format_color $sfg $sbg)$PREVIOUS_SYMBOL")"
             fi
         fi
     }
