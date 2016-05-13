@@ -115,11 +115,11 @@ __bash_powerline_prompt() {
     __get_cwd() {
         local cwd=$(pwd)
 
-        if [ $USE_TILDE_FOR_HOME ]; then
-            cwd=${cwd/$HOME/$HOME_ALIAS}
+        if [ "$BASH_POWERLINE_USE_TILDE_FOR_HOME" -eq 1 ]; then
+            cwd=${cwd/$HOME/\~}
         fi
 
-        printf $cwd
+        printf "$cwd"
     }
 
     # Gets the last part of a path

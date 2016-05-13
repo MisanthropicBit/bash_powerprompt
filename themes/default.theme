@@ -3,6 +3,7 @@
 __set_theme() {
     BASH_POWERLINE_THEME='default'                  # The name of this theme
     BASH_POWERLINE_IGNORE_EMPTY_SECTIONS=0          # If enabled, do not display sections that return an empty string
+    BASH_POWERLINE_USE_TILDE_FOR_HOME=1             # Use a '~' for $HOME instead of displaying the full path
     BASH_POWERLINE_COMMAND_SYMBOL='$'               # Command symbol at the end of the prompt
     BASH_POWERLINE_PROMPT_END_SPACING=' '           # Spacing at the end of the prompt
     BASH_POWERLINE_USER_CXT_SEPARATOR_SYMBOL='@'    # Separator between user- and hostnames
@@ -15,6 +16,8 @@ __set_theme() {
     BASH_POWERLINE_GIT_FG_DIRTY_COLOR=160           # The color for a git branch with a clean working directory
     BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)       # The foreground colors for each section
     BASH_POWERLINE_BG_COLORS=(6 25 90 72 160)       # The background colors for each section
+
+    # Each section defined by a function
     BASH_POWERLINE_SECTIONS=(__exit_status __user_context __cwd_context __git_context __prompt_end)
 
     # The separators between each section
