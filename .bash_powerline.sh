@@ -172,6 +172,24 @@ __bash_powerline_prompt() {
         printf ''
     }
 
+    # Returns 0 if the branch is clean, 1 otherwise
+    __is_git_branch_clean() {
+        if 2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'; then
+            return 0
+        fi
+
+        return 1
+    }
+
+    # Returns 0 if the current directory is a git branch, 1 otherwise
+    __is_git_branch() {
+        if 2>/dev/null 1>&2 git status --ignore-submodules; then
+            return 0
+        fi
+
+        return 1
+    }
+
     # Get the current git branch. Use .git-prompt.sh if it is available
     __get_current_git_branch() {
         local git_branch=''
@@ -236,8 +254,8 @@ __bash_powerline_prompt() {
         local git_symbol=$BASH_POWERLINE_GIT_DIRTY_SYMBOL
 
         if type git > /dev/null; then
-            if 2>/dev/null 1>&2 git status --ignore-submodules; then
-                if 2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'; then
+            if __is_git_branch; then
+                if __is_git_branch_clean; then
                    git_fg=$BASH_POWERLINE_GIT_FG_CLEAN_COLOR
                    git_symbol=$BASH_POWERLINE_GIT_CLEAN_SYMBOL
                 fi
