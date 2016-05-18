@@ -1,27 +1,22 @@
 # Selecting a preexisting theme
 
-To change the theme, call `export BASH_POWERLINE_THEME=<theme_name>`, where `<theme_name>` is the
-name of one the [predefined themes](/themes.md) without the `.theme` extension or your own theme.
+To change the theme, execute `export BASH_POWERLINE_THEME=<theme_name>`, where `<theme_name>` is the
+name of one the [predefined themes](/themes.md) or the name of your own theme, both without the
+`.theme` extension.
 
 # Creating a new theme
 
 Start by creating a new file called `<your_theme_name>.theme` in the `themes/` directory. You can
-use one of the [predefined themes](/themes.md) as a starting point.
+use one of the [predefined themes](/themes.md) as a starting point (the default theme contains
+comments to explain what each variable does).
 
-The default theme is always loaded before any custom themes, so if you only want to e.g. change the
-background colors of the default theme (like the [hybrid theme](/themes/hybrid.theme)), you only
-need to change that.  Below is an example theme that displays the group and time, with explanatory
-comments.
+The default theme is always loaded before any custom themes, so you only need to override the parts
+you want to change (like the [hybrid theme](/themes/hybrid.theme)). Below is an example theme that
+displays the group and time, with explanatory comments.
 
 ```bash
 __get_group() {
     printf "$(id -gn)"
-}
-
-__current_group() {
-    # The first two arguments to a function used in the BASH_POWERLINE_SECTIONS array are
-    # the fore- and background colors
-    printf "$(__format_color $1 $2)$(__get_group) "
 }
 
 # All themes must include this function, which is called by the main script
@@ -29,13 +24,13 @@ __current_group() {
 # parts we want to change
 __set_theme() {
     # The list of foreground colors for each section from left to right
-    BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)
+    BASH_POWERLINE_FG_COLORS=(15 15 15 15)
 
     # The list of background colors for each section from left to right
-    BASH_POWERLINE_BG_COLORS=(6 25 90 72 160)
+    BASH_POWERLINE_BG_COLORS=(6 25 90 72)
 
     # The list of functions that format and return the string for each section
-    BASH_POWERLINE_SECTIONS=(__user_context __current_group __cwd_context __prompt_end)
+    BASH_POWERLINE_SECTIONS=(__user_context __get_group __cwd_context __prompt_end)
 }
 ```
 
@@ -49,10 +44,14 @@ You can also "fake" thicker versions of the thin arrow using the `__empty_sectio
 [imperial theme](/themes/imperial.theme). Lastly, you can use any other text for the separators. See
 the [commander theme](/themes/commander.theme) for an example.
 
+Actually, the script was designed to be very flexible, so you don't have to stick with the
+"powerline" look if you don't want to. See the [simplistic theme](/themes/simplistic.theme) for
+an example.
+
 You can use [this](http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html) color table for
 256-color terminals (use colors 0 to 15 for 16-color terminals).
 
-Also, themes for the [`vim-airline`](https://github.com/vim-airline/vim-airline/wiki/Screenshots)
+Also, the themes for the [`vim-airline`](https://github.com/vim-airline/vim-airline/wiki/Screenshots)
 plugin is a good source of inspiration.
 
 # Predefined functions
