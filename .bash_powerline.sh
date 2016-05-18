@@ -91,23 +91,23 @@ __bash_powerline_prompt() {
 
     # Returns a string representing the current OS, e.g. 'Darwin' for Mac systems
     __get_os_name() {
-        printf "$(uname -s)"
+        uname -s
     }
 
     # Returns the name of the current user
     __get_username() {
         if [ $(__get_os_name) == "Darwin" ]; then
-            printf $(id -un) # 'whoami' has been obsoleted on OSX
+            id -un # 'whoami' has been obsoleted on OSX
         else
-            printf $(whoami)
+            whoami
         fi
     }
 
     __get_hostname() {
         if [ $(__get_os_name) == "Darwin" ]; then
-            printf $(scutil --get ComputerName)
+            scutil --get ComputerName
         else
-            printf $(hostname -s)
+            hostname -s
         fi
     }
 
@@ -194,7 +194,7 @@ __bash_powerline_prompt() {
     __get_current_git_branch() {
         local git_branch=''
 
-        if [ -n "$(type __git_ps1)" ]; then
+        if type __git_ps1 > /dev/null; then
             git_branch="$(__git_ps1 '%s')"
         else
             git_branch=$(git symbolic-ref HEAD)
@@ -220,13 +220,11 @@ __bash_powerline_prompt() {
 
     # Prints the exit status of the last command
     __exit_status() {
-        local exit_status=$EXIT_STATUS
-
-        if [[ $exit_status != 0 ]]; then
-            fg=$BASH_POWERLINE_GIT_FG_DIRTY_COLOR
+        if [ $EXIT_STATUS -ne 0 ]; then
+            printf "$(__format_color $BASH_POWERLINE_GIT_FG_DIRTY_COLOR '')$EXIT_STATUS"
+        else
+            printf "$EXIT_STATUS"
         fi
-
-        printf "$exit_status"
     }
 
     # Prints the current username and host, and optionally the current python virtualenv
@@ -242,7 +240,7 @@ __bash_powerline_prompt() {
 
     # Prints the current directory
     __cwd_context() {
-        printf "$(__get_cwd)"
+        __get_cwd
     }
 
     # Prints the current git branch (if any), a branch symbol and whether
