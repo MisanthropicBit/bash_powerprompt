@@ -48,6 +48,9 @@ __bash_powerline_prompt() {
     local RESET_FG_COLORS='39'
     local RESET_BG_COLORS='49'
     local RESET_ATTRS='0'
+    local RESET_ATTRIBUTES="\[$COLOR_ESCAPE_CODE[0m\]" # Resets all ANSI attributes
+    local COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
+    local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX}%s${BG_COLOR_PREFIX}%sm\]"
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
@@ -153,11 +156,6 @@ __bash_powerline_prompt() {
         else
             tput cols
         fi
-    }
-
-    # Resets all ANSI attributes
-    __reset_attributes() {
-        printf "\[$COLOR_ESCAPE_CODE[0m"
     }
 
     # Format a color as an ANSI escape sequence
@@ -340,17 +338,17 @@ __bash_powerline_prompt() {
     # Handle the last separator separately
     if [ -n "$PREVIOUS_SYMBOL" ]; then
         if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
-            __ps1+=$(printf "$(__reset_attributes)$(__format_color $PREVIOUS_BG_COLOR)$PREVIOUS_SYMBOL")
+            __ps1+=$(printf "${RESET_ATTRIBUTES}$(__format_color $PREVIOUS_BG_COLOR)$PREVIOUS_SYMBOL")
         else
             # Any other separator needs its own colors
             fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
             bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
-            __ps1+=$(printf "$(__reset_attributes)$(__format_color $fg)$PREVIOUS_SYMBOL")
+            __ps1+=$(printf "${RESET_ATTRIBUTES}$(__format_color $fg)$PREVIOUS_SYMBOL")
         fi
     fi
 
     # Must be called afterwards to reset all colors and attributes
-    __ps1+=$(__reset_attributes)
+    __ps1+=${RESET_ATTRIBUTES}
 
     __ps1+=$BASH_POWERLINE_PROMPT_END_SPACING
     export PS1=$__ps1
