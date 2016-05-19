@@ -1,7 +1,3 @@
-__echo_text() {
-    printf "$1"
-}
-
 __set_theme() {
     BASH_POWERLINE_THEME='simplistic'
     BASH_POWERLINE_COMMAND_SYMBOL="\xe2\x86\x92"
@@ -16,14 +12,14 @@ __set_theme() {
         BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '' '' '')
         BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '' '' '')
         BASH_POWERLINE_FG_COLORS=(113 15 74 15 99 15)
-        BASH_POWERLINE_SECTIONS=(__get_username "__echo_text at" "__get_path_basename $pwd" "__echo_text on" "__echo_text $git_branch" __prompt_end)
+        BASH_POWERLINE_SECTIONS=(__get_username "printf at" "__get_path_basename $pwd" "printf on" "printf $git_branch" __prompt_end)
         BASH_POWERLINE_SEPARATORS=(' ' ' ' ' ' ' ' ' ')
     else
         BASH_POWERLINE_BG_COLORS=('' '' '' '')
         BASH_POWERLINE_SEPARATOR_FG_COLORS=('' '' '')
         BASH_POWERLINE_SEPARATOR_BG_COLORS=('' '' '')
         BASH_POWERLINE_FG_COLORS=(113 15 74 15)
-        BASH_POWERLINE_SECTIONS=(__get_username "__echo_text at" "__get_path_basename $pwd" __prompt_end)
+        BASH_POWERLINE_SECTIONS=(__get_username "printf at" "__get_path_basename $pwd" __prompt_end)
         BASH_POWERLINE_SEPARATORS=(' ' ' ' ' ')
     fi
 }
