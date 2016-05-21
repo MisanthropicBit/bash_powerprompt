@@ -288,15 +288,21 @@ __bash_powerline_prompt() {
 
     # Prints a single separator
     __print_separator() {
-        if [ -n "$PREVIOUS_SYMBOL" ]; then
+        local prev_symbol="$2"
+
+        if [ -n "$prev_symbol" ]; then
+            local i="$1"
+            local prev_bg_color="$3"
+            local bg_color="$4"
+
             # Handle the case where the solid powerline triangle symbol was used
-            if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
-                __ps1+=" $(printf "$(__format_color $PREVIOUS_BG_COLOR $bg)$PREVIOUS_SYMBOL")"
+            if [ "$prev_symbol" == "$SOLID_ARROW_SYMBOL" ]; then
+                __ps1+="$(printf "$(__format_color $prev_bg_color $bg_color)$prev_symbol")"
             else
                 # Any other separator needs its own colors
                 local sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
                 local sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
-                __ps1+="$(printf "$(__format_color $sfg $sbg)$PREVIOUS_SYMBOL")"
+                __ps1+="$(printf "$(__format_color $sfg $sbg)$prev_symbol")"
             fi
         fi
     }
@@ -325,7 +331,7 @@ __bash_powerline_prompt() {
             contents="$(__format_color $fg $bg)$contents"
         fi
 
-        __print_separator
+        __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
         __ps1+=$contents
 
         # Save curent settings

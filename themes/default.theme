@@ -31,5 +31,5 @@ __set_theme() {
 
     # Padding on the left and right side of each section
     BASH_POWERLINE_LEFT_PADDING=(' ' ' ' ' ' ' ' ' ')
-    BASH_POWERLINE_RIGHT_PADDING=('' '' '' '' ' ')
+    BASH_POWERLINE_RIGHT_PADDING=(' ' ' ' ' ' ' ' ' ')
 }
