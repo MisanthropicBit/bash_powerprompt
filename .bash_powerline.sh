@@ -50,7 +50,7 @@ __bash_powerline_prompt() {
     local RESET_ATTRS='0'
     local RESET_ATTRIBUTES="\[$COLOR_ESCAPE_CODE[0m\]" # Resets all ANSI attributes
     local COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
-    local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX}%s${BG_COLOR_PREFIX}%sm\]"
+    local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX}%s;${BG_COLOR_PREFIX}%sm\]"
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
