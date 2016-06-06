@@ -162,12 +162,12 @@ __bash_powerline_prompt() {
     __format_color() {
         # Colors are wrapped in '\[' and '\]' to tell bash not to count them towards line length
         if [ $# -gt 1 ]; then
-            printf "\[$COLOR_ESCAPE_CODE[$FG_COLOR_PREFIX%s;$BG_COLOR_PREFIX%sm\]" $1 $2
+            printf "\[$COLOR_ESCAPE_CODE[$FG_COLOR_PREFIX%s;$BG_COLOR_PREFIX%sm\]" "$1" "$2"
         elif [ $# -gt 0 ]; then
-            printf "\[$COLOR_ESCAPE_CODE[$FG_COLOR_PREFIX%sm\]" $1
+            printf "\[$COLOR_ESCAPE_CODE[$FG_COLOR_PREFIX%sm\]" "$1"
         fi
 
-        printf ''
+        printf ""
     }
 
     # Returns 0 if the branch is clean, 1 otherwise
@@ -332,7 +332,7 @@ __bash_powerline_prompt() {
         fi
 
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
-        __ps1+=$contents
+        __ps1+="$contents"
 
         # Save curent settings
         PREVIOUS_CONTENTS=$contents
@@ -356,6 +356,6 @@ __bash_powerline_prompt() {
     # Must be called afterwards to reset all colors and attributes
     __ps1+=${RESET_ATTRIBUTES}
 
-    __ps1+=$BASH_POWERLINE_PROMPT_END_SPACING
-    export PS1=$__ps1
+    __ps1+="$BASH_POWERLINE_PROMPT_END_SPACING"
+    export PS1="$__ps1"
 }
