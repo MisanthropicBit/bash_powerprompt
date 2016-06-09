@@ -1,4 +1,4 @@
-# Bash Powerline Command Prompt
+# Bash Powerline Command Prompt ![Build status](https://travis-ci.org/MisanthropicBit/bash_powerline.svg?branch=master) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/LICENSE)
 
 A `bash` script that gives you a visually pleasing, informative and customisable command line prompt.
 
@@ -30,7 +30,7 @@ path if necessary.
 ```bash
 if [ -e ~/.bash_powerline.sh ]; then
     source ~/.bash_powerline.sh
-    export BASH_POWERLINE_THEME=<whatever theme you like> # Optional
+    export BASH_POWERLINE_THEME=<whatever theme you would like as the default> # Optional
     export PROMPT_COMMAND=__bash_powerline_prompt
 fi
 ```
