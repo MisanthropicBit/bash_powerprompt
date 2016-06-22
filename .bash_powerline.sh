@@ -26,7 +26,7 @@
 
 __bash_powerline_prompt() {
     # Must come before anything else than could return an exit code
-    local EXIT_STATUS=$?
+    local BASH_POWERLINE_EXIT_STATUS=$?
 
     ######################################################################
     # USER CONFIGURABLE VARIABLES
