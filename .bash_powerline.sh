@@ -33,12 +33,6 @@ __bash_powerline_prompt() {
     ######################################################################
     # Configuration
 
-    # Symbols and colors
-    local SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol (U+e0b0)
-    local THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol (U+e0b1)
-
-    ######################################################################
-
     ######################################################################
     # NON-CONFIGURABLE VARIABLES
     ######################################################################
