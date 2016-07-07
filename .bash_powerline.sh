@@ -37,14 +37,17 @@ __bash_powerline_prompt() {
     # NON-CONFIGURABLE VARIABLES
     ######################################################################
     local COLOR_ESCAPE_CODE='\033'
-    local FG_COLOR_PREFIX='38;5;'
-    local BG_COLOR_PREFIX='48;5;'
+    local FG_COLOR_PREFIX_256='38;5;'
+    local BG_COLOR_PREFIX_256='48;5;'
+    local FG_COLOR_PREFIX_TRUE_COLOR='38;2;'
+    local BG_COLOR_PREFIX_TRUE_COLOR='48;2;'
     local RESET_FG_COLORS='39'
     local RESET_BG_COLORS='49'
     local RESET_ATTRS='0'
     local RESET_ATTRIBUTES="\[$COLOR_ESCAPE_CODE[0m\]" # Resets all ANSI attributes
     local COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
-    local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX}%s;${BG_COLOR_PREFIX}%sm\]"
+    local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%s;${BG_COLOR_PREFIX_256}%sm\]"
+    local COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%d;%d;%d;${BG_COLOR_PREFIX_TRUE_COLOR};%d;%d;%dm\]"
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
@@ -156,9 +159,9 @@ __bash_powerline_prompt() {
     __format_color() {
         # Colors are wrapped in '\[' and '\]' to tell bash not to count them towards line length
         if [ $# -gt 1 ]; then
-            printf "\[$COLOR_ESCAPE_CODE[$FG_COLOR_PREFIX%s;$BG_COLOR_PREFIX%sm\]" "$1" "$2"
+            printf "\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%s;${BG_COLOR_PREFIX_256}%sm\]" "$1" "$2"
         elif [ $# -gt 0 ]; then
-            printf "\[$COLOR_ESCAPE_CODE[$FG_COLOR_PREFIX%sm\]" "$1"
+            printf "\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%sm\]" "$1"
         fi
 
         printf ""
