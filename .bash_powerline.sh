@@ -192,13 +192,8 @@ __bash_powerline_prompt() {
         if type __git_ps1 > /dev/null; then
             git_branch="$(__git_ps1 '%s')"
         else
-            git_branch=$(git symbolic-ref HEAD)
-
-            if [ $? -ne 0 ]; then
-                return ''
-            fi
-
-            git_branch=$(basename $git_branch)
+            # This requires git v1.7+
+            git_branch=$(git rev-parse --abbrev-ref HEAD)
         fi
 
         printf "$git_branch"
