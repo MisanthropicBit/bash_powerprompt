@@ -155,18 +155,6 @@ __bash_powerline_prompt() {
         fi
     }
 
-    # Format a color as an ANSI escape sequence
-    __format_color() {
-        # Colors are wrapped in '\[' and '\]' to tell bash not to count them towards line length
-        if [ $# -gt 1 ]; then
-            printf "\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%s;${BG_COLOR_PREFIX_256}%sm\]" "$1" "$2"
-        elif [ $# -gt 0 ]; then
-            printf "\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%sm\]" "$1"
-        fi
-
-        printf ""
-    }
-
     # Returns 0 if the branch is clean, 1 otherwise
     __is_git_branch_clean() {
         if 2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'; then
@@ -208,15 +196,6 @@ __bash_powerline_prompt() {
         printf ''
     }
 
-    # Prints the exit status of the last command
-    __exit_status() {
-        if [ $EXIT_STATUS -ne 0 ]; then
-            printf "$(__format_color $BASH_POWERLINE_GIT_FG_DIRTY_COLOR '')$EXIT_STATUS"
-        else
-            printf "$EXIT_STATUS"
-        fi
-    }
-
     # Prints the current username and host, and optionally the current python virtualenv
     __user_context() {
         local result="$(__get_username)$BASH_POWERLINE_USER_CXT_SEPARATOR_SYMBOL$(__get_hostname)"
@@ -231,41 +210,6 @@ __bash_powerline_prompt() {
     # Prints the current directory
     __cwd_context() {
         __get_cwd
-    }
-
-    # Prints the current git branch (if any), a branch symbol and whether
-    # the current branch is clean or dirty (via 'git status')
-    __git_context() {
-        local git_state=""
-        local git_branch="$(__format_color $1 $2)$BASH_POWERLINE_GIT_BRANCH_SYMBOL"
-        local git_fg=$BASH_POWERLINE_GIT_FG_DIRTY_COLOR
-        local git_symbol=$BASH_POWERLINE_GIT_DIRTY_SYMBOL
-
-        if type git > /dev/null; then
-            if __is_git_branch; then
-                if __is_git_branch_clean; then
-                   git_fg=$BASH_POWERLINE_GIT_FG_CLEAN_COLOR
-                   git_symbol=$BASH_POWERLINE_GIT_CLEAN_SYMBOL
-                fi
-
-                git_state="$(__format_color $git_fg $2)$git_symbol"
-                git_branch="$(__format_color $1 $2)$BASH_POWERLINE_GIT_BRANCH_SYMBOL"
-
-                if [ -n "$BASH_POWERLINE_GIT_BRANCH_COLOR" ]; then
-                    git_branch+="$(__format_color $BASH_POWERLINE_GIT_BRANCH_COLOR $2)"
-                fi
-
-                local temp_branch="$(__get_current_git_branch)"
-
-                if [ -n "$temp_branch" ]; then
-                    git_branch+=" "
-                fi
-
-                git_branch+="$temp_branch $git_state"
-            fi
-        fi
-
-        printf "$git_branch"
     }
 
     # Prints a section with a single command symbol
@@ -288,13 +232,18 @@ __bash_powerline_prompt() {
             local bg_color="$4"
 
             # Handle the case where the solid powerline triangle symbol was used
-            if [ "$prev_symbol" == "$SOLID_ARROW_SYMBOL" ]; then
-                __ps1+="$(printf "$(__format_color $prev_bg_color $bg_color)$prev_symbol")"
+            if [ "$prev_symbol" == "$BASH_POWERLINE_SOLID_ARROW_SYMBOL" ]; then
+                __ps1+="$(printf "${COLOR_FORMAT_256}$prev_symbol" "$prev_bg_color" "$bg_color")"
             else
                 # Any other separator needs its own colors
                 local sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
                 local sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
-                __ps1+="$(printf "$(__format_color $sfg $sbg)$prev_symbol")"
+
+                if [[ !(-z "$sfg") && !(-z "$sbg") ]]; then
+                    __ps1+="$(printf "${COLOR_FORMAT_256}$prev_symbol" "$sfg" "$sbg")"
+                else
+                    __ps1+="$prev_symbol"
+                fi
             fi
         fi
     }
@@ -311,7 +260,7 @@ __bash_powerline_prompt() {
     for i in ${!BASH_POWERLINE_SECTIONS[@]}; do
         fg=${BASH_POWERLINE_FG_COLORS[$i]}
         bg=${BASH_POWERLINE_BG_COLORS[$i]}
-        contents="$(${BASH_POWERLINE_SECTIONS[$i]})"
+        contents="${BASH_POWERLINE_SECTIONS[$i]}"
 
         if [[ $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
             continue
@@ -320,7 +269,7 @@ __bash_powerline_prompt() {
         contents="${BASH_POWERLINE_LEFT_PADDING[$i]}$contents${BASH_POWERLINE_RIGHT_PADDING[$i]}"
 
         if [[ -n "$fg" || -n "$bg" ]]; then
-            contents="$(__format_color $fg $bg)$contents"
+            contents="$(printf "${COLOR_FORMAT_256}$contents" "$fg" "$bg")"
         fi
 
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
@@ -335,18 +284,18 @@ __bash_powerline_prompt() {
 
     # Handle the last separator separately
     if [ -n "$PREVIOUS_SYMBOL" ]; then
-        if [ "$PREVIOUS_SYMBOL" == "$SOLID_ARROW_SYMBOL" ]; then
-            __ps1+=$(printf "${RESET_ATTRIBUTES}$(__format_color $PREVIOUS_BG_COLOR)$PREVIOUS_SYMBOL")
+        if [ "$PREVIOUS_SYMBOL" == "$BASH_POWERLINE_SOLID_ARROW_SYMBOL" ]; then
+            __ps1+="$(printf "${RESET_ATTRIBUTES}${COLOR_FORMAT_256}$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR")"
         else
             # Any other separator needs its own colors
-            fg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
-            bg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
-            __ps1+=$(printf "${RESET_ATTRIBUTES}$(__format_color $fg)$PREVIOUS_SYMBOL")
+            sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
+            #sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
+            __ps1+="$(printf "${RESET_ATTRIBUTES}${COLOR_FORMAT_256}$PREVIOUS_SYMBOL" "$sfg")"
         fi
     fi
 
     # Must be called afterwards to reset all colors and attributes
-    __ps1+=${RESET_ATTRIBUTES}
+    __ps1+=$(printf "$RESET_ATTRIBUTES")
 
     __ps1+="$BASH_POWERLINE_PROMPT_END_SPACING"
     export PS1="$__ps1"
