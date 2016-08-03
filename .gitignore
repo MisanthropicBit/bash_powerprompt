@@ -6,4 +6,5 @@ path_test.sh
 *.log
 *.tasks
 *.py
-tests/
+*.bashx
+*.bats

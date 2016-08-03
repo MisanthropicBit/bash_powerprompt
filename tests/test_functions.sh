@@ -1,12 +1,24 @@
+__test_success() {
+    printf "\033[32m✓\033[0m %s\n" "$1"
+    return 0
+}
+
 __test_error() {
-    printf "\033[31mError:\033[0m %s\n" "$1"
+    printf "\033[31m%s\033[0m\n" "$1"
     return 1
 }
 
+__test_skip() {
+    printf "\033[33m%s\033[0m (skipped)\n" "$1"
+    return 0
+}
+
+__test_fail() {
+    printf "\033[31m✗\033[0m %s:" "$1"
+}
+
 __test_assertion_failed() {
-    printf "\033[31mAssertion failed:\033[0m '%s'
-                   %s
-                  '%s'\n" "$1" "$2" "$3"
+    printf '    \033[31mAssertion failed:\033[0m \"%b\" %s \"%b\"' "$1" "$2" "$3"
     return 1
 }
 
