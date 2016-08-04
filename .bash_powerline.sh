@@ -38,7 +38,6 @@ __bash_powerline_prompt() {
     local BG_COLOR_PREFIX_TRUE_COLOR='48;2;'
     local RESET_FG_COLORS='39'
     local RESET_BG_COLORS='49'
-    local RESET_ATTRS='0'
     local RESET_ATTRIBUTES="\[$COLOR_ESCAPE_CODE[0m\]" # Resets all ANSI attributes
     local COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
     local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%s;${BG_COLOR_PREFIX_256}%sm\]"
