@@ -43,6 +43,9 @@ __bash_powerline_prompt() {
     local COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
     local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%s;${BG_COLOR_PREFIX_256}%sm\]"
     local COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
+
+    # The default color format is 256 colors as it is assumed to be most common
+    local BASH_POWERLINE_COLOR_FORMAT=$COLOR_FORMAT_256
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
@@ -228,14 +231,14 @@ __bash_powerline_prompt() {
 
             # Handle the case where the solid powerline triangle symbol was used
             if [ "$prev_symbol" == "$BASH_POWERLINE_SOLID_ARROW_SYMBOL" ]; then
-                __ps1+="$(printf "${COLOR_FORMAT_256}$prev_symbol" "$prev_bg_color" "$bg_color")"
+                __ps1+="$(printf "${BASH_POWERLINE_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
             else
                 # Any other separator needs its own colors
                 local sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
                 local sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
 
                 if [[ !(-z "$sfg") && !(-z "$sbg") ]]; then
-                    __ps1+="$(printf "${COLOR_FORMAT_256}$prev_symbol" "$sfg" "$sbg")"
+                    __ps1+="$(printf "${BASH_POWERLINE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
                 else
                     __ps1+="$prev_symbol"
                 fi
@@ -264,7 +267,7 @@ __bash_powerline_prompt() {
         contents="${BASH_POWERLINE_LEFT_PADDING[$i]}$contents${BASH_POWERLINE_RIGHT_PADDING[$i]}"
 
         if [[ -n "$fg" || -n "$bg" ]]; then
-            contents="$(printf "${COLOR_FORMAT_256}$contents" "$fg" "$bg")"
+            contents="$(printf "${BASH_POWERLINE_COLOR_FORMAT}$contents" "$fg" "$bg")"
         fi
 
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
@@ -280,12 +283,12 @@ __bash_powerline_prompt() {
     # Handle the last separator separately
     if [ -n "$PREVIOUS_SYMBOL" ]; then
         if [ "$PREVIOUS_SYMBOL" == "$BASH_POWERLINE_SOLID_ARROW_SYMBOL" ]; then
-            __ps1+="$(printf "${RESET_ATTRIBUTES}${COLOR_FORMAT_256}$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR")"
+            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERLINE_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR")"
         else
             # Any other separator needs its own colors
             sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
             #sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
-            __ps1+="$(printf "${RESET_ATTRIBUTES}${COLOR_FORMAT_256}$PREVIOUS_SYMBOL" "$sfg")"
+            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERLINE_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$sfg")"
         fi
     fi
 
