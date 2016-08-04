@@ -29,12 +29,7 @@ __bash_powerline_prompt() {
     local BASH_POWERLINE_EXIT_STATUS=$?
 
     ######################################################################
-    # USER CONFIGURABLE VARIABLES
-    ######################################################################
-    # Configuration
-
-    ######################################################################
-    # NON-CONFIGURABLE VARIABLES
+    # COLOR VARIABLES
     ######################################################################
     local COLOR_ESCAPE_CODE='\033'
     local FG_COLOR_PREFIX_256='38;5;'
@@ -47,7 +42,7 @@ __bash_powerline_prompt() {
     local RESET_ATTRIBUTES="\[$COLOR_ESCAPE_CODE[0m\]" # Resets all ANSI attributes
     local COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
     local COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256}%s;${BG_COLOR_PREFIX_256}%sm\]"
-    local COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%d;%d;%d;${BG_COLOR_PREFIX_TRUE_COLOR};%d;%d;%dm\]"
+    local COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
