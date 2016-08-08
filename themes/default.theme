@@ -1,35 +1,35 @@
 # This is the default theme which sets all the default values which predefined
 # or custom themes can override
 __set_theme() {
-    BASH_POWERLINE_THEME='default'                   # The name of this theme
-    BASH_POWERLINE_IGNORE_EMPTY_SECTIONS=0           # If enabled, do not display sections that return an empty string
-    BASH_POWERLINE_USE_TILDE_FOR_HOME=1              # Use a '~' for $HOME instead of displaying the full path
-    BASH_POWERLINE_COMMAND_SYMBOL='$'                # Command symbol at the end of the prompt
-    BASH_POWERLINE_PROMPT_END_SPACING=' '            # Spacing at the end of the prompt
-    BASH_POWERLINE_SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol for a solid arrow (U+e0b0)
-    BASH_POWERLINE_THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol for a then arrow (U+e0b1)
-    BASH_POWERLINE_GIT_BRANCH_SYMBOL="\xee\x82\xa0"  # Powerline symbol for a git branch (U+????)
-    BASH_POWERLINE_GIT_CLEAN_SYMBOL="\xe2\x9c\x93"   # A checkmark (U+2713)
-    BASH_POWERLINE_GIT_DIRTY_SYMBOL="\xe2\x9c\x97"   # A ballot x (U+2717)
-    BASH_POWERLINE_GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
-    BASH_POWERLINE_GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
-    BASH_POWERLINE_GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
-    BASH_POWERLINE_FG_COLORS=(15 15 15 15 15 15 15)  # The foreground colors for each section
-    BASH_POWERLINE_BG_COLORS=(6 25 25 25 90 72 160)  # The background colors for each section
-    BASH_POWERLINE_LEFT_PADDING=(' ' ' ' '' '' ' ' ' ' ' ' ' ') # Padding on the left side of each section
-    BASH_POWERLINE_RIGHT_PADDING=(' ' '' '' ' ' ' ' ' ' ' ' ' ') # Padding on the right side of each section
+    BASH_POWERPROMPT_THEME='default'                   # The name of this theme
+    BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS=0           # If enabled, do not display sections that return an empty string
+    BASH_POWERPROMPT_USE_TILDE_FOR_HOME=1              # Use a '~' for $HOME instead of displaying the full path
+    BASH_POWERPROMPT_COMMAND_SYMBOL='$'                # Command symbol at the end of the prompt
+    BASH_POWERPROMPT_PROMPT_END_SPACING=' '            # Spacing at the end of the prompt
+    BASH_POWERPROMPT_SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol for a solid arrow (U+e0b0)
+    BASH_POWERPROMPT_THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol for a then arrow (U+e0b1)
+    BASH_POWERPROMPT_GIT_BRANCH_SYMBOL="\xee\x82\xa0"  # Powerline symbol for a git branch (U+????)
+    BASH_POWERPROMPT_GIT_CLEAN_SYMBOL="\xe2\x9c\x93"   # A checkmark (U+2713)
+    BASH_POWERPROMPT_GIT_DIRTY_SYMBOL="\xe2\x9c\x97"   # A ballot x (U+2717)
+    BASH_POWERPROMPT_GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
+    BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
+    BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
+    BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15)  # The foreground colors for each section
+    BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 160)  # The background colors for each section
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' '' '' ' ' ' ' ' ' ' ') # Padding on the left side of each section
+    BASH_POWERPROMPT_RIGHT_PADDING=(' ' '' '' ' ' ' ' ' ' ' ' ' ') # Padding on the right side of each section
 
     # The separators between each section
     # NOTE: There is an additional symbol in the array for ending the prompt
-    BASH_POWERLINE_SEPARATORS=($BASH_POWERLINE_SOLID_ARROW_SYMBOL "" "" $BASH_POWERLINE_SOLID_ARROW_SYMBOL $BASH_POWERLINE_SOLID_ARROW_SYMBOL $BASH_POWERLINE_SOLID_ARROW_SYMBOL $BASH_POWERLINE_SOLID_ARROW_SYMBOL $BASH_POWERLINE_SOLID_ARROW_SYMBOL)
+    BASH_POWERPROMPT_SEPARATORS=($BASH_POWERPROMPT_SOLID_ARROW_SYMBOL "" "" $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL)
 
     # The fore- and background colors for separators
     # NOTE: Only applicable for symbols other than SOLID_ARROW_SYMBOL
-    BASH_POWERLINE_SEPARATOR_FG_COLORS=()
-    BASH_POWERLINE_SEPARATOR_BG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
 
     # Default sections when not on a git branch
-    BASH_POWERLINE_SECTIONS=("$BASH_POWERLINE_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERLINE_GIT_BRANCH_SYMBOL" "$BASH_POWERLINE_COMMAND_SYMBOL")
+    BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
 
     local git_branch="$(__get_current_git_branch)"
 
@@ -39,15 +39,15 @@ __set_theme() {
 
         if [ -n "$(__is_git_branch_clean)" ]; then
             git_state="✓"
-            BASH_POWERLINE_FG_COLORS[4]="$BASH_POWERLINE_GIT_CLEAN_SYMBOL"
+            BASH_POWERPROMPT_FG_COLORS[4]="$BASH_POWERPROMPT_GIT_CLEAN_SYMBOL"
         fi
 
         # The extra backslashes in '\\\u' are necessary so printf does not interpret it as a unicode escape sequence
-        BASH_POWERLINE_SECTIONS=("$BASH_POWERLINE_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERLINE_GIT_BRANCH_SYMBOL $git_branch" "$git_state" "$BASH_POWERLINE_COMMAND_SYMBOL")
+        BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL $git_branch" "$git_state" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
 
-        BASH_POWERLINE_FG_COLORS=(15 15 15 15 15 15 "$BASH_POWERLINE_GIT_FG_DIRTY_COLOR" 15)
-        BASH_POWERLINE_BG_COLORS=(6 25 25 25 90 72 72 160)
-        BASH_POWERLINE_SEPARATORS[5]=""
-        BASH_POWERLINE_LEFT_PADDING[6]=""
+        BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 "$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR" 15)
+        BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160)
+        BASH_POWERPROMPT_SEPARATORS[5]=""
+        BASH_POWERPROMPT_LEFT_PADDING[6]=""
     fi
 }

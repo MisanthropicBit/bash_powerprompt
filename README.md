@@ -1,4 +1,4 @@
-# Bash Powerline Command Prompt ![Build status](https://travis-ci.org/MisanthropicBit/bash_powerline.svg?branch=master) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerline/master/LICENSE)
+# Bash Powerprompt Command Prompt ![Build status](https://travis-ci.org/MisanthropicBit/bash_powerprompt.svg?branch=master) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerprompt/master/LICENSE)
 
 A `bash` script that gives you a visually pleasing, informative and customisable command line prompt.
 
@@ -24,17 +24,17 @@ Add the following to your `~/.bashrc` or `~/.profile` etc., substituting with th
 path if necessary.
 
 ```bash
-if [ -e ~/.bash_powerline.sh ]; then
-    source ~/.bash_powerline.sh
-    export BASH_POWERLINE_THEME=<your default theme> # Optional
-    export PROMPT_COMMAND=__bash_powerline_prompt
+if [ -e ~/.bash_powerprompt.sh ]; then
+    source ~/.bash_powerprompt.sh
+    export BASH_POWERPROMPT_THEME=<your default theme> # Optional
+    export PROMPT_COMMAND=__bash_powerprompt_prompt
 fi
 ```
 
 ## Customisation
 
 You can switch the theme of the prompt to any of the [predefined
-themes](/themes.md) by changing the environment variable `BASH_POWERLINE_THEME`
+themes](/themes.md) by changing the environment variable `BASH_POWERPROMPT_THEME`
 to a theme name in the `themes/` directory (without the extension). For more
 information about customisation and creating your own themes, see
 [CUSTOMISING.md](/CUSTOMISING.md).

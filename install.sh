@@ -14,5 +14,5 @@ __symlink_install() {
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
 
-printf "Symlinking .bash_powerline.sh to '$HOME'..."
-__symlink_install ".bash_powerline.sh" "$script_dir" "$HOME"
+printf "Symlinking .bash_powerprompt.sh to '$HOME'..."
+__symlink_install ".bash_powerprompt.sh" "$script_dir" "$HOME"

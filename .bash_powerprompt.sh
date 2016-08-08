@@ -19,16 +19,16 @@
 #
 #      if [ -e ~/.bash_powerline.sh ]; then
 #          source ~/.bash_powerline.sh
-#          export BASH_POWERLINE_THEME=<your default theme> # Optional
+#          export BASH_POWERPROMPT_THEME=<your default theme> # Optional
 #          export PROMPT_COMMAND=__bash_powerline_prompt
 #      fi
 #
 # For more information about customisation and creating your own themes, see
 # 'CUSTOMISING.md'.
 
-__bash_powerline_prompt() {
+__bash_powerprompt_prompt() {
     # Must come before anything else than could return an exit code
-    local BASH_POWERLINE_EXIT_STATUS=$?
+    local BASH_POWERPROMPT_EXIT_STATUS=$?
 
     ######################################################################
     # COLOR VARIABLES
@@ -46,17 +46,17 @@ __bash_powerline_prompt() {
     local COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
 
     # The default color format is 256 colors as it is assumed to be most common
-    local BASH_POWERLINE_COLOR_FORMAT=$COLOR_FORMAT_256
+    local BASH_POWERPROMPT_COLOR_FORMAT=$COLOR_FORMAT_256
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
     __load_theme() {
-        if [[ -n "$BASH_POWERLINE_THEME" ]]; then
+        if [[ -n "$BASH_POWERPROMPT_THEME" ]]; then
             local script_dir="$(__get_script_dir)"
-            local theme_path="$script_dir/themes/$BASH_POWERLINE_THEME.theme"
+            local theme_path="$script_dir/themes/$BASH_POWERPROMPT_THEME.theme"
 
             if [ -r "$theme_path" ]; then
-                local theme="$BASH_POWERLINE_THEME"
+                local theme="$BASH_POWERPROMPT_THEME"
 
                 # Load the default theme and let custom themes override them
                 source "$script_dir/themes/default.theme"
@@ -68,7 +68,7 @@ __bash_powerline_prompt() {
                     __set_theme
                 fi
             else
-                printf "Error: Failed to load theme '$BASH_POWERLINE_THEME'\n"
+                printf "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
             fi
         fi
     }
@@ -114,7 +114,7 @@ __bash_powerline_prompt() {
     __get_cwd() {
         local cwd=$(pwd)
 
-        if [ "$BASH_POWERLINE_USE_TILDE_FOR_HOME" -eq 1 ]; then
+        if [ "$BASH_POWERPROMPT_USE_TILDE_FOR_HOME" -eq 1 ]; then
             cwd=${cwd/$HOME/\~}
         fi
 
@@ -201,15 +201,15 @@ __bash_powerline_prompt() {
             local bg_color="$4"
 
             # Handle the case where the solid powerline triangle symbol was used
-            if [ "$prev_symbol" == "$BASH_POWERLINE_SOLID_ARROW_SYMBOL" ]; then
-                __ps1+="$(printf "${BASH_POWERLINE_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
+            if [ "$prev_symbol" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
+                __ps1+="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
             else
                 # Any other separator needs its own colors
-                local sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$((i - 1))]}
-                local sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$((i - 1))]}
+                local sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$((i - 1))]}
+                local sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$((i - 1))]}
 
                 if [[ !(-z "$sfg") && !(-z "$sbg") ]]; then
-                    __ps1+="$(printf "${BASH_POWERLINE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
+                    __ps1+="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
                 else
                     __ps1+="$prev_symbol"
                 fi
@@ -226,19 +226,19 @@ __bash_powerline_prompt() {
     local PREVIOUS_BG_COLOR=''
 
     # Assemble the entire prompt command
-    for i in ${!BASH_POWERLINE_SECTIONS[@]}; do
-        fg=${BASH_POWERLINE_FG_COLORS[$i]}
-        bg=${BASH_POWERLINE_BG_COLORS[$i]}
-        contents="${BASH_POWERLINE_SECTIONS[$i]}"
+    for i in ${!BASH_POWERPROMPT_SECTIONS[@]}; do
+        fg=${BASH_POWERPROMPT_FG_COLORS[$i]}
+        bg=${BASH_POWERPROMPT_BG_COLORS[$i]}
+        contents="${BASH_POWERPROMPT_SECTIONS[$i]}"
 
-        if [[ $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
+        if [[ $BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
             continue
         fi
 
-        contents="${BASH_POWERLINE_LEFT_PADDING[$i]}$contents${BASH_POWERLINE_RIGHT_PADDING[$i]}"
+        contents="${BASH_POWERPROMPT_LEFT_PADDING[$i]}$contents${BASH_POWERPROMPT_RIGHT_PADDING[$i]}"
 
         if [[ -n "$fg" || -n "$bg" ]]; then
-            contents="$(printf "${BASH_POWERLINE_COLOR_FORMAT}$contents" "$fg" "$bg")"
+            contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$contents" "$fg" "$bg")"
         fi
 
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
@@ -248,24 +248,24 @@ __bash_powerline_prompt() {
         PREVIOUS_CONTENTS=$contents
         PREVIOUS_FG_COLOR=$fg
         PREVIOUS_BG_COLOR=$bg
-        PREVIOUS_SYMBOL=${BASH_POWERLINE_SEPARATORS[$i]}
+        PREVIOUS_SYMBOL=${BASH_POWERPROMPT_SEPARATORS[$i]}
     done
 
     # Handle the last separator separately
     if [ -n "$PREVIOUS_SYMBOL" ]; then
-        if [ "$PREVIOUS_SYMBOL" == "$BASH_POWERLINE_SOLID_ARROW_SYMBOL" ]; then
-            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERLINE_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR")"
+        if [ "$PREVIOUS_SYMBOL" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
+            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERPROMPT_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR")"
         else
             # Any other separator needs its own colors
-            sfg=${BASH_POWERLINE_SEPARATOR_FG_COLORS[$i]}
-            #sbg=${BASH_POWERLINE_SEPARATOR_BG_COLORS[$i]}
-            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERLINE_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$sfg")"
+            sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$i]}
+            #sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$i]}
+            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERPROMPT_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$sfg")"
         fi
     fi
 
     # Must be called afterwards to reset all colors and attributes
     __ps1+=$(printf "$RESET_ATTRIBUTES")
 
-    __ps1+="$BASH_POWERLINE_PROMPT_END_SPACING"
+    __ps1+="$BASH_POWERPROMPT_PROMPT_END_SPACING"
     export PS1="$__ps1"
 }
