@@ -26,7 +26,7 @@ path if necessary.
 ```bash
 if [ -e ~/.bash_powerline.sh ]; then
     source ~/.bash_powerline.sh
-    export BASH_POWERLINE_THEME=<whatever theme you would like as the default> # Optional
+    export BASH_POWERLINE_THEME=<your default theme> # Optional
     export PROMPT_COMMAND=__bash_powerline_prompt
 fi
 ```
@@ -36,4 +36,5 @@ fi
 You can switch the theme of the prompt to any of the [predefined
 themes](/themes.md) by changing the environment variable `BASH_POWERLINE_THEME`
 to a theme name in the `themes/` directory (without the extension). For more
-information about customisation, see [CUSTOMISING.md](/CUSTOMISING.md).
+information about customisation and creating your own themes, see
+[CUSTOMISING.md](/CUSTOMISING.md).
