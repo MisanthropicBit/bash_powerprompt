@@ -187,36 +187,6 @@ __bash_powerline_prompt() {
     }
 
     ######################################################################
-    # PREDEFINED SECTIONS
-    ######################################################################
-    # Prints an empty section. Useful for when $BASH_POWERLINE_IGNORE_EMPTY_SECTIONS is 0
-    # and you want a layout similar to the example layout of 'Turbo Boost'
-    __empty_section() {
-        printf ''
-    }
-
-    # Prints the current username and host, and optionally the current python virtualenv
-    __user_context() {
-        local result="$(__get_username)$BASH_POWERLINE_USER_CXT_SEPARATOR_SYMBOL$(__get_hostname)"
-
-        if [ -n "$VIRTUAL_ENV" ]; then
-            result+=" ($VIRTUAL_ENV)"
-        fi
-
-        printf "$result"
-    }
-
-    # Prints the current directory
-    __cwd_context() {
-        __get_cwd
-    }
-
-    # Prints a section with a single command symbol
-    __prompt_end() {
-        printf "$BASH_POWERLINE_COMMAND_SYMBOL"
-    }
-
-    ######################################################################
 
     # Attempt to load the current theme
     __load_theme
