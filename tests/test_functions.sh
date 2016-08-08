@@ -9,7 +9,7 @@ __test_error() {
 }
 
 __test_skip() {
-    printf "\033[33m%s\033[0m (skipped)\n" "$1"
+    printf "\033[33m-\033[0m %s (\033[33mskipped\033[0m: %s)\n" "$1" "$2"
     return 0
 }
 

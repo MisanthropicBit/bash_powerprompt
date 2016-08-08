@@ -9,14 +9,20 @@ __run_tests() {
         exit 1
     fi
 
-    local test_files=(test_simplistic_theme.sh test_default_theme.sh)
-    #local test_files=($(find . -iname "*test*.sh" -o -iname "*test*.bash" | grep -v -e "$0" -e "test_functions.sh"))
+    local test_files=""
+
+    if [ "$#" -ge 1 ]; then
+        test_files="$@"
+    else
+        test_files=($(find . -iname "*test*.sh" -o -iname "*test*.bash" | grep -v -e "$0" -e "test_functions.sh"))
+    fi
 
     if [ -z "$test_files" ]; then
         __test_error "No tests collected" && exit 0
     fi
 
     local failed=0
+    local skipped=0
     [ "$TRAVIS" == "true" ] && local on_travis=1 || local on_travis=0
 
     # Save the current theme if the tests are running locally
@@ -25,16 +31,23 @@ __run_tests() {
     fi
 
     for f in ${test_files[@]}; do
-        source "$f"
+        local testfile="$(basename $f)"
+
+        if [ ! -e "$f" ]; then
+            __test_skip "$testfile" "file does not exist"
+            skipped=$((skipped + 1))
+            continue
+        fi
+
+        source "$testfile"
         local out=$(__test)
         local retval=$?
 
         if [[ $retval -ne 0 || -n "$out" ]]; then
-            __test_fail "$f ($retval): $out"
-            #printf "%s\n" "$out"
+            __test_fail "$testfile ($retval): $out"
             failed=$((failed + 1))
         else
-            __test_success "$f"
+            __test_success "$testfile"
         fi
     done
 
@@ -45,7 +58,13 @@ __run_tests() {
         exit 1
     fi
 
-    printf "0 failed\nAll tests passed\n"
+    # Always exit with 1 if all tests were skipped
+    if [[ "$skipped" -gt 0 && "${#test_files[@]}" -eq "$skipped" ]]; then
+        printf "0 failed\nAll tests skipped\n"
+        exit 1
+    else
+        printf "0 failed\nAll tests passed\n"
+    fi
 
     # Restore the current theme if the tests are running locally
     if [ !$on_travis ]; then
@@ -55,4 +74,4 @@ __run_tests() {
     exit 0
 }
 
-__run_tests
+__run_tests "$@"
