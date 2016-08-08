@@ -14,11 +14,7 @@ A `bash` script that gives you a visually pleasing, informative and customisable
 
 However, the [powerline themes](/themes.md#power-line-style-prompts) require a [powerline
 font](https://github.com/powerline/fonts) to be installed, while some other themes use utf-8
-symbols.
-
-<!--* At least `bash` v?.-->
-<!--* A terminal capable of displaying utf-8-->
-<!--* A patched [powerline font](https://github.com/powerline/fonts) set up with your terminal-->
+symbols. If you use `git` or `svn`, you need that installed too.
 
 ## Installation
 
