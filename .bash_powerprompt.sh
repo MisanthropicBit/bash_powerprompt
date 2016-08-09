@@ -245,18 +245,10 @@ __bash_powerprompt_prompt() {
     done
 
     # Handle the last separator separately
-    if [ -n "$PREVIOUS_SYMBOL" ]; then
-        if [ "$PREVIOUS_SYMBOL" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
-            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERPROMPT_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR")"
-        else
-            # Any other separator needs its own colors
-            sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$i]}
-            #sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$i]}
-            __ps1+="$(printf "${RESET_ATTRIBUTES}${BASH_POWERPROMPT_COLOR_FORMAT}$PREVIOUS_SYMBOL" "$sfg")"
-        fi
-    fi
+    __ps1+=$(printf "$RESET_ATTRIBUTES")
+    __print_separator "$i" "${PREVIOUS_SYMBOL}" "$PREVIOUS_BG_COLOR" ""
 
-    # Must be called afterwards to reset all colors and attributes
+    # Must be called as the last element of the prompt to reset all colors and attributes
     __ps1+=$(printf "$RESET_ATTRIBUTES")
 
     __ps1+="$BASH_POWERPROMPT_PROMPT_END_SPACING"
