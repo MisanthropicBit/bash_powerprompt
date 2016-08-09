@@ -46,7 +46,7 @@ __bash_powerprompt_prompt() {
     local BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
 
     # The default color format is 256 colors as it is assumed to be most common
-    local BASH_POWERPROMPT_COLOR_FORMAT=$COLOR_FORMAT_256
+    local BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_256
     ######################################################################
 
     # Loads a given theme (reverts to the default theme on error)
