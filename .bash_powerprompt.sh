@@ -156,20 +156,12 @@ __bash_powerprompt_prompt() {
 
     # Returns 0 if the branch is clean, 1 otherwise
     __is_git_branch_clean() {
-        if 2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'; then
-            return 0
-        fi
-
-        return 1
+        2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'
     }
 
     # Returns 0 if the current directory is a git branch, 1 otherwise
     __is_git_branch() {
-        if 2>/dev/null 1>&2 git status --ignore-submodules; then
-            return 0
-        fi
-
-        return 1
+        2>/dev/null 1>&2 git status --ignore-submodules
     }
 
     # Get the current git branch. Use .git-prompt.sh if it is available
