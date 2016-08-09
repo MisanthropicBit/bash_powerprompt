@@ -189,11 +189,12 @@ __bash_powerprompt_prompt() {
 
         if [ -n "$prev_symbol" ]; then
             local i="$1"
-            local prev_bg_color="$3"
-            local bg_color="$4"
 
             # Handle the case where the solid powerline triangle symbol was used
             if [ "$prev_symbol" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
+                local prev_bg_color="$3"
+                local bg_color="$4"
+
                 __ps1+="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
             else
                 # Any other separator needs its own colors
