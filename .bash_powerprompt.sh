@@ -200,7 +200,7 @@ __bash_powerprompt_prompt() {
                 local sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$((i - 1))]}
                 local sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$((i - 1))]}
 
-                if [[ !(-z "$sfg") && !(-z "$sbg") ]]; then
+                if [[ -n "$sfg" || -n "$sbg" ]]; then
                     __ps1+="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
                 else
                     __ps1+="$prev_symbol"
