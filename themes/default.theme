@@ -36,17 +36,26 @@ __set_theme() {
     # Each section defined by a function
     if [ -n "$git_branch" ]; then
         local git_state="✗"
+        local git_state_color="$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR"
 
         if [ -n "$(__is_git_branch_clean)" ]; then
             git_state="✓"
             BASH_POWERPROMPT_FG_COLORS[4]="$BASH_POWERPROMPT_GIT_CLEAN_SYMBOL"
+            git_state_color="$BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR"
         fi
 
         # The extra backslashes in '\\\u' are necessary so printf does not interpret it as a unicode escape sequence
         BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL $git_branch" "$git_state" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
 
-        BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 "$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR" 15)
-        BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160)
+        # Update section colors, assuming no knowledge about previous section colors
+        BASH_POWERPROMPT_FG_COLORS=("${BASH_POWERPROMPT_FG_COLORS[@]:0:6}" "$git_state_color" ${BASH_POWERPROMPT_FG_COLORS[6]})
+        #BASH_POWERPROMPT_FG_COLORS=("${BASH_POWERPROMPT_FG_COLORS[@]:0:6}" "$git_state_color" BASH_POWERPROMPT_FG_COLORS[6])
+        BASH_POWERPROMPT_BG_COLORS=("${BASH_POWERPROMPT_BG_COLORS[@]:0:6}" ${BASH_POWERPROMPT_BG_COLORS[5]} ${BASH_POWERPROMPT_BG_COLORS[6]})
+
+        #BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 "$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR" 15)
+        #BASH_POWERPROMPT_FG_COLORS+=(BASH_POWERPROMPT_BG_COLORS[6])
+        #BASH_POWERPROMPT_FG_COLORS[6]=BASH_POWERPROMPT_BG_COLORS[5]
+        #BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160)
         BASH_POWERPROMPT_SEPARATORS[5]=""
         BASH_POWERPROMPT_LEFT_PADDING[6]=""
     fi
