@@ -26,7 +26,7 @@
 # For more information about customisation and creating your own themes, see
 # 'CUSTOMISING.md'.
 
-__bash_powerprompt_prompt() {
+__bash_powerprompt() {
     # Must come before anything else than could return an exit code
     local BASH_POWERPROMPT_EXIT_STATUS=$?
 
