@@ -4,7 +4,12 @@
 #     - Unicode support
 
 __set_theme() {
-    BASH_POWERPROMPT_THEME='hybrid'
+    # Load the 'colorful' theme...
+    source "$(__get_script_dir)/themes/colorful.theme"
+    __set_theme
+
+    # ...and change the colors
+    BASH_POWERPROMPT_THEME="hybrid"
     BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15 15)
     BASH_POWERPROMPT_BG_COLORS=(65 60 60 60 167 110 110 221)
 }

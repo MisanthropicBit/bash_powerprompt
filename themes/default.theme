@@ -27,30 +27,13 @@ __set_theme() {
 
     # The separators between each section
     # NOTE: There is an additional symbol in the array for ending the prompt
-    BASH_POWERPROMPT_SEPARATORS=($BASH_POWERPROMPT_SOLID_ARROW_SYMBOL "" "" $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL)
+    BASH_POWERPROMPT_SEPARATORS=()
 
     # The fore- and background colors for separators
     # NOTE: Only applicable for symbols other than SOLID_ARROW_SYMBOL
     BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
     BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
 
-    local git_branch="$(__get_current_git_branch)"
-
-    if [ -n "$git_branch" ]; then
-        git_branch=" $git_branch"
-        local git_state="✗"
-        local git_state_color="$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR"
-
-        if [ -n "$(__is_git_branch_clean)" ]; then
-            git_state="✓"
-            BASH_POWERPROMPT_FG_COLORS[4]="$BASH_POWERPROMPT_GIT_CLEAN_SYMBOL"
-            git_state_color="$BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR"
-        fi
-
-        BASH_POWERPROMPT_FG_COLORS[6]="$git_state_color"
-        BASH_POWERPROMPT_SEPARATORS[5]=""
-    fi
-
-    # The extra backslashes in '\\\u' are necessary so printf does not interpret it as a unicode escape sequence
-    BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL$git_branch" "$git_state" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
+    # The string contents of each section
+    BASH_POWERPROMPT_SECTIONS=()
 }
