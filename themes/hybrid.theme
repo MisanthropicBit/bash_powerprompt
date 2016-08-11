@@ -1,6 +1,10 @@
-__set_theme() {
-    BASH_POWERLINE_THEME='hybrid'
+# Requirements:
+#     - 256 color support
+#     - Powerline font installed
+#     - Unicode support
 
-    BASH_POWERLINE_FG_COLORS=(15 15 15 15 15)
-    BASH_POWERLINE_BG_COLORS=(65 60 167 110 221)
+__set_theme() {
+    BASH_POWERPROMPT_THEME='hybrid'
+    BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15 15)
+    BASH_POWERPROMPT_BG_COLORS=(65 60 60 60 167 110 110 221)
 }

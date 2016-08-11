@@ -1,8 +1,14 @@
 # This is the default theme which sets all the default values which predefined
 # or custom themes can override
+#
+# Requirements:
+#     - 256 color support
+#     - Powerline font installed
+#     - Unicode support
+
 __set_theme() {
     BASH_POWERPROMPT_THEME='default'                   # The name of this theme
-    BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS=0           # If enabled, do not display sections that return an empty string
+    BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS=1           # If enabled, do not display sections that return an empty string
     BASH_POWERPROMPT_USE_TILDE_FOR_HOME=1              # Use a '~' for $HOME instead of displaying the full path
     BASH_POWERPROMPT_COMMAND_SYMBOL='$'                # Command symbol at the end of the prompt
     BASH_POWERPROMPT_PROMPT_END_SPACING=' '            # Spacing at the end of the prompt
@@ -14,9 +20,9 @@ __set_theme() {
     BASH_POWERPROMPT_GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
     BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
     BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
-    BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15)  # The foreground colors for each section
-    BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 160)  # The background colors for each section
-    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' '' '' ' ' ' ' ' ' ' ')  # Padding on the left side of each section
+    BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15 15) # The foreground colors for each section
+    BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160) # The background colors for each section
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' '' '' ' ' ' ' '' ' ')   # Padding on the left side of each section
     BASH_POWERPROMPT_RIGHT_PADDING=(' ' '' '' ' ' ' ' ' ' ' ' ' ') # Padding on the right side of each section
 
     # The separators between each section
@@ -28,13 +34,10 @@ __set_theme() {
     BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
     BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
 
-    # Default sections when not on a git branch
-    BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
-
     local git_branch="$(__get_current_git_branch)"
 
-    # Each section defined by a function
     if [ -n "$git_branch" ]; then
+        git_branch=" $git_branch"
         local git_state="✗"
         local git_state_color="$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR"
 
@@ -44,19 +47,10 @@ __set_theme() {
             git_state_color="$BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR"
         fi
 
-        # The extra backslashes in '\\\u' are necessary so printf does not interpret it as a unicode escape sequence
-        BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL $git_branch" "$git_state" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
-
-        # Update section colors, assuming no knowledge about previous section colors
-        BASH_POWERPROMPT_FG_COLORS=("${BASH_POWERPROMPT_FG_COLORS[@]:0:6}" "$git_state_color" ${BASH_POWERPROMPT_FG_COLORS[6]})
-        #BASH_POWERPROMPT_FG_COLORS=("${BASH_POWERPROMPT_FG_COLORS[@]:0:6}" "$git_state_color" BASH_POWERPROMPT_FG_COLORS[6])
-        BASH_POWERPROMPT_BG_COLORS=("${BASH_POWERPROMPT_BG_COLORS[@]:0:6}" ${BASH_POWERPROMPT_BG_COLORS[5]} ${BASH_POWERPROMPT_BG_COLORS[6]})
-
-        #BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 "$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR" 15)
-        #BASH_POWERPROMPT_FG_COLORS+=(BASH_POWERPROMPT_BG_COLORS[6])
-        #BASH_POWERPROMPT_FG_COLORS[6]=BASH_POWERPROMPT_BG_COLORS[5]
-        #BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160)
+        BASH_POWERPROMPT_FG_COLORS[6]="$git_state_color"
         BASH_POWERPROMPT_SEPARATORS[5]=""
-        BASH_POWERPROMPT_LEFT_PADDING[6]=""
     fi
+
+    # The extra backslashes in '\\\u' are necessary so printf does not interpret it as a unicode escape sequence
+    BASH_POWERPROMPT_SECTIONS=("$BASH_POWERPROMPT_EXIT_STATUS" "\\\u" "@" "\h" "\w" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL$git_branch" "$git_state" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
 }
