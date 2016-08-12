@@ -79,8 +79,9 @@ __bash_powerprompt() {
         if [ -n "$BASH_POWERPROMPT_DIRECTORY" ]; then
             printf "$BASH_POWERPROMPT_DIRECTORY"
         else
-            unset CDPATH
             local source="${BASH_SOURCE[0]}"
+            local old_cdpath="$CDPATH"
+            unset CDPATH
 
             while [ -L "$source" ]; do
                 local dir="$(cd -P "$(dirname "$source")" && pwd)"
@@ -89,6 +90,7 @@ __bash_powerprompt() {
             done
 
             BASH_POWERPROMPT_DIRECTORY="$(cd -P "$(dirname "$source")" && pwd)"
+            CDPATH="$old_cdpath"
             printf "$BASH_POWERPROMPT_DIRECTORY"
         fi
     }
