@@ -73,19 +73,24 @@ __bash_powerprompt() {
         fi
     }
 
-    # Returns the directory that this script is actually in
+    # Returns the directory that this script is located in, no matter where the function is called from
     # Credits: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
     __get_script_dir() {
-        unset CDPATH
-        local source="${BASH_SOURCE[0]}"
+        if [ -n "$BASH_POWERPROMPT_DIRECTORY" ]; then
+            printf "$BASH_POWERPROMPT_DIRECTORY"
+        else
+            unset CDPATH
+            local source="${BASH_SOURCE[0]}"
 
-        while [ -L "$source" ]; do
-            local dir="$(cd -P "$(dirname "$source")" && pwd)"
-            source="$(readlink "$source")"
-            [[ $source != /* ]] && source="$dir/$source"
-        done
+            while [ -L "$source" ]; do
+                local dir="$(cd -P "$(dirname "$source")" && pwd)"
+                source="$(readlink "$source")"
+                [[ $source != /* ]] && source="$dir/$source"
+            done
 
-        printf "$(cd -P "$(dirname "$source")" && pwd)"
+            BASH_POWERPROMPT_DIRECTORY="$(cd -P "$(dirname "$source")" && pwd)"
+            printf "$BASH_POWERPROMPT_DIRECTORY"
+        fi
     }
 
     # Returns a string representing the current OS, e.g. 'Darwin' for Mac systems
