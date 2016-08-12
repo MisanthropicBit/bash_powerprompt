@@ -20,14 +20,22 @@ __set_theme() {
     BASH_POWERPROMPT_GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
     BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
     BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
-    BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15 15) # The foreground colors for each section
-    BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160) # The background colors for each section
-    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' '' '' ' ' ' ' '' ' ')   # Padding on the left side of each section
-    BASH_POWERPROMPT_RIGHT_PADDING=(' ' '' '' ' ' ' ' ' ' ' ' ' ') # Padding on the right side of each section
+    BASH_POWERPROMPT_FG_COLORS=(15 15 15)              # The foreground colors for each section
+    BASH_POWERPROMPT_BG_COLORS=(111 107 45)               # The background colors for each section
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' ' ')        # Padding on the left side of each section
+    BASH_POWERPROMPT_RIGHT_PADDING=(' ' ' ' ' ')       # Padding on the right side of each section
+
+    # This is not set here, but is meant to be used by other themes when deriving from themes that set it
+    BASH_POWERPROMPT_ON_GIT_BRANCH=0
 
     # The separators between each section
     # NOTE: There is an additional symbol in the array for ending the prompt
-    BASH_POWERPROMPT_SEPARATORS=()
+    BASH_POWERPROMPT_SEPARATORS=(
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+    )
 
     # The fore- and background colors for separators
     # NOTE: Only applicable for symbols other than SOLID_ARROW_SYMBOL
@@ -35,5 +43,5 @@ __set_theme() {
     BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
 
     # The string contents of each section
-    BASH_POWERPROMPT_SECTIONS=()
+    BASH_POWERPROMPT_SECTIONS=("\\\u" "\w" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
 }
