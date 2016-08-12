@@ -25,6 +25,9 @@ __set_theme() {
     BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' ' ')        # Padding on the left side of each section
     BASH_POWERPROMPT_RIGHT_PADDING=(' ' ' ' ' ')       # Padding on the right side of each section
 
+    # The default color format is 256 colors as it is assumed to be most common
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_256
+
     # This is not set here, but is meant to be used by other themes when deriving from themes that set it
     BASH_POWERPROMPT_ON_GIT_BRANCH=0
 
