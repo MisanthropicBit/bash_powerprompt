@@ -235,7 +235,7 @@ __bash_powerprompt() {
         contents="${BASH_POWERPROMPT_LEFT_PADDING[$i]}$contents${BASH_POWERPROMPT_RIGHT_PADDING[$i]}"
 
         if [[ -n "$fg" || -n "$bg" ]]; then
-            contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$contents" "$fg" "$bg")"
+            contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" "$fg" "$bg" "$contents")"
         fi
 
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
@@ -249,11 +249,11 @@ __bash_powerprompt() {
     done
 
     # Handle the last separator separately
-    __ps1+=$(printf "$RESET_ATTRIBUTES")
-    __print_separator "$i" "${PREVIOUS_SYMBOL}" "$PREVIOUS_BG_COLOR" ""
+    __ps1+=$(printf "%s" "$RESET_BG_COLORS")
+    __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" ""
 
     # Must be called as the last element of the prompt to reset all colors and attributes
-    __ps1+=$(printf "$RESET_ATTRIBUTES")
+    __ps1+=$(printf "%s" "$RESET_ATTRIBUTES")
 
     __ps1+="$BASH_POWERPROMPT_PROMPT_END_SPACING"
     export PS1="$__ps1"
