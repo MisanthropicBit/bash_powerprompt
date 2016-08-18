@@ -65,7 +65,7 @@ __bash_powerprompt() {
                     __set_theme
                 fi
             else
-                printf "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
+                printf "%s" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
             fi
         fi
     }
@@ -74,7 +74,7 @@ __bash_powerprompt() {
     # Credits: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
     __get_script_dir() {
         if [ -n "$BASH_POWERPROMPT_DIRECTORY" ]; then
-            printf "$BASH_POWERPROMPT_DIRECTORY"
+            printf "%s" "$BASH_POWERPROMPT_DIRECTORY"
         else
             local source="${BASH_SOURCE[0]}"
             local old_cdpath="$CDPATH"
@@ -88,7 +88,7 @@ __bash_powerprompt() {
 
             BASH_POWERPROMPT_DIRECTORY="$(cd -P "$(dirname "$source")" && pwd)"
             CDPATH="$old_cdpath"
-            printf "$BASH_POWERPROMPT_DIRECTORY"
+            printf "%s" "$BASH_POWERPROMPT_DIRECTORY"
         fi
     }
 
@@ -122,7 +122,7 @@ __bash_powerprompt() {
             cwd=${cwd/$HOME/\~}
         fi
 
-        printf "$cwd"
+        printf "%s" "$cwd"
     }
 
     # Gets the last part of a path
@@ -138,21 +138,21 @@ __bash_powerprompt() {
             n=$((n + 1))
         fi
 
-        printf "$1" | cut -d/ "-f1-$n"
+        printf "%s" "$1" | cut -d/ "-f1-$n"
     }
 
     # Gets the n last elements of a path
     __get_path_tails() {
         local n=$2
 
-        printf "$1" | rev | cut -d/ -f1-"$n" | rev
+        printf "%s" "$1" | rev | cut -d/ -f1-"$n" | rev
     }
 
     # Return the number of columns available to the prompt
     __get_columns() {
         # Get the environment variable or if that fails, get it from terminfo
         if [ -n "$COLUMNS" ]; then
-            printf "$COLUMNS"
+            printf "%s" "$COLUMNS"
         else
             tput cols
         fi
@@ -179,7 +179,7 @@ __bash_powerprompt() {
             git_branch=$(git rev-parse --abbrev-ref HEAD)
         fi
 
-        printf "$git_branch"
+        printf "%s" "$git_branch"
     }
 
     ######################################################################
