@@ -46,5 +46,5 @@ __set_theme() {
     BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
 
     # The string contents of each section
-    BASH_POWERPROMPT_SECTIONS=("\\\u" "\w" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
+    BASH_POWERPROMPT_SECTIONS=("\u" "\w" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
 }
