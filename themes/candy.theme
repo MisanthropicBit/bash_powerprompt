@@ -6,6 +6,9 @@
 #     - git
 
 __set_theme() {
+    # Load git utility functions
+    source $(__get_script_dir)/git_functions.sh
+
     BASH_POWERPROMPT_THEME='candy'
     BASH_POWERPROMPT_COMMAND_SYMBOL="$"
     BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR

@@ -13,6 +13,9 @@ __set_theme() {
     BASH_POWERPROMPT_SECTIONS=("\u" "at" "\W" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
     BASH_POWERPROMPT_SEPARATORS=(' ' ' ' ' ')
 
+    # Load git utility functions
+    source $(__get_script_dir)/git_functions.sh
+
     local git_branch="$(__get_current_git_branch)"
 
     if [ -n "$git_branch" ]; then
