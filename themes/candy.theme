@@ -1,0 +1,40 @@
+# A bash powerprompt theme
+# Requirements:
+#     - True-color support
+#     - Powerline font installed
+#     - Unicode support
+#     - git
+
+__set_theme() {
+    BASH_POWERPROMPT_THEME='candy'
+    BASH_POWERPROMPT_COMMAND_SYMBOL="$"
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' ' ' ' ')
+    BASH_POWERPROMPT_RIGHT_PADDING=(' ' ' ' ' ' ' ')
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
+    BASH_POWERPROMPT_SEPARATORS=(
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+    )
+
+    local text_fg_color="255;255;255"
+    local path_bg_color="135;95;215"
+    local sep_color="175;215;95"
+    BASH_POWERPROMPT_FG_COLORS=($text_fg_color $text_fg_color $text_fg_color $text_fg_color)
+    BASH_POWERPROMPT_BG_COLORS=("120;173;106" $path_bg_color "0;175;215" "255;175;95")
+
+    local path=$(__get_cwd)
+    local sep_format=" ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} " 
+    local sep=$(printf "$sep_format" $sep_color $path_bg_color $text_fg_color $path_bg_color)
+    path="${path//\//$sep}"
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\u"
+        "$path"
+        "$(printf "%b $(__get_current_git_branch)" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL")"
+        "$BASH_POWERPROMPT_COMMAND_SYMBOL"
+    )
+}
