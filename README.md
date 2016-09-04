@@ -1,6 +1,7 @@
 # ![Title](/bash_powerprompt_title.png)
 
-![Build status](https://travis-ci.org/MisanthropicBit/bash_powerprompt.svg?branch=master) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerprompt/master/LICENSE)
+<!--![Build status](https://travis-ci.org/MisanthropicBit/bash_powerprompt.svg?branch=master)-->
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerprompt/master/LICENSE)
 
 A `bash` script that gives you a visually pleasing, informative and customisable command line prompt.
 
