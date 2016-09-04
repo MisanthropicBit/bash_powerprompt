@@ -1,0 +1,12 @@
+__set_theme() {
+    BASH_POWERPROMPT_THEME="random"
+
+    # Pick a random file from the themes directory and set it as the current theme
+    local script_dir="$(__get_script_dir)"
+    local files=($script_dir/themes/*.theme)
+    local random_theme="${files[RANDOM % ${#files[@]}]}"
+    printf "Selected random theme '%s'\n" "$random_theme"
+
+    source "$random_theme"
+    __set_theme
+}

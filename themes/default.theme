@@ -1,0 +1,50 @@
+# This is the default theme which sets all the default values which predefined
+# or custom themes can override
+#
+# Requirements:
+#     - 256 color support
+#     - Powerline font installed
+#     - Unicode support
+
+__set_theme() {
+    BASH_POWERPROMPT_THEME='default'                   # The name of this theme
+    BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS=1           # If enabled, do not display sections that return an empty string
+    BASH_POWERPROMPT_USE_TILDE_FOR_HOME=1              # Use a '~' for $HOME instead of displaying the full path
+    BASH_POWERPROMPT_COMMAND_SYMBOL='$'                # Command symbol at the end of the prompt
+    BASH_POWERPROMPT_PROMPT_END_SPACING=' '            # Spacing at the end of the prompt
+    BASH_POWERPROMPT_SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol for a solid arrow (U+e0b0)
+    BASH_POWERPROMPT_THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol for a then arrow (U+e0b1)
+    BASH_POWERPROMPT_GIT_BRANCH_SYMBOL="\xee\x82\xa0"  # Powerline symbol for a git branch (U+????)
+    BASH_POWERPROMPT_GIT_CLEAN_SYMBOL="\xe2\x9c\x93"   # A checkmark (U+2713)
+    BASH_POWERPROMPT_GIT_DIRTY_SYMBOL="\xe2\x9c\x97"   # A ballot x (U+2717)
+    BASH_POWERPROMPT_GIT_BRANCH_COLOR=                 # The color of the current git branch (if any)
+    BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR=76             # The color for a git branch with uncommitted files
+    BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR=160            # The color for a git branch with a clean working directory
+    BASH_POWERPROMPT_FG_COLORS=(15 15 15)              # The foreground colors for each section
+    BASH_POWERPROMPT_BG_COLORS=(111 107 45)               # The background colors for each section
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' ' ')        # Padding on the left side of each section
+    BASH_POWERPROMPT_RIGHT_PADDING=(' ' ' ' ' ')       # Padding on the right side of each section
+
+    # The default color format is 256 colors as it is assumed to be most common
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_256
+
+    # This is not set here, but is meant to be used by other themes when deriving from themes that set it
+    BASH_POWERPROMPT_ON_GIT_BRANCH=0
+
+    # The separators between each section
+    # NOTE: There is an additional symbol in the array for ending the prompt
+    BASH_POWERPROMPT_SEPARATORS=(
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+    )
+
+    # The fore- and background colors for separators
+    # NOTE: Only applicable for symbols other than SOLID_ARROW_SYMBOL
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
+
+    # The string contents of each section
+    BASH_POWERPROMPT_SECTIONS=("\u" "\w" "$BASH_POWERPROMPT_COMMAND_SYMBOL")
+}

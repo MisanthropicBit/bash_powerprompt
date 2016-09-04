@@ -1,0 +1,7 @@
+__set_theme() {
+    BASH_POWERLINE_THEME='blue_gradient'
+
+    BASH_POWERLINE_FG_COLORS=(255 249 241 237 234)
+    BASH_POWERLINE_BG_COLORS=(57 63 69 75 81)
+}
+

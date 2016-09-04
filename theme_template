@@ -1,0 +1,13 @@
+# This is a theme template, provided for convenience. If you need help creating a new
+# theme, refer to CUSTOMISING.md
+#
+# Requirements:
+#     - 
+#     - 
+#     - 
+
+__set_theme() {
+    # The meat of your theme goes here. Recall that the default theme is always loaded
+    # before any custom themes
+    BASH_POWERPROMPT_THEME='your_theme_name'
+}
