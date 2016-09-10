@@ -97,6 +97,11 @@ __bash_powerprompt() {
     # Attempt to load the current theme
     __load_theme
 
+    # Exit if the theme only sets PS1
+    if [ "$BASH_POWERPROMPT_ONLY_PS1" -eq 1 ]; then
+        return 0
+    fi
+
     # Prints a single separator
     __print_separator() {
         local prev_symbol="$2"

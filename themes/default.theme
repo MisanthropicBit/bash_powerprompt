@@ -24,6 +24,7 @@ __set_theme() {
     BASH_POWERPROMPT_BG_COLORS=(111 107 45)            # The background colors for each section
     BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' ' ')        # Padding on the left side of each section
     BASH_POWERPROMPT_RIGHT_PADDING=(' ' ' ' ' ')       # Padding on the right side of each section
+    BASH_POWERPROMPT_ONLY_PS1=0                        # Set to true if your theme only sets PS1
 
     # The default color format is 256 colors as it is assumed to be most common
     BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_256
