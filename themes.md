@@ -1,13 +1,14 @@
-# Predefined themes by category
+# Themes by category
 
-1. [Powerline-style prompts](#power-line-style-prompts)
-2. [System-colors only prompts](#sysmte-colors-only-prompts)
-3. [Minimalistic prompts](#minimalistic-prompts)
-4. [Git prompts](#git-prompts)
+1. [Powerline themes](#power-line-prompts)
+2. [System-colors-only themes](#sysmte-colors-only-prompts)
+3. [Minimalistic themes](#minimalistic-prompts)
+4. [Git themes](#git-prompts)
 5. [Context-aware prompts](#context-aware-prompts)
+6. [Theme Requirements](#theme-requirements)
 
-<a name="power-line-style-prompts"/ >
-## Powerline-style prompts
+<a name="power-line-prompts" />
+## Powerline prompts
 
 ### Hybrid
 
@@ -35,7 +36,6 @@
 
 ### Coffee break
 
-Use the coffee unicode symbol and brown colors
 ![Coffee break theme](/screenshots/coffee_break.png)
 
 ### Commander
@@ -62,3 +62,6 @@ Use the coffee unicode symbol and brown colors
 
 <a name="git-prompts"/ >
 <a name="context-aware-prompts"/ >
+
+<a name="theme-requirements"/ >
+## Theme Requirements
