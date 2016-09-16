@@ -3,7 +3,7 @@
 #     - Powerline font installed
 #     - Unicode support
 
-__set_theme() {
+__bpp_set_theme() {
     BASH_POWERPROMPT_THEME='colorful'
     BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15 15)
     BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160)

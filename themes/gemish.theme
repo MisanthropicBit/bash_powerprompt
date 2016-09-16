@@ -1,4 +1,4 @@
-__set_theme() {
+__bpp_set_theme() {
     BASH_POWERLINE_THEME='gemish'
     BASH_POWERLINE_FG_COLORS=(218 218 218 218 218)
     BASH_POWERLINE_BG_COLORS=(160 160 160 160 160)

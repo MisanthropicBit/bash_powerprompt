@@ -57,12 +57,12 @@ __bash_powerprompt() {
 
                 # Load the default theme and let custom themes override them
                 source "$script_dir/themes/default.theme"
-                __set_theme
+                __bpp_set_theme
 
                 # Load the custom theme unless it is the default
                 if [ "$theme" != "default" ]; then
                     source $theme_path
-                    __set_theme
+                    __bpp_set_theme
                 fi
             else
                 printf "%s" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"

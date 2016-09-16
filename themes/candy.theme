@@ -5,9 +5,10 @@
 #     - Unicode support
 #     - git
 
-__set_theme() {
-    # Load git utility functions
+__bpp_set_theme() {
+    # Load (git) utility functions
     source $(__get_script_dir)/git_functions.sh
+    source $(__get_script_dir)/utils.sh
 
     BASH_POWERPROMPT_THEME='candy'
     BASH_POWERPROMPT_COMMAND_SYMBOL="$"
