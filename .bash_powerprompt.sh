@@ -92,6 +92,17 @@ __bash_powerprompt() {
         fi
     }
 
+    # Load a set of utility functions
+    __load_utility() {
+        if [ -n "$1" ]; then
+            local script_dir=$(__get_script_dir)
+
+            source "$script_dir/lib/$1.sh"
+        else
+            printf "%s" "Error: Failed to load utility '$1'\n"
+        fi
+    }
+
     ######################################################################
 
     # Attempt to load the current theme

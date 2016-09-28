@@ -7,8 +7,8 @@
 
 __bpp_set_theme() {
     # Load (git) utility functions
-    source $(__get_script_dir)/git_functions.sh
-    source $(__get_script_dir)/utils.sh
+    __load_utility "git"
+    __load_utility "utils"
 
     BASH_POWERPROMPT_THEME='candy'
     BASH_POWERPROMPT_COMMAND_SYMBOL="$"
