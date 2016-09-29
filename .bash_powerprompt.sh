@@ -46,8 +46,8 @@ __bash_powerprompt() {
     local BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
     ######################################################################
 
-    # Loads a given theme (reverts to the default theme on error)
-    __load_theme() {
+    # Loads a given theme after loading the default theme first (reverts to the default theme on error)
+    __load_theme_internal() {
         if [[ -n "$BASH_POWERPROMPT_THEME" ]]; then
             local script_dir="$(__get_script_dir)"
             local theme_path="$script_dir/themes/$BASH_POWERPROMPT_THEME.theme"
@@ -64,6 +64,21 @@ __bash_powerprompt() {
                     source $theme_path
                     __bpp_set_theme
                 fi
+            else
+                printf "%s" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
+            fi
+        fi
+    }
+
+    # Load a theme without loading the default theme first. To be used in one theme to load another
+    __load_theme() {
+        if [ -n "$1" ]; then
+            local script_dir="$(__get_script_dir)"
+            local theme_path="$script_dir/themes/$1.theme"
+
+            if [ -r "$theme_path" ]; then
+                source $theme_path
+                __bpp_set_theme
             else
                 printf "%s" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
             fi
@@ -106,7 +121,7 @@ __bash_powerprompt() {
     ######################################################################
 
     # Attempt to load the current theme
-    __load_theme
+    __load_theme_internal
 
     # Exit if the theme only sets PS1
     if [ "$BASH_POWERPROMPT_ONLY_PS1" -eq 1 ]; then

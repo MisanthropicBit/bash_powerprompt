@@ -5,8 +5,7 @@
 
 __bpp_set_theme() {
     # Load the 'colorful' theme...
-    source "$(__get_script_dir)/themes/colorful.theme"
-    __set_theme
+    __load_theme "colorful"
 
     # ...and change the colors
     BASH_POWERPROMPT_THEME="hybrid"

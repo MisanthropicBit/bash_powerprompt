@@ -5,8 +5,7 @@
 
 __set_theme() {
     # Load the 'colorful' theme...
-    source "$(__get_script_dir)/themes/colorful.theme"
-    __set_theme
+    __load_theme "colorful"
 
     # After loading the 'colorful' theme we need to check if we are on a git branch
     local on_git_branch=0
