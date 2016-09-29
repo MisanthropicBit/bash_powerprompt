@@ -4,6 +4,8 @@
 #     - Unicode support
 
 __bpp_set_theme() {
+    __load_utility "git"
+
     BASH_POWERPROMPT_THEME='colorful'
     BASH_POWERPROMPT_FG_COLORS=(15 15 15 15 15 15 15 15)
     BASH_POWERPROMPT_BG_COLORS=(6 25 25 25 90 72 72 160)
@@ -22,14 +24,14 @@ __bpp_set_theme() {
         $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
     )
 
-    local git_branch="$(__get_current_git_branch)"
+    local git_branch="$(__git_branch)"
 
     if [ -n "$git_branch" ]; then
         git_branch=" $git_branch"
         local git_state="✗"
         local git_state_color="$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR"
 
-        if [ -n "$(__is_git_branch_clean)" ]; then
+        if [ -n "$(__git_unstaged)" ]; then
             git_state="✓"
             BASH_POWERPROMPT_FG_COLORS[4]="$BASH_POWERPROMPT_GIT_CLEAN_SYMBOL"
             git_state_color="$BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR"
