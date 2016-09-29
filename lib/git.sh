@@ -22,6 +22,26 @@ __get_current_git_branch() {
     printf "%s" "$git_branch"
 }
 
+# Return the number of unstaged files
+__git_unstaged() {
+    git diff --numstat | wc -l
+}
+
+# Return the number of staged files
+__git_staged() {
+    git diff --cached --numstat | wc -l
+}
+
+# Return the number of commits for HEAD
+__git_commits() {
+    git rev-list --count HEAD
+}
+
+# Return the number of commits for all branches
+__git_all_commits() {
+    git rev-list --count --all HEAD
+}
+
 #__git_ahead() {
 #}
 
