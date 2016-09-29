@@ -42,31 +42,32 @@ __git_all_commits() {
     git rev-list --count --all HEAD
 }
 
-#__git_ahead() {
-#}
+# Return the number of commits the current branch is ahead of its remote
+__git_ahead() {
+    git rev-list master..HEAD --count
+}
 
-#__git_behind() {
-#}
-
-#__git_staged() {
-#}
+# Return the number of commits the current branch is behind its remote
+__git_behind() {
+    git rev-list HEAD..master --count
+}
 
 #__git_conflicts() {
 #}
 
-#__git_stashed() {
-#}
+# Return the number of stashed files
+__git_stashed() {
+    git stash list 2>/dev/null | wc -l
+}
 
 #__git_tracked() {
 #    git ls-files | wc -l
 #}
 
-#__git_untracked() {
-#    git status --untracked-files --porcelain | wc -l
-#}
+# Return the number of untracked files
+__git_untracked() {
+    git ls-files --others --exclude-standard | wc -l
+}
 
 #__git_uncommited() {
-#}
-
-#__git_is_local() {
 #}
