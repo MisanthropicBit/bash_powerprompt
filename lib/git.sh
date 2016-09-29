@@ -9,7 +9,7 @@ __is_git_branch() {
 }
 
 # Get the current git branch. Use .git-prompt.sh if it is available
-__get_current_git_branch() {
+__git_branch() {
     local git_branch=''
 
     if type __git_ps1 > /dev/null; then
