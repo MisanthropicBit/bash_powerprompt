@@ -44,12 +44,18 @@ __git_all_commits() {
 
 # Return the number of commits the current branch is ahead of its remote
 __git_ahead() {
-    git rev-list master..HEAD --count
+    local branch=$(__git_branch)
+    local remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
+
+    git rev-list $branch..$remote --count
 }
 
 # Return the number of commits the current branch is behind its remote
 __git_behind() {
-    git rev-list HEAD..master --count
+    local branch=$(__git_branch)
+    local remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
+
+    git rev-list $remote..$branch --count
 }
 
 #__git_conflicts() {
@@ -60,14 +66,12 @@ __git_stashed() {
     git stash list 2>/dev/null | wc -l
 }
 
-#__git_tracked() {
-#    git ls-files | wc -l
-#}
+# Return the number of tracked files
+__git_tracked() {
+    git ls-files | wc -l
+}
 
 # Return the number of untracked files
 __git_untracked() {
     git ls-files --others --exclude-standard | wc -l
 }
-
-#__git_uncommited() {
-#}
