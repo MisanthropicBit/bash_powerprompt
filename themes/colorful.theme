@@ -31,7 +31,7 @@ __bpp_set_theme() {
         local git_state="✗"
         local git_state_color="$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR"
 
-        if [ -n "$(__git_unstaged)" ]; then
+        if [ "$(__git_unstaged)" -eq 0 ]; then
             git_state="✓"
             BASH_POWERPROMPT_FG_COLORS[4]="$BASH_POWERPROMPT_GIT_CLEAN_SYMBOL"
             git_state_color="$BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR"
