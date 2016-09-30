@@ -45,9 +45,13 @@ __git_all_commits() {
 # Return the number of commits the current branch is ahead of its remote
 __git_ahead() {
     local branch=$(__git_branch)
-    local remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
+    local remote=$(git rev-parse --abbrev-ref --symbolic-full-name $branch@{u} 2>/dev/null)
 
-    git rev-list $branch..$remote --count
+    if [ -n "$remote" ]; then
+        git rev-list $branch..$remote --count
+    else
+        printf "%d" 0
+    fi
 }
 
 # Return the number of commits the current branch is behind its remote
@@ -55,7 +59,11 @@ __git_behind() {
     local branch=$(__git_branch)
     local remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
 
-    git rev-list $remote..$branch --count
+    if [ -n "$remote" ]; then
+        git rev-list $remote..$branch --count
+    else
+        printf "%d" 0
+    fi
 }
 
 #__git_conflicts() {
