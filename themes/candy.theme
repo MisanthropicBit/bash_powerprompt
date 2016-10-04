@@ -6,7 +6,6 @@
 #     - git
 
 __bpp_set_theme() {
-    # Load (git) utility functions
     __load_utility "git"
     __load_utility "utils"
 
@@ -38,7 +37,7 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_SECTIONS=(
         "\u"
         "$path"
-        "$(printf "%b $(__get_current_git_branch)" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL")"
+        "$(printf "%b $(__git_branch)" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL")"
         "$BASH_POWERPROMPT_COMMAND_SYMBOL"
     )
 }
