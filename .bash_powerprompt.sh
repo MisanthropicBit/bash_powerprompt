@@ -65,7 +65,7 @@ __bash_powerprompt() {
                     __bpp_set_theme
                 fi
             else
-                printf "%s" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
+                printf "%s\n" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'"
             fi
         fi
     }
@@ -80,7 +80,7 @@ __bash_powerprompt() {
                 source $theme_path
                 __bpp_set_theme
             else
-                printf "%s" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'\n"
+                printf "%s\n" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'"
             fi
         fi
     }
