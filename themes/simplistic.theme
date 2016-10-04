@@ -16,7 +16,7 @@ __bpp_set_theme() {
     # Load git utility functions
     __load_utility "git"
 
-    local git_branch="$(__get_current_git_branch)"
+    local git_branch="$(__git_branch)"
 
     if [ -n "$git_branch" ]; then
         BASH_POWERPROMPT_BG_COLORS=("${BASH_POWERPROMPT_BG_COLORS[@]}" '')
