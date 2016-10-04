@@ -38,8 +38,8 @@ __bash_powerprompt() {
     local BG_COLOR_PREFIX_256='48;5'
     local FG_COLOR_PREFIX_TRUE_COLOR='38;2'
     local BG_COLOR_PREFIX_TRUE_COLOR='48;2'
-    local RESET_FG_COLORS="\[$COLOR_ESCAPE_CODE[39m\]"
-    local RESET_BG_COLORS="\[$COLOR_ESCAPE_CODE[49m\]"
+    local RESET_FG_COLOR="\[$COLOR_ESCAPE_CODE[39m\]"
+    local RESET_BG_COLOR="\[$COLOR_ESCAPE_CODE[49m\]"
     local RESET_ATTRIBUTES="\[$COLOR_ESCAPE_CODE[0m\]" # Resets all ANSI attributes
     local BASH_POWERPROMPT_COLOR_FORMAT_16="\[$COLOR_ESCAPE_CODE[%s;%sm\]"
     local BASH_POWERPROMPT_COLOR_FORMAT_256="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_256};%s;${BG_COLOR_PREFIX_256};%sm\]"
@@ -190,7 +190,7 @@ __bash_powerprompt() {
     done
 
     # Handle the last separator separately
-    __ps1+=$(printf "%s" "$RESET_BG_COLORS")
+    __ps1+=$(printf "%s" "$RESET_BG_COLOR")
     __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" ""
 
     # Must be called as the last element of the prompt to reset all colors and attributes
