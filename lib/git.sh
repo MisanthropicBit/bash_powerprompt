@@ -48,7 +48,7 @@ __git_ahead() {
     local remote=$(git rev-parse --abbrev-ref --symbolic-full-name $branch@{u} 2>/dev/null)
 
     if [ -n "$remote" ]; then
-        git rev-list $branch..$remote --count
+        git rev-list $remote..$branch --count
     else
         printf "%d" 0
     fi
@@ -60,7 +60,7 @@ __git_behind() {
     local remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
 
     if [ -n "$remote" ]; then
-        git rev-list $remote..$branch --count
+        git rev-list $branch..$remote --count
     else
         printf "%d" 0
     fi
