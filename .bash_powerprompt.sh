@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A `bash` script that gives you a visually pleasing, informative and customisable
+# A bash script that gives you a visually pleasing, informative and customisable
 # command line prompt.
 #
 # Author: MisanthropicBit
