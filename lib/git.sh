@@ -12,7 +12,7 @@ __is_git_branch() {
 __git_branch() {
     local git_branch=''
 
-    if type __git_ps1 > /dev/null; then
+    if type -t __git_ps1 > /dev/null 2>&1; then
         git_branch="$(__git_ps1 '%s')"
     else
         # This requires git v1.7+
