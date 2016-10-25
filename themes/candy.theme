@@ -24,19 +24,31 @@ __bpp_set_theme() {
     )
 
     local text_fg_color="255;255;255"
+    local path_fg_color="206;206;206"
     local path_bg_color="135;95;215"
     local sep_color="175;215;95"
     BASH_POWERPROMPT_FG_COLORS=($text_fg_color $text_fg_color $text_fg_color $text_fg_color)
     BASH_POWERPROMPT_BG_COLORS=("120;173;106" $path_bg_color "0;175;215" "255;175;95")
 
-    local path=$(__get_cwd)
     local sep_format=" ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} " 
-    local sep=$(printf "$sep_format" $sep_color $path_bg_color $text_fg_color $path_bg_color)
-    path="${path//\//$sep}"
+    local sep=$(printf "$sep_format" $sep_color $path_bg_color $path_fg_color $path_bg_color)
+    local new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}" $path_fg_color $path_bg_color)
+
+    while IFS='/' read -ra path_array; do
+        local last_index=$((${#path_array[@]} - 1))
+
+        for i in ${!path_array[@]}; do
+            if [ "$i" -lt "$last_index" ]; then
+                new_path="$new_path${path_array[i]}$sep"
+            else
+                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]}" "255;255;255" $path_bg_color)
+            fi
+        done
+    done <<< "$(__get_cwd)"
 
     BASH_POWERPROMPT_SECTIONS=(
         "\u"
-        "$path"
+        "$new_path"
         "$(printf "%b $(__git_branch)" "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL")"
         "$BASH_POWERPROMPT_COMMAND_SYMBOL"
     )
