@@ -57,7 +57,7 @@ __bash_powerprompt() {
 
     # Loads a given theme after loading the default theme first (reverts to the default theme on error)
     __load_theme_internal() {
-        if [[ -n "$BASH_POWERPROMPT_THEME" ]]; then
+        if [ -n "$BASH_POWERPROMPT_THEME" ]; then
             local script_dir="$(__get_script_dir)"
             local theme_path="$script_dir/themes/$BASH_POWERPROMPT_THEME.theme"
 
