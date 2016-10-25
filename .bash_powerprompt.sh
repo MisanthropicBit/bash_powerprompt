@@ -127,16 +127,6 @@ __bash_powerprompt() {
         fi
     }
 
-    ######################################################################
-
-    # Attempt to load the current theme
-    __load_theme_internal
-
-    # Exit if the theme only sets PS1
-    if [ "$BASH_POWERPROMPT_ONLY_PS1" -eq 1 ]; then
-        return 0
-    fi
-
     # Prints a single separator
     __print_separator() {
         local prev_symbol="$2"
@@ -163,6 +153,35 @@ __bash_powerprompt() {
             fi
         fi
     }
+
+    ######################################################################
+
+    # Attempt to load the current theme
+    __load_theme_internal
+
+    # Exit if the theme only sets PS1
+    if [ "$BASH_POWERPROMPT_ONLY_PS1" -eq 1 ]; then
+        return 0
+    fi
+
+    # Set color code prefixes
+    case "$BASH_POWERPROMPT_COLOR_FORMAT" in
+        "$BASH_POWERPROMPT_COLOR_FORMAT_16")
+            BASH_POWERPROMPT_FG_COLOR_PREFIX="$FG_COLOR_PREFIX_16"
+            BASH_POWERPROMPT_BG_COLOR_PREFIX="$BG_COLOR_PREFIX_16"
+            ;;
+        "$BASH_POWERPROMPT_COLOR_FORMAT_256")
+            BASH_POWERPROMPT_FG_COLOR_PREFIX="$FG_COLOR_PREFIX_256"
+            BASH_POWERPROMPT_BG_COLOR_PREFIX="$BG_COLOR_PREFIX_256"
+            ;;
+        "$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR")
+            BASH_POWERPROMPT_FG_COLOR_PREFIX="$FG_COLOR_PREFIX_TRUE_COLOR"
+            BASH_POWERPROMPT_BG_COLOR_PREFIX="$BG_COLOR_PREFIX_TRUE_COLOR"
+            ;;
+        *)
+            __error "Unknown color format ($BASH_POWERPROMPT_COLOR_FORMAT)"
+            ;;
+    esac
 
     local __ps1=''
     local fg=''
