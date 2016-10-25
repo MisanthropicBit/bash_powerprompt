@@ -34,6 +34,8 @@ __bash_powerprompt() {
     # COLOR VARIABLES
     ######################################################################
     local COLOR_ESCAPE_CODE='\033'
+    local FG_COLOR_PREFIX_16=''
+    local BG_COLOR_PREFIX_16=''
     local FG_COLOR_PREFIX_256='38;5'
     local BG_COLOR_PREFIX_256='48;5'
     local FG_COLOR_PREFIX_TRUE_COLOR='38;2'
