@@ -136,8 +136,10 @@ __bash_powerprompt() {
             if [ "$prev_symbol" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
                 local prev_bg_color="$3"
                 local bg_color="$4"
+                [ -n "$prev_bg_color" ] && prev_bg_color="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$prev_bg_color" || prev_bg_color="$RESET_FG_CODE"
+                [ -n "$bg_color" ] && bg_color="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$bg_color" || bg_color="$RESET_BG_CODE"
 
-                __ps1+="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
+                __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
             else
                 local i="$1"
 
@@ -145,8 +147,11 @@ __bash_powerprompt() {
                 local sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$((i - 1))]}
                 local sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$((i - 1))]}
 
+                [ -n "$sfg" ] && sfg="${FG_COLOR_PREFIX_256}$sfg" || sfg="$RESET_FG_CODE"
+                [ -n "$sbg" ] && sbg="${BG_COLOR_PREFIX_256}$sbg" || sbg="$RESET_BG_CODE"
+
                 if [[ -n "$sfg" || -n "$sbg" ]]; then
-                    __ps1+="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
+                    __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
                 else
                     __ps1+="$prev_symbol"
                 fi
