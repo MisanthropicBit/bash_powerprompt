@@ -51,6 +51,10 @@ __bash_powerprompt() {
     local BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
     ######################################################################
 
+    __error() {
+        printf "\033[31m%s\033[0m: %s\n" "Error" "$1"
+    }
+
     # Loads a given theme after loading the default theme first (reverts to the default theme on error)
     __load_theme_internal() {
         if [[ -n "$BASH_POWERPROMPT_THEME" ]]; then
@@ -70,7 +74,7 @@ __bash_powerprompt() {
                     __bpp_set_theme
                 fi
             else
-                printf "%s\n" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'"
+                __error "Failed to load theme '$BASH_POWERPROMPT_THEME'"
             fi
         fi
     }
@@ -85,7 +89,7 @@ __bash_powerprompt() {
                 source $theme_path
                 __bpp_set_theme
             else
-                printf "%s\n" "Error: Failed to load theme '$BASH_POWERPROMPT_THEME'"
+                __error "Failed to load theme '$BASH_POWERPROMPT_THEME'"
             fi
         fi
     }
@@ -119,7 +123,7 @@ __bash_powerprompt() {
 
             source "$script_dir/lib/$1.sh"
         else
-            printf "%s" "Error: Failed to load utility '$1'\n"
+            __error "Error: Failed to load utility '$1'"
         fi
     }
 
