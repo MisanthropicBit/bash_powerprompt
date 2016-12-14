@@ -38,6 +38,11 @@ __bpp_set_theme() {
         local last_index=$((${#path_array[@]} - 1))
 
         for i in ${!path_array[@]}; do
+            # Skip empty splits
+            if [ -z ${path_array[i]} ]; then
+                continue
+            fi
+
             if [ "$i" -lt "$last_index" ]; then
                 new_path="$new_path${path_array[i]}$sep"
             else
