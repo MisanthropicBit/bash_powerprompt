@@ -30,7 +30,7 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_FG_COLORS=($text_fg_color $text_fg_color $text_fg_color $text_fg_color)
     BASH_POWERPROMPT_BG_COLORS=("120;173;106" $path_bg_color "0;175;215" "255;175;95")
 
-    local sep_format=" ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} " 
+    local sep_format=" ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} "
     local sep=$(printf "$sep_format" $sep_color $path_bg_color $path_fg_color $path_bg_color)
     local new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}" $path_fg_color $path_bg_color)
 
