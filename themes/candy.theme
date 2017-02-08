@@ -39,7 +39,7 @@ __bpp_set_theme() {
 
         for i in ${!path_array[@]}; do
             # Skip empty splits
-            if [ -z ${path_array[i]} ]; then
+            if [ -z "${path_array[i]}" ]; then
                 continue
             fi
 
