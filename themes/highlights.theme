@@ -1,0 +1,83 @@
+# Requirements:
+#     - True-color support
+#     - Powerline font installed
+#     - Unicode support
+
+__bpp_set_theme() {
+    __load_utility "utils"
+
+    BASH_POWERPROMPT_THEME='highlights'
+    BASH_POWERPROMPT_COMMAND_SYMBOL=""
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' '' ' ')
+    BASH_POWERPROMPT_RIGHT_PADDING=(' ' ' ' ' ' ' ')
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
+    BASH_POWERPROMPT_SKIP_SEPS=(0 0 1)
+    BASH_POWERPROMPT_SEPARATORS=(
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+    )
+
+    BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS=4
+
+    local blue_highlight="19;145;218"
+    local pink_highlight="255;20;147"
+    local fg_color="200;200;200"
+    local bg_color="69;69;69"
+
+    BASH_POWERPROMPT_FG_COLORS=($fg_color $fg_color $fg_color)
+    BASH_POWERPROMPT_BG_COLORS=("85;85;85" $blue_highlight $pink_highlight)
+
+    local sep_format="${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} "
+    local sep=$(printf "$sep_format" "150;150;150" $bg_color "180;180;180" $bg_color)
+    local new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}" $fg_color $blue_highlight)
+
+    # TODO: Either do this or simply set each path element as a unique section
+    # if we can combine arrays in bash
+    #IFS='/' read -ra patharray <<< "$(__get_cwd)"
+    #echo "test: ${patharray[@]}"
+
+    while IFS='/' read -ra path_array; do
+        local last_index=$((${#path_array[@]} - 1))
+
+        for i in ${!path_array[@]}; do
+            # Skip empty splits
+            if [ -z "${path_array[i]}" ]; then
+                continue
+            fi
+
+            if [[ "$i" -ge $((BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS - 1)) && "$i" -ne $last_index ]]; then
+                if [ "$i" -eq $((BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS - 1)) ]; then
+                    new_path="$new_path... $sep"
+                fi
+
+                continue
+            fi
+
+            # Handle the first part of the path (blue) different from the remaining paths (gray)
+            if [ "$i" -eq 0 ]; then
+                new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]}" "255;255;255" $blue_highlight)
+            elif [ "$i" -lt "$last_index" ]; then
+                if [ "$i" -eq 1 ]; then
+                    new_path=$(printf "$new_path ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL} " $blue_highlight $bg_color)
+                    new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} $sep" $fg_color $bg_color)
+                else
+                    new_path="$new_path${path_array[i]} $sep"
+                fi
+            else
+                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
+                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
+            fi
+        done
+    done <<< "$(__get_cwd)"
+
+    local jobs=$(printf "\xe2\x9a\xa1  \j")
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\u"
+        "$new_path"
+        "$jobs"
+    )
+}
