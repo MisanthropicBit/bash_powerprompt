@@ -36,17 +36,14 @@ __bpp_set_theme() {
 
     # TODO: Either do this or simply set each path element as a unique section
     # if we can combine arrays in bash
-    #IFS='/' read -ra patharray <<< "$(__get_cwd)"
-    #echo "test: ${patharray[@]}"
+    IFS='/' read -ra path_array <<< "$(__get_cwd)"
 
-    while IFS='/' read -ra path_array; do
-        local last_index=$((${#path_array[@]} - 1))
+    if [ "${path_array[0]}" = "~" ]; then
+        # Slice off the tilde
+        path_array=("${path_array[@]:1}")
+    fi
 
-        for i in ${!path_array[@]}; do
-            # Skip empty splits
-            if [ -z "${path_array[i]}" ]; then
-                continue
-            fi
+    local last_index=$((${#path_array[@]} - 1))
 
     for i in ${!path_array[@]}; do
         # Skip empty splits
@@ -66,11 +63,13 @@ __bpp_set_theme() {
                 new_path=$(printf "$new_path ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL} " $blue_highlight $bg_color)
                 new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} $sep" $fg_color $bg_color)
             else
-                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
-                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
+                new_path="$new_path${path_array[i]} $sep"
             fi
-        done
-    done <<< "$(__get_cwd)"
+        else
+            new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
+            new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
+        fi
+    done
 
     local jobs=$(printf "\xe2\x9a\xa1  \j")
 
