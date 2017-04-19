@@ -77,8 +77,10 @@ __bpp_set_theme() {
         fi
     done
 
+    local lightning_symbol="\xe2\x9a\xa1"
+
     # Use two spaces between lightning symbol and job count
-    local jobs=$(printf "\xe2\x9a\xa1  \j")
+    local jobs=$(printf "$lightning_symbol  \j")
 
     BASH_POWERPROMPT_SECTIONS=(
         "\u"
