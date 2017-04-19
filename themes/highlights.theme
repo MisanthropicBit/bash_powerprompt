@@ -27,7 +27,7 @@ __bpp_set_theme() {
     local fg_color="200;200;200"
     local bg_color="69;69;69"
 
-    BASH_POWERPROMPT_FG_COLORS=($fg_color $fg_color $fg_color)
+    BASH_POWERPROMPT_FG_COLORS=($fg_color $fg_color "255;255;255")
     BASH_POWERPROMPT_BG_COLORS=("85;85;85" $blue_highlight $pink_highlight)
 
     local sep_format="${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} "
