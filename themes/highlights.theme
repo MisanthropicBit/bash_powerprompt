@@ -57,14 +57,20 @@ __bpp_set_theme() {
                 new_path="$new_path... $sep"
             fi
         elif [ "$i" -eq 0 ]; then
+            # The first part of the path sections is blue
             new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]}" "255;255;255" $blue_highlight)
-        elif [ "$i" -lt "$last_index" ]; then
-            if [ "$i" -eq 1 ]; then
+        elif [ "$i" -eq 1 ]; then
+            if [ "$i" -eq "$last_index" ]; then
+                # The second path element is also the last element
+                new_path=$(printf "$new_path ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL} " $blue_highlight $bg_color)
+                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
+                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
+            else
                 new_path=$(printf "$new_path ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL} " $blue_highlight $bg_color)
                 new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} $sep" $fg_color $bg_color)
-            else
-                new_path="$new_path${path_array[i]} $sep"
             fi
+        elif [ "$i" -lt "$last_index" ]; then
+            new_path="$new_path${path_array[i]} $sep"
         else
             new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
             new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
