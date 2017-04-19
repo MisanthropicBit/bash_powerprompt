@@ -23,7 +23,7 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS=4
 
     local blue_highlight="19;145;218"
-    local pink_highlight="255;20;147"
+    local pink_highlight="255;50;170"
     local fg_color="200;200;200"
     local bg_color="69;69;69"
 
