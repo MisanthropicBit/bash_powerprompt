@@ -71,6 +71,7 @@ __bpp_set_theme() {
         fi
     done
 
+    # Use two spaces between lightning symbol and job count
     local jobs=$(printf "\xe2\x9a\xa1  \j")
 
     BASH_POWERPROMPT_SECTIONS=(
