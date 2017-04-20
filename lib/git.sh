@@ -101,6 +101,7 @@ __git_states() {
 
     local branch=''
     local staged=0
+    local stashed=0
     local modified=0
     local conflicts=0
     local untracked=0
@@ -131,11 +132,20 @@ __git_states() {
         done
     done <<< "$git_status"
 
+    # Read stash count from stash file
+    local stash_file="$(git rev-parse --git-dir)/logs/refs/stash"
+
+    if [ -e "${stash_file}" ]; then
+        while IFS='' read -r wcline || [[ -n "$wcline" ]]; do
+            ((stashed++))
+        done < "${stash_file}"
+    fi
+
     local clean=0
 
     if [[ $staged -eq 0 && modified -eq 0 && conflicts -eq 0 ]]; then
         clean=1
     fi
 
-    printf "$clean $staged $modified $conflicts $untracked"
+    printf "$clean $staged $modified $conflicts $stashed $untracked"
 }
