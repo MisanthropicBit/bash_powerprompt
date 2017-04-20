@@ -90,6 +90,10 @@ __git_untracked() {
 }
 
 # Parse the output of git status and return the state of all tracked content
+# The returned string can be converted into an array using:
+#   IFS=" " read -ra git_states <<< "$(__git_states)"
+#
+# The ordering of counts is: (clean staged modified conflicts stashed untracked)
 __git_states() {
     local git_status=$(git status --porcelain --branch)
 
