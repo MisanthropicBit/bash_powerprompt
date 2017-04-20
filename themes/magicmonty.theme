@@ -39,6 +39,7 @@ __bpp_set_theme() {
     local conflict_symbol="\xe2\x9c\x96"  # ✖
     local clean_symbol="\xe2\x9c\x94"     # ✔
     local staged_symbol="\xe2\x97\x8f"    # ●
+    local stashed_symbol="\xe2\9a\x91"    # ⚑
     local untracked_symbol="\xe2\x80\xa6" # …
 
     local git_state_format="${RESET_ATTRIBUTES}[${BASH_POWERPROMPT_COLOR_FORMAT_16}%s%s${RESET_ATTRIBUTES}|${BASH_POWERPROMPT_COLOR_FORMAT_16}%s${RESET_ATTRIBUTES}]"
