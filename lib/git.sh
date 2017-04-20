@@ -85,7 +85,7 @@ __git_untracked() {
 }
 
 # Parse the output of git status and return the state of all tracked content
-__git_all_states() {
+__git_states() {
     local git_status=$(git status --porcelain --branch)
 
     [ "$?" -ne 0 ] && exit 0
