@@ -1,0 +1,98 @@
+# This is based on the default theme of magicmonty's bash git prompt
+#
+# Requirements:
+#     - 16 color support
+#     - Powerline font installed
+#     - Unicode support
+
+__bpp_set_theme() {
+    __load_utility "git"
+
+    local yellow="33"
+    local blue="34"
+    local purple="35"
+
+    if [ "$BPP_THEME_MAGICMONTY_BRIGHT" -eq 1 ]; then
+        yellow="33;1"
+        blue="34;1"
+        purple="35;1"
+    fi
+
+    BASH_POWERPROMPT_THEME='magicmonty'
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_16
+    BASH_POWERPROMPT_FG_COLORS=($yellow '')
+    BASH_POWERPROMPT_BG_COLORS=()
+    BASH_POWERPROMPT_LEFT_PADDING=('' '')
+    BASH_POWERPROMPT_RIGHT_PADDING=('' '')
+    BASH_POWERPROMPT_SEPARATORS=('' '')
+
+    # Unicode symbols used for git status
+    local modified_symbol="+"
+    local ahead_symbol="\xe2\x86\x91"     # ↑
+    local behind_symbol="\xe2\x86\x93"    # ↓
+    local conflict_symbol="\xe2\x9c\x96"  # ✖
+    local clean_symbol="\xe2\x9c\x94"     # ✔
+    local staged_symbol="\xe2\x97\x8f"    # ●
+    local untracked_symbol="\xe2\x80\xa6" # …
+
+    local git_state_format="${RESET_ATTRIBUTES}[${BASH_POWERPROMPT_COLOR_FORMAT_16}%s%s${RESET_ATTRIBUTES}|${BASH_POWERPROMPT_COLOR_FORMAT_16}%s${RESET_ATTRIBUTES}]"
+    local git_branch="$(__git_branch)"
+    local git_state=""
+
+    if [ -n "$git_branch" ]; then
+        # Get all git states
+        IFS=" " read -ra git_states <<< "$(__git_states)"
+
+        local ahead="$(__git_ahead)"
+        local behind="$(__git_behind)"
+        local ahead_behind_state=""
+
+        if [ "$ahead" -gt 0 ]; then
+            ahead_behind_state="$ahead_symbol$ahead"
+        fi
+
+        if [ "$behind" -gt 0 ]; then
+            ahead_behind_state="$ahead_behind_state$behind_symbol$behind"
+        fi
+
+        if [ "${git_states[0]}" -eq 1 ]; then
+            # Untracked files
+            if [ "${git_states[4]}" -gt 0 ]; then
+                git_state="${untracked_symbol}"
+            fi
+
+            # Branch is clean
+            git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$(printf "$clean_symbol$git_state")")"
+        else
+            # Staged files
+            if [ "${git_states[1]}" -gt 0 ]; then
+                git_state="${git_state}${staged_symbol}${git_states[1]}"
+            fi
+
+            # Modified files
+            if [ "${git_states[2]}" -gt 0 ]; then
+                git_state="${git_state}${modified_symbol}${git_states[2]}"
+            fi
+
+            # Conflicted files
+            if [ "${git_states[3]}" -gt 0 ]; then
+                git_state="${git_state}${conflict_symbol}${git_states[3]}"
+            fi
+
+            # Untracked files
+            if [ "${git_states[4]}" -gt 0 ]; then
+                git_state="${git_state}${untracked_symbol}"
+            fi
+
+            git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$(printf "$git_state")")"
+        fi
+
+        # Add a space as separator between the two sections
+        BASH_POWERPROMPT_SEPARATORS[0]=' '
+    fi
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\w"
+        "$git_state"
+    )
+}
