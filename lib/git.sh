@@ -22,6 +22,11 @@ __git_branch() {
     printf "%s" "$git_branch"
 }
 
+# Return the current git directory (usually '.git')
+__git_dir() {
+    printf "$(git rev-parse --git-dir)"
+}
+
 # Return the number of unstaged files
 __git_unstaged() {
     git diff --numstat | wc -l
