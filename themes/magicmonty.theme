@@ -8,14 +8,20 @@
 __bpp_set_theme() {
     __load_utility "git"
 
+    local red="31"
+    local green="32"
     local yellow="33"
     local blue="34"
     local purple="35"
+    local cyan="36"
 
     if [ "$BPP_THEME_MAGICMONTY_BRIGHT" -eq 1 ]; then
+        red="31;1"
+        green="32;1"
         yellow="33;1"
         blue="34;1"
         purple="35;1"
+        cyan="36;1"
     fi
 
     BASH_POWERPROMPT_THEME='magicmonty'
