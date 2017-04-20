@@ -100,7 +100,6 @@ __git_all_states() {
     # then single-character statuses
     while IFS='' read -r line || [ -n "$line" ]; do
         local status=${line:0:2}
-        printf "$status\n"
 
         while [[ -n "$status" ]]; do
             case "$status" in
