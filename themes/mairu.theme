@@ -40,7 +40,7 @@ __bpp_set_theme() {
         "\h:"
         "\w"
         "$git_branch"
-        "\n"
+        "$RESET_ATTRIBUTES\n"
         "→"
     )
 }
