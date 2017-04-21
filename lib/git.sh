@@ -1,11 +1,11 @@
 # Returns 0 if the branch is clean, 1 otherwise
 __is_git_branch_clean() {
-    2>/dev/null 1>&2 git status --ignore-submodules | grep 'nothing to commit'
+    printf "%d" "$(2>/dev/null 1>&2 git status --untracked-files=no --ignore-submodules | grep 'nothing to commit')"
 }
 
 # Returns 0 if the current directory is a git branch, 1 otherwise
 __is_git_branch() {
-    2>/dev/null 1>&2 git status --ignore-submodules
+    printf "%d" "$(2>/dev/null 1>&2 git status --ignore-submodules)"
 }
 
 # Get the current git branch. Use .git-prompt.sh if it is available
