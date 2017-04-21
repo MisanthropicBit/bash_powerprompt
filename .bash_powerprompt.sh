@@ -212,10 +212,7 @@ __bash_powerprompt() {
             contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" "$fg" "$bg" "$contents")"
         fi
 
-        if [ "${#BASH_POWERPROMPT_SKIP_SEPS[@]}" -gt "$i" ] && [ "${BASH_POWERPROMPT_SKIP_SEPS[i]}" -eq 0 ]; then
-            __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
-        fi
-
+        __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
         __ps1+="$contents"
 
         # Save curent settings
