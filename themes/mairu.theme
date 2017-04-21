@@ -1,0 +1,46 @@
+# This is based on the arne epic, timestamped prompt  of magicmonty's bash git prompt
+#
+# Requirements:
+#     - 16 color support
+#     - Unicode support
+
+__bpp_set_theme() {
+    __load_utility "git"
+
+    local red="31;1"
+    local green="32;1"
+    local yellow="33;1"
+    local white="37;1"
+
+    BASH_POWERPROMPT_THEME='mairu'
+    BASH_POWERPROMPT_COLOR_FORMAT="$BASH_POWERPROMPT_COLOR_FORMAT_16"
+    BASH_POWERPROMPT_FG_COLORS=($green "" $yellow $white "" "" "")
+    BASH_POWERPROMPT_BG_COLORS=('' '' '' '' '' '' '')
+    BASH_POWERPROMPT_LEFT_PADDING=('' '' '' '' '' '' '')
+    BASH_POWERPROMPT_RIGHT_PADDING=('' '' '' '' '' '' '')
+    BASH_POWERPROMPT_SEPARATORS=('' '' '' ' ' '' '')
+
+    local git_branch="$(__git_branch)"
+    local git_clean="$(__is_git_branch_clean)"
+    local git_branch_color="$green"
+
+    if [ -n "$git_branch" ]; then
+        if [ "$git_clean" -eq 0 ]; then
+            git_branch_color="$red"
+        fi
+
+        git_branch=$(printf "${RESET_ATTRIBUTES}(git: ${BASH_POWERPROMPT_COLOR_FORMAT}%s${RESET_ATTRIBUTES})" $git_branch_color '' $git_branch)
+    else
+        git_branch=''
+    fi
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\u"
+        "$RESET_ATTRIBUTES@"
+        "\h:"
+        "\w"
+        "$git_branch"
+        "\n"
+        "→"
+    )
+}
