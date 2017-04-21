@@ -1,0 +1,54 @@
+# This is based on the arne epic, timestamped prompt  of magicmonty's bash git prompt
+#
+# Requirements:
+#     - 16 color support
+#     - Unicode support
+
+__bpp_set_theme() {
+    __load_utility "git"
+
+    local red="31"
+    local green="32"
+    local gray="37"
+    local white="37;1"
+    local bold_blue="34;1"
+
+    BASH_POWERPROMPT_THEME='arne'
+    BASH_POWERPROMPT_COLOR_FORMAT="$BASH_POWERPROMPT_COLOR_FORMAT_16"
+    BASH_POWERPROMPT_FG_COLORS=($gray "" $white "" $bold_blue $gray)
+    BASH_POWERPROMPT_BG_COLORS=('' '' '' '' '' '')
+    BASH_POWERPROMPT_LEFT_PADDING=('' '' '' '' '' '')
+    BASH_POWERPROMPT_RIGHT_PADDING=('' '' '' '' '' '')
+    BASH_POWERPROMPT_SEPARATORS=(' ' ' ' '' '' '')
+
+    local git_branch="$(__git_branch)"
+    local git_clean="$(__is_git_branch_clean)"
+    local git_branch_color="$green"
+
+    if [ -n "$git_branch" ]; then
+        if [ "$git_clean" -eq 0 ]; then
+            git_branch_color="$red"
+        fi
+
+        git_branch=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}(%s)${RESET_ATTRIBUTES}" $git_branch_color '' $git_branch)
+    fi
+
+    local exit_status_color="$green"
+    local exit_status_symbol="✔"
+
+    if [ "$BASH_POWERPROMPT_EXIT_STATUS" -ne 0 ]; then
+        exit_status_color="$red"
+        exit_status_symbol="✗"
+    fi
+
+    local exit_status=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s${RESET_ATTRIBUTES}" "$exit_status_color" '' "$exit_status_symbol")
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\t"
+        "$exit_status"
+        "\u:"
+        "$git_branch"
+        "\w"
+        "$BASH_POWERPROMPT_COMMAND_SYMBOL"
+    )
+}
