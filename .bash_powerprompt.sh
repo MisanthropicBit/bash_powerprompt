@@ -186,7 +186,7 @@ __bash_powerprompt() {
             BASH_POWERPROMPT_BG_COLOR_PREFIX="$BG_COLOR_PREFIX_TRUE_COLOR"
             ;;
         *)
-            __error "Unknown color format ($BASH_POWERPROMPT_COLOR_FORMAT)"
+            __error "Unknown color format '$BASH_POWERPROMPT_COLOR_FORMAT'"
             ;;
     esac
 
