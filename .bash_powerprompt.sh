@@ -232,5 +232,6 @@ __bash_powerprompt() {
     __ps1+=$(printf "%s" "$RESET_ATTRIBUTES")
 
     __ps1+="$BASH_POWERPROMPT_PROMPT_END_SPACING"
+
     export PS1="$__ps1"
 }
