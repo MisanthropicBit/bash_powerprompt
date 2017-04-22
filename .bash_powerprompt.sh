@@ -152,7 +152,7 @@ __bash_powerprompt() {
                 [ -n "$sfg" ] && sfg="${FG_COLOR_PREFIX_256}$sfg" || sfg="$RESET_FG_CODE"
                 [ -n "$sbg" ] && sbg="${BG_COLOR_PREFIX_256}$sbg" || sbg="$RESET_BG_CODE"
 
-                if [[ -n "$sfg" || -n "$sbg" ]]; then
+                if [ -n "$sfg" ] || [ -n "$sbg" ]; then
                     __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
                 else
                     __ps1+="$prev_symbol"
@@ -204,13 +204,13 @@ __bash_powerprompt() {
         bg=${BASH_POWERPROMPT_BG_COLORS[$i]}
         contents="${BASH_POWERPROMPT_SECTIONS[$i]}"
 
-        if [[ "$BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS" -eq 1 && -z "$contents" ]]; then
+        if [ "$BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS" -eq 1 ] && [ -z "$contents" ]; then
             continue
         fi
 
         contents="${BASH_POWERPROMPT_LEFT_PADDING[$i]}$contents${BASH_POWERPROMPT_RIGHT_PADDING[$i]}"
 
-        if [[ -n "$fg" || -n "$bg" ]]; then
+        if [ -n "$fg" ] || [ -n "$bg" ]; then
             contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" "$fg" "$bg" "$contents")"
         fi
 
