@@ -64,7 +64,7 @@ __bpp_set_theme() {
 
         if [ "${git_states[0]}" -eq 1 ]; then
             # Untracked files
-            if [ "${git_states[4]}" -gt 0 ]; then
+            if [ "${git_states[5]}" -gt 0 ]; then
                 git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${untracked_symbol}${RESET_ATTRIBUTES}" $cyan '')"
             fi
 
@@ -83,16 +83,16 @@ __bpp_set_theme() {
 
             # Conflicted files (red)
             if [ "${git_states[3]}" -gt 0 ]; then
-                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_15}${conflict_symbol}${git_states[3]}${RESET_ATTRIBUTES}" $red '')"
+                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${conflict_symbol}${git_states[3]}${RESET_ATTRIBUTES}" $red '')"
             fi
 
-            # Stashed files (blue)
-            #if [ "${git_states[?]}" -gt 0 ]; then
-            #    git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_15}${stashed_symbol}${git_states[?]}${RESET_ATTRIBUTES}" $blue '')"
-            #fi
+            # Stashed files (green)
+            if [ "${git_states[4]}" -gt 0 ]; then
+                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${stashed_symbol}${git_states[4]}${RESET_ATTRIBUTES}" $green '')"
+            fi
 
             # Untracked files (cyan)
-            if [ "${git_states[4]}" -gt 0 ]; then
+            if [ "${git_states[5]}" -gt 0 ]; then
                 git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${untracked_symbol}${RESET_ATTRIBUTES}" $cyan '')"
             fi
 
