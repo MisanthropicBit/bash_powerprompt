@@ -68,6 +68,11 @@ __bpp_set_theme() {
                 git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${untracked_symbol}${RESET_ATTRIBUTES}" $cyan '')"
             fi
 
+            # Stashed files (green)
+            if [ "${git_states[4]}" -gt 0 ]; then
+                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${stashed_symbol}${git_states[4]}${RESET_ATTRIBUTES}" $green '')"
+            fi
+
             local clean_state="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_16}$clean_symbol${RESET_ATTRIBUTES}$git_state" $green '')"
             git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$clean_state")"
         else
