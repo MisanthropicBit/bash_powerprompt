@@ -204,7 +204,7 @@ __bash_powerprompt() {
         bg=${BASH_POWERPROMPT_BG_COLORS[$i]}
         contents="${BASH_POWERPROMPT_SECTIONS[$i]}"
 
-        if [[ $BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS -eq 1 && -z "$contents" ]]; then
+        if [[ "$BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS" -eq 1 && -z "$contents" ]]; then
             continue
         fi
 
