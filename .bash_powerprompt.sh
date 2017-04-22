@@ -198,7 +198,7 @@ __bash_powerprompt() {
     local PREVIOUS_FG_COLOR=''
     local PREVIOUS_BG_COLOR=''
 
-    # Assemble the entire prompt command
+    # Assemble the prompt
     for i in ${!BASH_POWERPROMPT_SECTIONS[@]}; do
         fg=${BASH_POWERPROMPT_FG_COLORS[$i]}
         bg=${BASH_POWERPROMPT_BG_COLORS[$i]}
@@ -217,7 +217,7 @@ __bash_powerprompt() {
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
         __ps1+="$contents"
 
-        # Save curent settings
+        # Save current settings for next iteration
         PREVIOUS_CONTENTS=$contents
         PREVIOUS_FG_COLOR=$fg
         PREVIOUS_BG_COLOR=$bg
