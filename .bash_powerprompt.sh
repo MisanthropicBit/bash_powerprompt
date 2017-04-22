@@ -121,9 +121,11 @@ __bash_powerprompt() {
         if [ -n "$1" ]; then
             local script_dir=$(__get_script_dir)
 
-            source "$script_dir/lib/$1.sh"
+            if ! source "$script_dir/lib/$1.sh"; then
+                __error "Error: Failed to load utility '$1'"
+            fi
         else
-            __error "Error: Failed to load utility '$1'"
+            __error "Error: Empty argument to __load_utility"
         fi
     }
 
