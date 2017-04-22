@@ -1,0 +1,56 @@
+# Requirements:
+#     - True-color support
+#     - Powerline font installed
+#     - Unicode support
+#     - git
+
+__bpp_set_theme() {
+    __load_utility "git"
+
+    BASH_POWERPROMPT_THEME='paradox'
+    BASH_POWERPROMPT_COMMAND_SYMBOL="\xe2\x9d\xb1" # ❱
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' '' '' ' ' ' ')
+    BASH_POWERPROMPT_RIGHT_PADDING=('' '' ' ' ' ' ' ')
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
+    BASH_POWERPROMPT_SEPARATORS=(
+        ""
+        ""
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        ""
+    )
+
+    local black="0;0;0"
+    local darkgrey="88;88;88"
+    local cyan="0;255;255"
+    local desat_cyan="124;175;194"
+    local desat_green="161;181;108"
+    local desat_red="171;70;66"
+
+    BASH_POWERPROMPT_FG_COLORS=($desat_cyan $desat_red $desat_green $black $black "" $cyan)
+    BASH_POWERPROMPT_BG_COLORS=($darkgrey $darkgrey $darkgrey $desat_cyan $desat_green "" "")
+
+    # Construct command symbol
+    local command_symbol=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" $desat_cyan)
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\u"
+        "@"
+        "\h"
+        "\w"
+        ""
+        "\n"
+        $(printf $BASH_POWERPROMPT_COMMAND_SYMBOL)
+    )
+
+    local git_branch="$(__git_branch)"
+
+    if [ -n "$git_branch" ]; then
+        local star="\xe2\x9c\xb1" # ✱
+
+        BASH_POWERPROMPT_SECTIONS[4]=$(printf "%s %s $star" $BASH_POWERPROMPT_GIT_BRANCH_SYMBOL $git_branch)
+    fi
+}
