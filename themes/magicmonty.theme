@@ -62,19 +62,19 @@ __bpp_set_theme() {
             ahead_behind_state="$ahead_behind_state$behind_symbol$behind"
         fi
 
+        # Get number of untracked and stashed files. These counts are used regardless
+        # of whether or not the branch is clean or dirty
+        if [ "${git_states[4]}" -gt 0 ]; then
+            local stashed_state="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_16}${stashed_symbol}${git_states[4]}${RESET_ATTRIBUTES}" $green '')"
+        fi
+
+        if [ "${git_states[5]}" -gt 0 ]; then
+            local untracked_state="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_16}${untracked_symbol}${RESET_ATTRIBUTES}" $cyan '')"
+        fi
+
         if [ "${git_states[0]}" -eq 1 ]; then
-            # Untracked files
-            if [ "${git_states[5]}" -gt 0 ]; then
-                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${untracked_symbol}${RESET_ATTRIBUTES}" $cyan '')"
-            fi
-
-            # Stashed files (green)
-            if [ "${git_states[4]}" -gt 0 ]; then
-                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${stashed_symbol}${git_states[4]}${RESET_ATTRIBUTES}" $green '')"
-            fi
-
             local clean_state="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_16}$clean_symbol${RESET_ATTRIBUTES}$git_state" $green '')"
-            git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$clean_state")"
+            git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$clean_state$untracked_state$stashed_state")"
         else
             # Staged files (red)
             if [ "${git_states[1]}" -gt 0 ]; then
@@ -91,17 +91,7 @@ __bpp_set_theme() {
                 git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${conflict_symbol}${git_states[3]}${RESET_ATTRIBUTES}" $red '')"
             fi
 
-            # Stashed files (green)
-            if [ "${git_states[4]}" -gt 0 ]; then
-                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${stashed_symbol}${git_states[4]}${RESET_ATTRIBUTES}" $green '')"
-            fi
-
-            # Untracked files (cyan)
-            if [ "${git_states[5]}" -gt 0 ]; then
-                git_state="$(printf "${git_state}${BASH_POWERPROMPT_COLOR_FORMAT_16}${untracked_symbol}${RESET_ATTRIBUTES}" $cyan '')"
-            fi
-
-            git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$(printf "$git_state")")"
+            git_state="$(printf "$git_state_format" $purple '' $git_branch "$(printf "$ahead_behind_state")" $blue '' "$(printf "$git_state$untracked_state$stashed_state")")"
         fi
 
         # Add a space as separator between the two sections
