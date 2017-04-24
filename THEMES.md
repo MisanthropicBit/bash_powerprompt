@@ -59,6 +59,11 @@ theme file was not found.
 
 ![Paradox theme](/screenshots/paradox.png)
 
+### Random
+
+This theme randomly selects a theme from the `themes/` folder. Can be set
+multiple times to pick another random theme.
+
 ### Simplistic
 
 ![Simplistic theme](/screenshots/simplistic.png)
