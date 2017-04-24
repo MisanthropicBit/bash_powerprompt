@@ -1,67 +1,76 @@
-# Themes by category
+# Predefined Themes
 
-1. [Powerline themes](#power-line-prompts)
-2. [System-colors-only themes](#sysmte-colors-only-prompts)
-3. [Minimalistic themes](#minimalistic-prompts)
-4. [Git themes](#git-prompts)
-5. [Context-aware prompts](#context-aware-prompts)
-6. [Theme Requirements](#theme-requirements)
+### Arne
 
-<a name="power-line-prompts" />
-## Powerline prompts
+![Arne theme](/screenshots/arne.png)
 
-### Hybrid
+### Banga
 
-![Hybrid theme](/screenshots/hybrid.png)
-
-### Solarized
-
-![Solarized theme](/screenshots/solarized.png)
+![Banga theme](/screenshots/banga.png)
 
 ### Blue gradient
 
 ![Blue gradient theme](/screenshots/blue_gradient.png)
 
-### Imperial
+### Candy
 
-![Imperial theme](/screenshots/imperial.png)
+![Candy theme](/screenshots/candy.png)
 
-### Snowflake
+### Colorful
 
-![Snowflake theme](/screenshots/snowflake.png)
-
-### Gemish
-
-![Gemish theme](/screenshots/gemish.png)
-
-### Coffee break
-
-![Coffee break theme](/screenshots/coffee_break.png)
+![Colorful theme](/screenshots/colorful.png)
 
 ### Commander
 
 ![Commander theme](/screenshots/commander.png)
 
-### Git
+### Default
 
-![Git theme](/screenshots/git.png)
+This is the default theme. Also loaded when an error occurs, such as when a
+theme file was not found.
 
-<a name="system-colors-only-prompts"/ >
-## System-colors only prompts
+![Default theme](/screenshots/default_prompt.png)
 
-### System
+### Gemish
 
-![System theme](/screenshots/system.png)
+![Gemish theme](/screenshots/gemish.png)
 
-<a name="minimalistic-prompts"/ >
-## Minimalistic prompts
+### Highlights
+
+![Highlights theme](/screenshots/highlights.png)
+
+### Hybrid
+
+![Hybrid theme](/screenshots/hybrid.png)
+
+### Imperial
+
+![Imperial theme](/screenshots/imperial.png)
+
+### Magic monty
+
+![Magicmonty theme](/screenshots/magicmonty.png)
+
+### Mairu
+
+![Mairu theme](/screenshots/mairu.png)
+
+### Paradox
+
+![Paradox theme](/screenshots/paradox.png)
 
 ### Simplistic
 
 ![Simplistic theme](/screenshots/simplistic.png)
 
-<a name="git-prompts"/ >
-<a name="context-aware-prompts"/ >
+### Snowflake
 
-<a name="theme-requirements"/ >
-## Theme Requirements
+![Snowflake theme](/screenshots/snowflake.png)
+
+### Solarized Dark
+
+![Solarized Dark theme](/screenshots/solarized_dark.png)
+
+### Solarized Light
+
+![Solarized Light theme](/screenshots/solarized_light.png)
