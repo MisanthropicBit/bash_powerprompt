@@ -149,8 +149,8 @@ __bash_powerprompt() {
                 local sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$((i - 1))]}
                 local sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$((i - 1))]}
 
-                [ -n "$sfg" ] && sfg="${FG_COLOR_PREFIX_256}$sfg" || sfg="$RESET_FG_CODE"
-                [ -n "$sbg" ] && sbg="${BG_COLOR_PREFIX_256}$sbg" || sbg="$RESET_BG_CODE"
+                [ -n "$sfg" ] && sfg="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$sfg" || sfg="$RESET_FG_CODE"
+                [ -n "$sbg" ] && sbg="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$sbg" || sbg="$RESET_BG_CODE"
 
                 if [ -n "$sfg" ] || [ -n "$sbg" ]; then
                     __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
