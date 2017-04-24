@@ -26,7 +26,7 @@ __bpp_set_theme() {
     local git_branch_color="$green"
 
     if [ -n "$git_branch" ]; then
-        if [ "$git_clean" -eq 0 ]; then
+        if [ "$git_clean" -eq 1 ]; then
             git_branch_color="$red"
         fi
 
