@@ -8,6 +8,10 @@ __bpp_set_theme() {
 
     BASH_POWERPROMPT_THEME="hybrid"
 
+    if [ "$BPP_THEME_COLORFUL_GIT_STATE" -eq 1 ]; then
+        BASH_POWERPROMPT_FG_COLORS[6]=28
+    fi
+
     # Override all colors except for the git state
     BASH_POWERPROMPT_FG_COLORS[0]=15
     BASH_POWERPROMPT_FG_COLORS[1]=15
