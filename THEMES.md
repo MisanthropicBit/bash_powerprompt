@@ -4,7 +4,7 @@
 
 ![Arne theme](/screenshots/arne.png)
 
-### Banga
+### Banga (inspired by [this](https://github.com/banga/powerline-shell))
 
 ![Banga theme](/screenshots/banga.png)
 
@@ -47,7 +47,7 @@ theme file was not found.
 
 ![Imperial theme](/screenshots/imperial.png)
 
-### Magic monty
+### Magic monty (inspired by [this](https://github.com/magicmonty/bash-git-prompt))
 
 ![Magicmonty theme](/screenshots/magicmonty.png)
 
@@ -55,7 +55,7 @@ theme file was not found.
 
 ![Mairu theme](/screenshots/mairu.png)
 
-### Paradox
+### Paradox (inspired by [this](http://www.paradox.io/posts/9-my-new-zsh-prompt))
 
 ![Paradox theme](/screenshots/paradox.png)
 
@@ -72,10 +72,10 @@ multiple times to pick another random theme.
 
 ![Snowflake theme](/screenshots/snowflake.png)
 
-### Solarized Dark
+### Solarized Dark (inspired by the [solarized colors](http://ethanschoonover.com/solarized))
 
 ![Solarized Dark theme](/screenshots/solarized_dark.png)
 
-### Solarized Light
+### Solarized Light (inspired by the [solarized colors](http://ethanschoonover.com/solarized))
 
 ![Solarized Light theme](/screenshots/solarized_light.png)
