@@ -6,8 +6,8 @@
 #     - 
 #     - 
 
-__set_theme() {
-    # The meat of your theme goes here. Recall that the default theme is always loaded
-    # before any custom themes
+__bpp_set_theme() {
+    # The meat of your theme goes here. Recall that the default theme is always
+    # loaded before any custom themes
     BASH_POWERPROMPT_THEME='your_theme_name'
 }
