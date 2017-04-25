@@ -7,10 +7,6 @@ __bpp_set_theme() {
     # Load the 'colorful' theme...
     __load_theme "colorful"
 
-    # After loading the 'colorful' theme we need to check if we are on a git branch
-    local on_git_branch=0
-    [ -z "${BASH_POWERPROMPT_SEPARATORS[5]}" ] && on_git_branch=1
-
     # ...and change the colors
     BASH_POWERPROMPT_THEME="solarized_light"
     BASH_POWERPROMPT_FG_COLORS=(37 33 33 33 136 166 166 64)
@@ -30,5 +26,5 @@ __bpp_set_theme() {
 
     # Remove the separator between the git branch name and the git state
     # symbol if we are on a git branch
-    [ $on_git_branch -eq 1 ] && BASH_POWERPROMPT_SEPARATORS[5]=""
+    [ "$BPP_THEME_COLORFUL_GIT_STATE" -gt 0 ] && BASH_POWERPROMPT_SEPARATORS[5]=""
 }
