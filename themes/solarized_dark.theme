@@ -1,0 +1,14 @@
+# Requirements:
+#     - 256 color support
+#     - Powerline font installed
+#     - Unicode support
+
+__bpp_set_theme() {
+    __load_theme "solarized_light"
+
+    BASH_POWERPROMPT_THEME="solarized_dark"
+    BASH_POWERPROMPT_FG_COLORS=(37 33 33 33 136 166 166 64)
+    BASH_POWERPROMPT_BG_COLORS=(235 235 235 235 235 235 235 235)
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=(246 246 246 246 246 246 246)
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=(235 235 235 235 235 235 235)
+}
