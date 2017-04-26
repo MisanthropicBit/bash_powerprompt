@@ -24,6 +24,11 @@ __git_branch() {
     printf "%s" "$git_branch"
 }
 
+# Return the shortened SHA1 of the latest commit
+__git_last_commit() {
+    printf "$(git rev-parse --short HEAD)"
+}
+
 # Return the current git directory (usually '.git')
 __git_dir() {
     printf "$(git rev-parse --git-dir)"
