@@ -214,6 +214,7 @@ __bash_powerprompt() {
             contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" "$fg" "$bg" "$contents")"
         fi
 
+        # FIXME: First separator is never printed since there is no previous symbol!
         __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
         __ps1+="$contents"
 
