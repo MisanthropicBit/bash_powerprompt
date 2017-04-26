@@ -1,0 +1,11 @@
+__bpp_set_theme() {
+    BASH_POWERPROMPT_THEME='haiku'
+    BASH_POWERPROMPT_ONLY_PS1=1
+
+    local reset=$RESET_ATTRIBUTES
+    local user_host=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s$reset" 33 '' "\u.\h")
+    local pwd=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}\w$reset" 47 '')
+    local date=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}\d$reset" 98 '')
+
+    PS1="$user_host | $pwd | $date $ "
+}

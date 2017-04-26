@@ -35,6 +35,10 @@ theme file was not found.
 
 ![Gemish theme](/screenshots/gemish.png)
 
+### Haiku
+
+![Haiku theme](/screenshots/haiku.png)
+
 ### Highlights
 
 ![Highlights theme](/screenshots/highlights.png)
