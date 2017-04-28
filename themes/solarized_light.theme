@@ -26,5 +26,5 @@ __bpp_set_theme() {
 
     # Remove the separator between the git branch name and the git state
     # symbol if we are on a git branch
-    [ "$BPP_THEME_COLORFUL_GIT_STATE" -gt 0 ] && BASH_POWERPROMPT_SEPARATORS[5]=""
+    [ "$BASH_POWERPROMPT_GIT_STATE" -gt 0 ] && BASH_POWERPROMPT_SEPARATORS[5]=""
 }

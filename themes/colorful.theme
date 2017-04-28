@@ -25,19 +25,19 @@ __bpp_set_theme() {
     )
 
     local git_branch="$(__git_branch)"
-    BPP_THEME_COLORFUL_GIT_STATE=0
+    BASH_POWERPROMPT_GIT_STATE=0
 
     if [ -n "$git_branch" ]; then
         git_branch=" $git_branch"
         local git_state="✗"
         local git_state_color="$BASH_POWERPROMPT_GIT_FG_DIRTY_COLOR"
-        BPP_THEME_COLORFUL_GIT_STATE=2
+        BASH_POWERPROMPT_GIT_STATE=2
 
         if [ "$(__git_unstaged)" -eq 0 ]; then
             git_state="✓"
             BASH_POWERPROMPT_FG_COLORS[4]="$BASH_POWERPROMPT_GIT_CLEAN_SYMBOL"
             git_state_color="$BASH_POWERPROMPT_GIT_FG_CLEAN_COLOR"
-            BPP_THEME_COLORFUL_GIT_STATE=1
+            BASH_POWERPROMPT_GIT_STATE=1
         fi
 
         BASH_POWERPROMPT_FG_COLORS[6]="$git_state_color"
