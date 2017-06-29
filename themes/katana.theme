@@ -14,9 +14,16 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_SEPARATORS=('' ')-(' ')-(' ')-(' ')-(' '')
 
     # Predefined colors
-    local blue='1;34'
-    local green='1;32'
-    local white='1;37'
+    local blue='34'
+    local green='32'
+    local white='37'
+    local bright="${BPP_THEME_KATANA_BRIGHT:=0}"
+
+    if [ "$bright" -eq 1 ]; then
+        blue='1;34'
+        green='1;32'
+        white='1;37'
+    fi
 
     BASH_POWERPROMPT_FG_COLORS=($white $blue $blue $blue $green $green $white '' $white)
     BASH_POWERPROMPT_BG_COLORS=('' '' '' '' '' '' '' '' '')
