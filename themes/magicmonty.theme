@@ -14,8 +14,9 @@ __bpp_set_theme() {
     local blue="34"
     local purple="35"
     local cyan="36"
+    local bright="${BPP_THEME_MAGICMONTY_BRIGHT:=0}"
 
-    if [ "$BPP_THEME_MAGICMONTY_BRIGHT" -eq 1 ]; then
+    if [ "$bright" -eq 1 ]; then
         red="31;1"
         green="32;1"
         yellow="33;1"
