@@ -28,8 +28,13 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_FG_COLORS=($white $blue $blue $blue $green $green $white '' $white)
     BASH_POWERPROMPT_BG_COLORS=('' '' '' '' '' '' '' '' '')
 
-    local file_count="$(ls -1 | wc -l | sed 's: ::g')"
     local file_sizes="$(du -sh . | sed -E 's/\s*([0-9]+(\.[0-9]+)?[a-zA-Z]).*/\1/')"
+    local file_count="$(ls -1 | wc -l | sed 's: ::g')"
+    local file_entry="$file_count files"
+
+    if [ "$file_count" -eq 1 ]; then
+        file_entry="1 file"
+    fi
 
     BASH_POWERPROMPT_SECTIONS=(
         "┏ ("
@@ -37,7 +42,7 @@ __bpp_set_theme() {
         "$BASH_POWERPROMPT_EXIT_STATUS"
         "\t \d"
         "\w"
-        "$file_count files, ${file_sizes}"
+        "$file_entry, $file_sizes"
         ")"
         "\n"
         "┗ ➞ "
