@@ -40,3 +40,10 @@ __get_columns() {
         tput cols
     fi
 }
+
+# Return the current battery charge
+__bpp_battery() {
+    if [ $(__get_os_name) == "Darwin" ] && type pmset > /dev/null; then
+        pmset -g batt | tail -1 | egrep -o "[0-9]+%"
+    fi
+}
