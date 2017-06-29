@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 __bpp_set_theme() {
     BASH_POWERPROMPT_THEME='imperial'
 

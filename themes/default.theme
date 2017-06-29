@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This is the default theme which sets all the default values which predefined
 # or custom themes can override
 #

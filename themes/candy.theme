@@ -1,4 +1,5 @@
-# A bash powerprompt theme
+#!/usr/bin/env bash
+
 # Requirements:
 #     - True-color support
 #     - Powerline font installed

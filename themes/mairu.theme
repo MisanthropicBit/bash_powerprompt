@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This is based on the arne epic, timestamped prompt  of magicmonty's bash git prompt
 #
 # Requirements:
