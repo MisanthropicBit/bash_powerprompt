@@ -17,10 +17,10 @@
 #   1. (OPTIONAL) Run install.sh to set up a symlink to your home directory
 #   2. Add the following to you in ~/.bashrc or ~/.profile etc.
 #
-#      if [ -e ~/.bash_powerline.sh ]; then
-#          source ~/.bash_powerline.sh
+#      if [ -e ~/.bash_powerprompt.sh ]; then
+#          source ~/.bash_powerprompt.sh
 #          export BASH_POWERPROMPT_THEME=<your default theme> # Optional
-#          export PROMPT_COMMAND=__bash_powerline_prompt
+#          export PROMPT_COMMAND=__bash_powerprompt
 #      fi
 #
 # For more information about customisation and creating your own themes, see
