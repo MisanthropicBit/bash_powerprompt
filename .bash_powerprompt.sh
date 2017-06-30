@@ -23,6 +23,11 @@
 #          export PROMPT_COMMAND=__bash_powerprompt
 #      fi
 #
+#   3. (optional) It is recommended, but not required, to also set
+#      BASH_POWERPROMPT_DIRECTORY to the chosen install directory, in order to
+#      avoid having to look up the install directory on every call to
+#      PROMPT_COMMAND
+#
 # For more information about customisation and creating your own themes, see
 # 'CUSTOMISING.md'.
 
