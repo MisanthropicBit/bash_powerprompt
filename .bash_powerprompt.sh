@@ -56,6 +56,7 @@ __bash_powerprompt() {
     local BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR="\[$COLOR_ESCAPE_CODE[${FG_COLOR_PREFIX_TRUE_COLOR};%s;${BG_COLOR_PREFIX_TRUE_COLOR};%sm\]"
     ######################################################################
 
+    # Print an error message
     __error() {
         printf "\033[31m%s\033[0m: %s\n" "Error" "$1"
     }
