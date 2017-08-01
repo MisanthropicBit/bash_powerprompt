@@ -63,6 +63,10 @@ theme file was not found.
 
 ![Paradox theme](/screenshots/paradox.png)
 
+### Quantum (inspired by [this colorscheme](https://github.com/tyrannicaltoucan/vim-quantum))
+
+![Quantum theme](/screenshots/quantum.png)
+
 ### Random
 
 This theme randomly selects a theme from the `themes/` folder. Can be set
