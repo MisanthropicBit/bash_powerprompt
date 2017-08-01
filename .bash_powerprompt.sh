@@ -211,11 +211,11 @@ __bash_powerprompt() {
         if [ "$BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS" -eq 1 ] && [ -z "$contents" ]; then
             continue
         fi
-
         contents="${BASH_POWERPROMPT_LEFT_PADDING[$i]}$contents${BASH_POWERPROMPT_RIGHT_PADDING[$i]}"
 
         fg=${BASH_POWERPROMPT_FG_COLORS[$i]}
         bg=${BASH_POWERPROMPT_BG_COLORS[$i]}
+
         if [ -n "$fg" ] || [ -n "$bg" ]; then
             contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" "$fg" "$bg" "$contents")"
         fi
