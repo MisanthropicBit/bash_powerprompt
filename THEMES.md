@@ -20,10 +20,6 @@
 
 ![Colorful theme](/screenshots/colorful.png)
 
-### Commander
-
-![Commander theme](/screenshots/commander.png)
-
 ### Default
 
 This is the default theme. Also loaded when an error occurs, such as when a
