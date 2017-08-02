@@ -139,30 +139,28 @@ __bash_powerprompt() {
     __print_separator() {
         local prev_symbol="$2"
 
-        if [ -n "$prev_symbol" ]; then
-            # Handle the case where the solid powerline triangle symbol was used
-            if [ "$prev_symbol" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
-                local prev_bg_color="$3"
-                local bg_color="$4"
-                [ -n "$prev_bg_color" ] && prev_bg_color="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$prev_bg_color" || prev_bg_color="$RESET_FG_CODE"
-                [ -n "$bg_color" ] && bg_color="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$bg_color" || bg_color="$RESET_BG_CODE"
+        # Handle the case where the solid powerline triangle symbol was used
+        if [ "$prev_symbol" == "$BASH_POWERPROMPT_SOLID_ARROW_SYMBOL" ]; then
+            local prev_bg_color="$3"
+            local bg_color="$4"
+            [ -n "$prev_bg_color" ] && prev_bg_color="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$prev_bg_color" || prev_bg_color="$RESET_FG_CODE"
+            [ -n "$bg_color" ] && bg_color="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$bg_color" || bg_color="$RESET_BG_CODE"
 
-                __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
+            __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$prev_bg_color" "$bg_color")"
+        else
+            local i="$1"
+
+            # Any other separator has its own colors
+            local sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$((i - 1))]}
+            local sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$((i - 1))]}
+
+            [ -n "$sfg" ] && sfg="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$sfg" || sfg="$RESET_FG_CODE"
+            [ -n "$sbg" ] && sbg="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$sbg" || sbg="$RESET_BG_CODE"
+
+            if [ -n "$sfg" ] || [ -n "$sbg" ]; then
+                __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
             else
-                local i="$1"
-
-                # Any other separator has its own colors
-                local sfg=${BASH_POWERPROMPT_SEPARATOR_FG_COLORS[$((i - 1))]}
-                local sbg=${BASH_POWERPROMPT_SEPARATOR_BG_COLORS[$((i - 1))]}
-
-                [ -n "$sfg" ] && sfg="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$sfg" || sfg="$RESET_FG_CODE"
-                [ -n "$sbg" ] && sbg="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$sbg" || sbg="$RESET_BG_CODE"
-
-                if [ -n "$sfg" ] || [ -n "$sbg" ]; then
-                    __ps1+="$(printf "${BARE_COLOR_FORMAT}$prev_symbol" "$sfg" "$sbg")"
-                else
-                    __ps1+="$prev_symbol"
-                fi
+                __ps1+="$prev_symbol"
             fi
         fi
     }
@@ -211,17 +209,22 @@ __bash_powerprompt() {
         if [ "$BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS" -eq 1 ] && [ -z "$contents" ]; then
             continue
         fi
+
         contents="${BASH_POWERPROMPT_LEFT_PADDING[$i]}$contents${BASH_POWERPROMPT_RIGHT_PADDING[$i]}"
 
         fg=${BASH_POWERPROMPT_FG_COLORS[$i]}
         bg=${BASH_POWERPROMPT_BG_COLORS[$i]}
 
         if [ -n "$fg" ] || [ -n "$bg" ]; then
-            contents="$(printf "${BASH_POWERPROMPT_COLOR_FORMAT}%s" "$fg" "$bg" "$contents")"
+            local ffg fbg
+            [ -n "$fg" ] && ffg="${BASH_POWERPROMPT_FG_COLOR_PREFIX};$fg" || ffg="$RESET_FG_CODE"
+            [ -n "$bg" ] && fbg="${BASH_POWERPROMPT_BG_COLOR_PREFIX};$bg" || fbg="$RESET_BG_CODE"
+
+            contents="\[${COLOR_ESCAPE_CODE}[${ffg};${fbg}m\]$contents"
         fi
 
         # FIXME: First separator is never printed since there is no previous symbol!
-        __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
+        [ -n "$PREVIOUS_SYMBOL" ] && __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
         __ps1+="$contents"
 
         # Save current settings for next iteration
