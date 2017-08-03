@@ -58,7 +58,7 @@ __bash_powerprompt() {
 
     # Print an error message
     __error() {
-        printf "\033[31m%s\033[0m: %s\n" "Error" "$1"
+        printf "$COLOR_ESCAPE_CODE[31m%s$COLOR_ESCAPE_CODE[0m: %s\n" "Error" "$1"
     }
 
     # Loads a given theme after loading the default theme first (reverts to the default theme on error)
