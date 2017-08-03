@@ -23,17 +23,17 @@ __bpp_set_theme() {
 
     BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS=4
 
+    local white="255;255;255"
     local blue_highlight="19;145;218"
     local pink_highlight="239;45;159"
     local fg_color="200;200;200"
     local bg_color="69;69;69"
+    local gray1="85;85;85"
+    local gray2="150;150;150"
+    local gray3="180;180;180"
 
-    BASH_POWERPROMPT_FG_COLORS=($fg_color $fg_color "255;255;255")
-    BASH_POWERPROMPT_BG_COLORS=("85;85;85" $blue_highlight $pink_highlight)
-
-    local sep_format="${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} "
-    local sep=$(printf "$sep_format" "150;150;150" $bg_color "180;180;180" $bg_color)
-    local new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}" $fg_color $blue_highlight)
+    BASH_POWERPROMPT_FG_COLORS=($fg_color $fg_color $white)
+    BASH_POWERPROMPT_BG_COLORS=($gray1 $blue_highlight $pink_highlight)
 
     # TODO: Either do this or simply set each path element as a unique section
     # if we can combine arrays in bash
@@ -44,39 +44,37 @@ __bpp_set_theme() {
         path_array=("${path_array[@]:1}")
     fi
 
+    local sep_format="${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}$BASH_POWERPROMPT_THIN_ARROW_SYMBOL${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR} "
+    local sep=$(printf "$sep_format" $gray2 $bg_color $gray3 $bg_color)
     local last_index=$((${#path_array[@]} - 1))
+    local base_format="%s${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}%s"
+    local arrow_format="%s${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}%s"
+    local max_split_index=$((BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS - 1))
+    local new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}" $fg_color $blue_highlight)
+
+    # The first part of the path sections is blue
+    new_path=$(printf $base_format "" $white $blue_highlight "${path_array[0]}")
 
     for i in ${!path_array[@]}; do
-        # Skip empty splits
-        if [ -z "${path_array[i]}" ]; then
+        # Skip first part of path and empty splits
+        if [ $i -eq 0 ] || [ $i -eq $last_index ] || [ -z "${path_array[i]}" ]; then
             continue
         fi
 
-        # Handle the first part of the path (blue) different from the remaining paths (gray)
-        if [[ "$i" -ge $((BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS - 1)) && "$i" -ne $last_index ]]; then
-            if [ "$i" -eq $((BASH_POWERPROMPT_THEME_HIGHLIGHTS_MAX_SPLITS - 1)) ]; then
-                new_path="$new_path... $sep"
-            fi
-        elif [ "$i" -eq 0 ]; then
-            # The first part of the path sections is blue
-            new_path=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]}" "255;255;255" $blue_highlight)
+        if [ $i -eq $max_split_index ]; then
+            new_path="$new_path... $sep"
         elif [ "$i" -eq 1 ]; then
-            if [ "$i" -eq "$last_index" ]; then
-                # The second path element is also the last element
-                new_path=$(printf "$new_path ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL} " $blue_highlight $bg_color)
-                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
-                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
-            else
-                new_path=$(printf "$new_path ${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL} " $blue_highlight $bg_color)
-                new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} $sep" $fg_color $bg_color)
-            fi
+            # Handle color transition between blue part of path and grey parts
+            new_path=$(printf $arrow_format "$new_path " $blue_highlight $bg_color " ")
+            new_path=$(printf $base_format  "$new_path" $fg_color $bg_color "${path_array[i]} $sep")
         elif [ "$i" -lt "$last_index" ]; then
             new_path="$new_path${path_array[i]} $sep"
-        else
-            new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${path_array[i]} " "255;255;255" $bg_color)
-            new_path=$(printf "$new_path${BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}" $bg_color $pink_highlight)
         fi
     done
+
+    # Output the last part of the path
+    new_path=$(printf $base_format "$new_path" $white $bg_color "${path_array[i]} ")
+    new_path=$(printf $arrow_format "$new_path" $bg_color $pink_highlight "")
 
     local lightning_symbol="\xe2\x9a\xa1"
 
