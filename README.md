@@ -4,6 +4,8 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerprompt/master/LICENSE)
 
 A visually pleasing, informative and highly customisable command line prompt.
+Below is the default prompt and several other [predefined themes](/THEMES.md)
+are available.
 
 <img src="/screenshots/default_prompt.png" width="30%" alt="The default prompt">
 
@@ -13,13 +15,12 @@ A visually pleasing, informative and highly customisable command line prompt.
 
 ## Requirements
 
-* A `bash` shell
-
-Some themes may require additional things and may include:
+Only a `bash` shell is required for the most basic themes, but you may also want
+the following installed depending on which themes you want to use.
 
 * A [powerline font](https://github.com/powerline/fonts)
 * A terminal capable of displaying unicode symbols
-* A terminal capable of 256 colors or true-color
+* A terminal capable of 88, 256 colors or true-color
 * `git`, `hg` or `svn`
 
 ## Installation
@@ -40,9 +41,9 @@ fi
 ## Customisation
 
 You can switch the theme of the prompt by changing the environment variable
-`BASH_POWERPROMPT_THEME` to a theme name in the `themes/` directory (without
-`.theme` the extension). For example, the executin the following will switch to
-the 'paradox' theme.
+`BASH_POWERPROMPT_THEME` to a theme name in the `themes/` directory (without the
+`.theme` extension). For example, the executin the following will switch to the
+'paradox' theme.
 
 ```bash
 $ export BASH_POWERPROMPT_THEME=paradox
