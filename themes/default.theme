@@ -13,7 +13,7 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS=1           # If enabled, do not display sections that return an empty string
     BASH_POWERPROMPT_USE_TILDE_FOR_HOME=1              # Use a '~' for $HOME instead of displaying the full path
     BASH_POWERPROMPT_COMMAND_SYMBOL='$'                # Command symbol at the end of the prompt
-    BASH_POWERPROMPT_PROMPT_END_SPACING=' '            # Spacing at the end of the prompt
+    BASH_POWERPROMPT_END_SPACING=' '                   # Spacing at the end of the prompt
     BASH_POWERPROMPT_SOLID_ARROW_SYMBOL="\xee\x82\xb0" # Powerline symbol for a solid arrow (U+e0b0)
     BASH_POWERPROMPT_THIN_ARROW_SYMBOL="\xee\x82\xb1"  # Powerline symbol for a then arrow (U+e0b1)
     BASH_POWERPROMPT_GIT_BRANCH_SYMBOL=$'\xee\x82\xa0' # Powerline symbol for a git branch (U+e0a0)
