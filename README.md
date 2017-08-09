@@ -13,6 +13,9 @@ are available.
 * Multiple predefined [themes](/themes.md)
 * Highly [customisable](/CUSTOMISING.md)
 
+For more information about customisation and creating your own themes, see
+[CUSTOMISING.md](/CUSTOMISING.md).
+
 ## Requirements
 
 Only a `bash` shell is required for the most basic themes, but you may also want
@@ -38,16 +41,13 @@ if [ -e ~/.bash_powerprompt.sh ]; then
 fi
 ```
 
-## Customisation
+## Changing Themes
 
 You can switch the theme of the prompt by changing the environment variable
 `BASH_POWERPROMPT_THEME` to a theme name in the `themes/` directory (without the
-`.theme` extension). For example, the executin the following will switch to the
-'paradox' theme.
+`.theme` extension). For example, the following will switch to the 'paradox'
+theme.
 
 ```bash
 $ export BASH_POWERPROMPT_THEME=paradox
 ```
-
-For more information about customisation and creating your own themes, see
-[CUSTOMISING.md](/CUSTOMISING.md).
