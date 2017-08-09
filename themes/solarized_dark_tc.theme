@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+__bpp_set_theme() {
+    # Load the 'solarized_light' theme...
+    __load_theme 'solarized_light'
+
+    # ...and change the colors
+    BASH_POWERPROMPT_THEME='solarized_dark_tc'
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR
+
+    BASH_POWERPROMPT_FG_COLORS=(
+        '42;161;152' # Cyan
+        '42;161;152'
+        '38;139;210' # Blue
+        '38;139;210'
+        '38;139;210'
+        '181;137;0'  # Yellow
+        '203;75;22'  # Orange
+        '203;75;22'
+        '133;153;0'  # Green
+    )
+
+    BASH_POWERPROMPT_BG_COLORS=(
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+    )
+
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=(
+        '131;148;150'
+        '131;148;150'
+        '131;148;150'
+        '131;148;150'
+        '131;148;150'
+        '131;148;150'
+        '131;148;150'
+    )
+
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=(
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+        '7;54;66'
+    )
+
+    BASH_POWERPROMPT_SEPARATORS=(
+        $BASH_POWERPROMPT_THIN_ARROW_SYMBOL
+        ""
+        ""
+        $BASH_POWERPROMPT_THIN_ARROW_SYMBOL
+        $BASH_POWERPROMPT_THIN_ARROW_SYMBOL
+        $BASH_POWERPROMPT_THIN_ARROW_SYMBOL
+        $BASH_POWERPROMPT_THIN_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+    )
+
+    # Remove the separator between the git branch name and the git state
+    # symbol if we are on a git branch
+    [ "$BASH_POWERPROMPT_GIT_STATE" -gt 0 ] && BASH_POWERPROMPT_SEPARATORS[5]=""
+}
