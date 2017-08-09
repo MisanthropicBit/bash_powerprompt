@@ -7,4 +7,5 @@ path_test.sh
 *.tasks
 *.bashx
 *.bats
+*.html
 misc/
