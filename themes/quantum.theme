@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+__bpp_set_theme() {
+    __load_utility 'git'
+
+    BASH_POWERPROMPT_THEME='quantum'
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' ' ' ' ' ' ' ' ' ' ')
+    BASH_POWERPROMPT_RIGHT_PADDING=('' ' ' ' ' ' ' '' '')
+
+    #local gray='174;187;197'
+    local gray='0;0;0'
+    local red='221;113;134'
+    local green='135;187;124'
+    local yellow='213;184;117'
+    local blue='112;172;229'
+    local purple='164;138;221'
+    local cyan='105;197;206'
+    local orange='215;149;110'
+    local indigo='118;129;222'
+    local left_solid_arrow="" #\xee\x82\xb2"
+
+    BASH_POWERPROMPT_FG_COLORS=($cyan $gray $gray $gray "" $cyan)
+    BASH_POWERPROMPT_BG_COLORS=("" $yellow $green $blue "" "")
+
+    BASH_POWERPROMPT_SEPARATORS=(
+        "$left_solid_arrow"
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        ""
+        ""
+    )
+
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=(
+        $yellow
+        ""
+        ""
+        ""
+        ""
+        ""
+    )
+
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=(
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+    )
+
+    local git_branch="$(__git_branch)"
+    local git_commit=''
+    BASH_POWERPROMPT_GIT_STATE=0
+
+    if [ -n "$git_branch" ]; then
+        git_commit="$(__git_last_commit)"
+        BASH_POWERPROMPT_GIT_STATE=1
+
+        if [ "$(__git_unstaged)" -eq 1 ]; then
+            BASH_POWERPROMPT_BG_COLORS[2]=$red
+            BASH_POWERPROMPT_GIT_STATE=2
+        fi
+    fi
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "┏ "
+        "\u.\h"
+        "$(printf "$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL [$git_commit]")"
+        "\w"
+        "\n"
+        "┗ ➞ "
+    )
+}
