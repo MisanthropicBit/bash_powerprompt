@@ -223,7 +223,6 @@ __bash_powerprompt() {
             contents="\[${COLOR_ESCAPE_CODE}[${ffg};${fbg}m\]$contents"
         fi
 
-        # FIXME: First separator is never printed since there is no previous symbol!
         [ -n "$PREVIOUS_SYMBOL" ] && __print_separator "$i" "$PREVIOUS_SYMBOL" "$PREVIOUS_BG_COLOR" "$bg"
         __ps1+="$contents"
 
