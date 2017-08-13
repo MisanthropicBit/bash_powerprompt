@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+# Requirements:
+#     - True-color support
+#     - Powerline font installed
+#     - git
+
+__bpp_set_theme() {
+    __load_utility "git"
+
+    BASH_POWERPROMPT_THEME='impact'
+    BASH_POWERPROMPT_COLOR_FORMAT=$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR
+    BASH_POWERPROMPT_LEFT_PADDING=(' ' '' ' ' '' ' ' '')
+    BASH_POWERPROMPT_RIGHT_PADDING=(' ' '' ' ' '' ' ' '')
+    BASH_POWERPROMPT_SEPARATOR_FG_COLORS=()
+    BASH_POWERPROMPT_SEPARATOR_BG_COLORS=()
+    BASH_POWERPROMPT_SEPARATORS=(
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+        $BASH_POWERPROMPT_SOLID_ARROW_SYMBOL
+    )
+
+    local white="255;255;255"
+    local thick_sep_color="0;110;240"
+    local blue="0;95;215"
+    local light_blue="118;175;215"
+    local forest_green="80;170;10"
+    local firebrick_red="200;100;100"
+
+    BASH_POWERPROMPT_FG_COLORS=(
+        $white
+        $white
+        $white
+        $white
+        $white
+        $white
+    )
+
+    BASH_POWERPROMPT_BG_COLORS=(
+        $blue
+        $thick_sep_color
+        $blue
+        $thick_sep_color
+        $light_blue
+        $firebrick_red
+    )
+
+    BASH_POWERPROMPT_SECTIONS=(
+        "\u"
+        " "
+        "\W"
+        " "
+    )
+
+    local git_branch="$(__git_branch)"
+
+    if [ -n "$git_branch" ]; then
+        local clean="$(__is_git_branch_clean)"
+        local clean_symbol=""
+
+        if [ "$clean" -eq 1 ]; then
+            clean_symbol=$(printf "[$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR+$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR]" "255;40;40" "118;175;215" "$white" "118;175;215")
+        fi
+
+        git_branch="$git_branch$clean_symbol $BASH_POWERPROMPT_GIT_BRANCH_SYMBOL [$(__git_last_commit)]"
+
+        BASH_POWERPROMPT_SECTIONS=(
+            "\u"
+            " "
+            "\W"
+            " "
+            "$git_branch"
+            " "
+        )
+    else
+        git_branch="$BASH_POWERPROMPT_GIT_BRANCH_SYMBOL"
+        BASH_POWERPROMPT_BG_COLORS[3]="200;100;100"
+    fi
+}
