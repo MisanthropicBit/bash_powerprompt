@@ -54,6 +54,7 @@ __bpp_set_theme() {
     # The first part of the path sections is blue
     new_path=$(printf $base_format "" $white $blue_highlight "${path_array[0]}")
 
+    # TODO: Clean up loop logic
     for i in ${!path_array[@]}; do
         # Skip first part of path and empty splits
         if [ $i -eq 0 ] || [ $i -eq $last_index ] || [ -z "${path_array[i]}" ]; then
