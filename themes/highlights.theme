@@ -60,7 +60,7 @@ __bpp_set_theme() {
             continue
         fi
 
-        if [ $i -eq $max_split_index ]; then
+        if [ "$i" -eq $max_split_index ]; then
             new_path="$new_path... $sep"
         elif [ "$i" -eq 1 ]; then
             # Handle color transition between blue part of path and grey parts
@@ -72,8 +72,14 @@ __bpp_set_theme() {
     done
 
     # Output the last part of the path
-    new_path=$(printf $base_format "$new_path" $white $bg_color "${path_array[i]} ")
-    new_path=$(printf $arrow_format "$new_path" $bg_color $pink_highlight "")
+    if [ "$i" -eq 1 ]; then
+        new_path=$(printf $arrow_format "$new_path " $blue_highlight $bg_color " ")
+        new_path=$(printf $base_format  "$new_path" $white $bg_color "${path_array[1]} ")
+        new_path=$(printf $arrow_format "$new_path" $bg_color $pink_highlight "")
+    else
+        new_path=$(printf $base_format "$new_path" $white $bg_color "${path_array[i]} ")
+        new_path=$(printf $arrow_format "$new_path" $bg_color $pink_highlight "")
+    fi
 
     local lightning_symbol="\xe2\x9a\xa1"
 
