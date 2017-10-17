@@ -3,7 +3,9 @@
 <!--![Build status](https://travis-ci.org/MisanthropicBit/bash_powerprompt.svg?branch=master)-->
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerprompt/master/LICENSE)
 
-A visually pleasing, informative and highly customisable command line prompt.
+A highly configurable, flexible prompt framework in `bash` with a focus
+reusability.
+
 Below is the default prompt and several other [predefined themes](/THEMES.md)
 are available.
 
