@@ -30,8 +30,7 @@ __bpp_set_theme() {
     )
 
     local white="255;255;255"
-    local thick_sep_color="0;110;240"
-    local blue="0;95;215"
+    local blue="48;123;219"
     local light_blue="118;175;215"
     local forest_green="80;170;10"
     local firebrick_red="200;100;100"
@@ -47,9 +46,9 @@ __bpp_set_theme() {
 
     BASH_POWERPROMPT_BG_COLORS=(
         $blue
-        $thick_sep_color
+        $firebrick_red
         $blue
-        $thick_sep_color
+        $firebrick_red
         $light_blue
         $firebrick_red
     )
@@ -68,7 +67,7 @@ __bpp_set_theme() {
         local clean_symbol=""
 
         if [ "$clean" -eq 1 ]; then
-            clean_symbol=$(printf "[$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR+$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR]" "255;40;40" "118;175;215" "$white" "118;175;215")
+            clean_symbol=$(printf "[$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR+$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR]" "255;40;40;1" "118;175;215" "$white" "118;175;215")
         fi
 
         git_branch="$git_branch$clean_symbol $BASH_POWERPROMPT_GIT_BRANCH_SYMBOL [$(__git_last_commit)]"
