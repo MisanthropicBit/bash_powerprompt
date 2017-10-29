@@ -7,6 +7,13 @@ purpose. The value in parentheses in each title is the variable's default value.
 
 The name of the current theme.
 
+#### `BASH_POWERPROMPT_RANDOM_THEMES` (<empty string>)
+
+Themes to select from when picking a random theme. By default, all themes are
+candidates for selection. If we do `export BASH_POWERPROMPT_RANDOM_THEMES="mairu
+paradox`, then setting the theme to 'random' would only attempt to pick one of
+those themes.
+
 #### `BASH_POWERPROMPT_IGNORE_EMPTY_SECTIONS` (1)
 
 If `1`, skips any sections in [`BASH_POWERPROMPT_SECTIONS`](#bpp_sections) that are empty.
