@@ -240,7 +240,7 @@ __bash_powerprompt() {
     # Must be called as the last element of the prompt to reset all colors and attributes
     __ps1+=$(printf "%s" "$RESET_ATTRIBUTES")
 
-    __ps1+="$BASH_POWERPROMPT_PROMPT_END_SPACING"
+    __ps1+="$BASH_POWERPROMPT_END_SPACING"
 
     export PS1="$__ps1"
 }
