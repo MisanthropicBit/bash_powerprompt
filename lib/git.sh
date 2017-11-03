@@ -24,6 +24,17 @@ __git_branch() {
     printf "%s" "$git_branch"
 }
 
+# Return the number of commits on this branch
+__git_commit_count() {
+    local result="$(git rev-list --count HEAD 2> /dev/null)"
+
+    if [ $? -eq 0 ]; then
+        printf "%s" "$result"
+    else
+        printf "%d" "1"
+    fi
+}
+
 # Return the shortened SHA1 of the latest commit
 __git_last_commit() {
     printf "$(git rev-parse --short HEAD)"
