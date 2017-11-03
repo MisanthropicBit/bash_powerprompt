@@ -70,7 +70,7 @@ __bpp_set_theme() {
             clean_symbol=$(printf "[$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR+$BASH_POWERPROMPT_COLOR_FORMAT_TRUECOLOR]" "255;40;40;1" "118;175;215" "$white" "118;175;215")
         fi
 
-        git_branch="$git_branch$clean_symbol $BASH_POWERPROMPT_GIT_BRANCH_SYMBOL [$(__git_last_commit)]"
+        git_branch="$git_branch$clean_symbol $BASH_POWERPROMPT_GIT_BRANCH_SYMBOL [$(__git_last_commit) | $(__git_commit_count)]"
 
         BASH_POWERPROMPT_SECTIONS=(
             "\u"
