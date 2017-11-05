@@ -4,10 +4,6 @@
 
 ![Arne theme](/screenshots/arne.png)
 
-### Banga (inspired by [this](https://github.com/banga/powerline-shell))
-
-![Banga theme](/screenshots/banga.png)
-
 ### Blue gradient
 
 ![Blue gradient theme](/screenshots/blue_gradient.png)
@@ -35,17 +31,13 @@ theme file was not found.
 
 ![Haiku theme](/screenshots/haiku.png)
 
-### Highlights
+### Highlights (inspired by [this](https://github.com/banga/powerline-shell))
 
 ![Highlights theme](/screenshots/highlights.png)
 
 ### Hybrid
 
 ![Hybrid theme](/screenshots/hybrid.png)
-
-### Imperial
-
-![Imperial theme](/screenshots/imperial.png)
 
 ### Magic monty (inspired by [this](https://github.com/magicmonty/bash-git-prompt))
 
