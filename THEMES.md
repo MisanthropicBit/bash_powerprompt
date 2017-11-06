@@ -39,6 +39,14 @@ theme file was not found.
 
 ![Hybrid theme](/screenshots/hybrid.png)
 
+### Impact
+
+![Impact theme](/screenshots/impact.png)
+
+### Katana
+
+![Katana theme](/screenshots/katana.png)
+
 ### Magic monty (inspired by [this](https://github.com/magicmonty/bash-git-prompt))
 
 ![Magicmonty theme](/screenshots/magicmonty.png)
