@@ -21,7 +21,7 @@
 This is the default theme. Also loaded when an error occurs, such as when a
 theme file was not found.
 
-![Default theme](/screenshots/default_prompt.png)
+![Default theme](/screenshots/default.png)
 
 ### Gemish
 

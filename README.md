@@ -9,7 +9,7 @@ reusability.
 Below is the default prompt and several other [predefined themes](/THEMES.md)
 are available.
 
-<img src="/screenshots/default_prompt.png" width="30%" alt="The default prompt">
+<img src="/screenshots/default.png" width="30%" alt="The default prompt">
 
 * Written in pure `bash` with no dependencies
 * Multiple predefined [themes](/themes.md)
