@@ -66,7 +66,8 @@ theme file was not found.
 ### Random
 
 This theme randomly selects a theme from the `themes/` folder. Can be set
-multiple times to pick another random theme.
+multiple times to pick another random theme. To only select a subset of the
+themes, set [`BASH_POWERPROMPT_RANDOM_THEMES`](ENV_VARIABLES.md)
 
 ### Simplistic
 
