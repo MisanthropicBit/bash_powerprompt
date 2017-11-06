@@ -4,7 +4,7 @@
 
 ![Arne theme](/screenshots/arne.png)
 
-### Blue gradient
+### Gradient
 
 ![Blue gradient theme](/screenshots/blue_gradient.png)
 
