@@ -53,3 +53,20 @@ theme.
 ```bash
 $ export BASH_POWERPROMPT_THEME=paradox
 ```
+
+Alternatively, you can add the following convenient functions to your bash
+config files.
+
+```bash
+bpp() {
+    if [ -n "$1" ]; then
+        export BASH_POWERPROMPT_THEME="$1"
+    else
+        printf "Usage: bpp [theme_name]\n"
+    fi
+}
+
+bpprand() {
+    export BASH_POWERPROMPT_THEME=random
+}
+```
