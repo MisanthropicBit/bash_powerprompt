@@ -45,7 +45,7 @@ __bpp_set_theme() {
         "\w"
         ""
         "\n"
-        $(printf $BASH_POWERPROMPT_COMMAND_SYMBOL) # TODO: Put date/time on right side
+        $(printf $BASH_POWERPROMPT_COMMAND_SYMBOL)
     )
 
     local git_branch="$(__git_branch)"
