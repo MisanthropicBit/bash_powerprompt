@@ -33,8 +33,6 @@ __bpp_set_theme() {
     BASH_POWERPROMPT_FG_COLORS=($fg_color $fg_color $white)
     BASH_POWERPROMPT_BG_COLORS=($gray1 $blue_highlight $pink_highlight)
 
-    # TODO: Either do this or simply set each path element as a unique section
-    # if we can combine arrays in bash
     IFS='/' read -ra path_array <<< "$(__get_cwd)"
 
     if [ "${path_array[0]}" = "~" ]; then
