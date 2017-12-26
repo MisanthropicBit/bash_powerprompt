@@ -11,16 +11,32 @@ __bpp_set_theme() {
         # User defined a set of themes to pick from
         local random_themes=($BASH_POWERPROMPT_RANDOM_THEMES)
 
-        random_file="$script_dir/themes/${random_themes[RANDOM % ${#random_themes[@]}]}.theme"
+        if [ ${#random_themes[@]} -eq 1 ]; then
+            if [ ${random_themes[0]} = "random" ]; then
+                printf "Error: BASH_POWERPROMPT_RANDOM_THEMES cannot only contain 'random', selecting default theme\n"
+                random_file="$script_dir/themes/default.theme"
+            else
+                # Just select the single theme
+                random_file="$random_themes[0]"
+            fi
+        else
+            # Loop until we pick any theme but the 'random' theme itself
+            while [ "$random_theme" = "random" ]; do
+                random_theme="${random_themes[RANDOM % ${#random_themes[@]}]}"
+            done
 
-        # Strip the path and extension from the file
-        random_theme="${random_file##*/}"
-        random_theme="${random_theme%.theme}"
+            random_file="$script_dir/themes/$random_theme.theme"
+
+            # Strip the path and extension from the file
+            random_theme="${random_file##*/}"
+            random_theme="${random_theme%.theme}"
+        fi
     else
+        local files=($script_dir/themes/*.theme)
+
         # Loop until we pick any theme but the 'random' theme itself
         while [ "$random_theme" = "random" ]; do
             # Pick a random file from the themes directory and set it as the current theme
-            local files=($script_dir/themes/*.theme)
             random_file="${files[RANDOM % ${#files[@]}]}"
 
             # Strip the path and extension from the file
