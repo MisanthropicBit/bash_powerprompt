@@ -54,19 +54,15 @@ theme.
 $ export BASH_POWERPROMPT_THEME=paradox
 ```
 
-Alternatively, you can add the following convenient functions to your bash
-config files.
+Alternatively, you can add [this](bin/bpp.sh) convenient function to one of your
+bash config files. Source the configuration file then invoke it as follows.
 
 ```bash
-bpp() {
-    if [ -n "$1" ]; then
-        export BASH_POWERPROMPT_THEME="$1"
-    else
-        printf "Usage: bpp [theme_name]\n"
-    fi
-}
-
-bpprand() {
-    export BASH_POWERPROMPT_THEME=random
-}
+$ bpp --list
+arne
+candy
+colorful
+...
+$ bpp
+Current theme is mairu
 ```
