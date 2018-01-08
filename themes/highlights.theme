@@ -45,31 +45,30 @@ __bpp_set_theme() {
     local arrow_format="${color_format}${BASH_POWERPROMPT_SOLID_ARROW_SYMBOL}"
     local max_split_index=$((${BPP_THEME_HIGHLIGHTS_MAX_SPLITS:=3} - 1))
     local new_path=$(printf $color_format $fg_color $blue_highlight)
+    local path_elements="${#path_array[@]}"
+
+    # Handle first path element separately
+    local path_element
+    [[ "$path_elements" -ge 1 ]] && path_element="${path_array[0]}" || path_element="~"
+    new_path="${new_path}$(printf $color_format $white $blue_highlight)$path_element"
 
     # Handling special cases separately simplifies the loop in the general case
-    case "${#path_array[@]}" in
-        0)
-            new_path="${newpath}$(printf $arrow_format $blue_highlight $pink_highlight)"
-            ;;
-        1)
-            new_path="${newpath}$(printf $color_format $white $blue_highlight)${path_array[0]}"
-            new_path="${newpath} $(printf $arrow_format $blue_highlight $pink_highlight)"
-            ;;
-        2)
-            new_path="${new_path}$(printf $color_format $white $blue_highlight)${path_array[0]}"
-            new_path="${new_path} $(printf $arrow_format $blue_highlight $bg_color)"
+    case "$path_elements" in
+        0|1|2)
+            #new_path="${new_path}$(printf $color_format $white $blue_highlight)$path_element"
+            new_path="${new_path} $(printf $arrow_format $blue_highlight $pink_highlight)"
 
-            new_path="${new_path}$(printf $color_format $fg_color $bg_color) ${path_array[1]}"
-            new_path="${new_path} $(printf $arrow_format $bg_color $pink_highlight)"
+            # Special case for 2-element paths
+            if [ "$path_elements" -eq 2 ]; then
+                new_path="${new_path}$(printf $color_format $fg_color $bg_color) ${path_array[1]}"
+                new_path="${new_path} $(printf $arrow_format $bg_color $pink_highlight)"
+            fi
             ;;
         *)
-            new_path="${newpath}$(printf $color_format $white $blue_highlight)${path_array[0]}"
-
             # Handle color transition between blue part of path and grey parts
             new_path="$new_path $(printf $arrow_format $blue_highlight $bg_color) "
             new_path="$new_path$(printf $color_format $fg_color $bg_color)${path_array[1]} $sep"
 
-            # TODO: Clean up loop logic
             for ((i=2; i<=${#path_array[@]}-2; ++i)); do
                 if [ -z "${path_array[i]}" ]; then
                     continue
