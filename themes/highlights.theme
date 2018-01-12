@@ -54,15 +54,13 @@ __bpp_set_theme() {
 
     # Handling special cases separately simplifies the loop in the general case
     case "$path_elements" in
-        0|1|2)
-            #new_path="${new_path}$(printf $color_format $white $blue_highlight)$path_element"
+        0|1)
             new_path="${new_path} $(printf $arrow_format $blue_highlight $pink_highlight)"
-
-            # Special case for 2-element paths
-            if [ "$path_elements" -eq 2 ]; then
-                new_path="${new_path}$(printf $color_format $fg_color $bg_color) ${path_array[1]}"
-                new_path="${new_path} $(printf $arrow_format $bg_color $pink_highlight)"
-            fi
+            ;;
+        2)
+            new_path="${new_path} $(printf $arrow_format $blue_highlight $bg_color)"
+            new_path="${new_path}$(printf $color_format $fg_color $bg_color) ${path_array[1]}"
+            new_path="${new_path} $(printf $arrow_format $bg_color $pink_highlight)"
             ;;
         *)
             # Handle color transition between blue part of path and grey parts
