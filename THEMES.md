@@ -7,10 +7,6 @@ current git branch and current path.
 
 ![Arne theme](/screenshots/arne.png)
 
-### Gradient
-
-![Blue gradient theme](/screenshots/blue_gradient.png)
-
 ### Candy
 
 Features username, split path and current git branch.
