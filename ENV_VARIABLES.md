@@ -7,6 +7,7 @@ purpose. The value in parentheses in each title is the variable's default value.
 
 The name of the current theme.
 
+<a href="#bpp_random_themes"></a>
 #### `BASH_POWERPROMPT_RANDOM_THEMES` (<empty string>)
 
 Themes to select from when picking a random theme. By default, all themes are
@@ -41,11 +42,13 @@ powerline font.
 The hexadecimal encoding of the unicode codepoint of the git branch symbol of a
 powerline font.
 
+<a href="#bpp_fg_colors"></a>
 #### `BASH_POWERPROMPT_FG_COLORS` ((15 15 15))
 
 An array of foreground colors for each section. Color formats depend on the
 value of [`BASH_POWERPROMPT_COLOR_FORMAT`](#bpp_color_format).
 
+<a href="#bpp_bg_colors"></a>
 #### `BASH_POWERPROMPT_BG_COLORS` ((111 107 45))
 
 An array of background colors for each section. Color formats depend on the
@@ -63,7 +66,7 @@ Whitespace padding for each section's right side.
 
 Used in themes that set `PS1` directly. If `1`, skips building prompt sections.
 
-<!--<a href="bpp_color_format">-->
+<a href="#bpp_color_format"></a>
 #### `BASH_POWERPROMPT_COLOR_FORMAT` (`BASH_POWERPROMPT_COLOR_FORMAT_256`)
 
 The color format of a theme. Accepted values are:
@@ -74,6 +77,7 @@ The color format of a theme. Accepted values are:
 
 Decides the contents of [`BASH_POWERPROMPT_FG_COLORS`](#bpp_fg_colors) and [`BASH_POWERPROMPT_BG_COLORS`](#bpp_bg_colors).
 
+<a href="#bpp_16_colors"></a>
 #### `BASH_POWERPROMPT_COLOR_FORMAT_16`
 
 The color format string used for terminals that support 16 colors. It is meant to be
@@ -85,6 +89,7 @@ local colored_text=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_16}This is colored"
 
 The first argument is the foreground color, the second is the background color.
 
+<a href="#bpp_256_colors"></a>
 #### `BASH_POWERPROMPT_COLOR_FORMAT_256`
 
 The color format string used for terminals that support 256 colors. It is meant to be
@@ -96,6 +101,7 @@ local colored_text=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_256}This is colored
 
 The first argument is the foreground color, the second is the background color.
 
+<a href="#bpp_true_colors"></a>
 #### `BASH_POWERPROMPT_COLOR_FORMAT_TRUE_COLOR`
 
 The color format string used for terminals that support true-color. It is meant to be
@@ -107,6 +113,7 @@ local colored_text=$(printf "${BASH_POWERPROMPT_COLOR_FORMAT_TRUE_COLOR}This is 
 
 The first argument is the foreground color, the second is the background color.
 
+<a href="#bpp_separators"></a>
 #### `BASH_POWERPROMPT_SEPARATORS`
 
 An array of strings for the separators between each prompt section.
@@ -123,6 +130,7 @@ An array of background colors for each separator. Color formats depend on the
 value of [`BASH_POWERPROMPT_COLOR_FORMAT`](#bpp_color_format). Also see
 [`BASH_POWERPROMPT_SEPARATORS`](#bpp_separators).
 
+<a href="#bpp_sections"></a>
 #### `BASH_POWERPROMPT_SECTIONS`
 
 An array of the string contents of each prompt section.

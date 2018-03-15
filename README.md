@@ -1,12 +1,11 @@
-# ![Title](/bash_powerprompt_title.png)
+<p align="center"># ![Title](/bash_powerprompt_title.png)</p>
 
 <!--![Build status](https://travis-ci.org/MisanthropicBit/bash_powerprompt.svg?branch=master)-->
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/MisanthropicBit/bash_powerprompt/master/LICENSE)
 
 **This project is under active development**
 
-A highly configurable, flexible prompt framework in `bash` with a focus on
-reusability.
+A highly configurable, flexible prompt for `bash` with a focus on reusability.
 
 Below is the default prompt and several other [predefined themes](/THEMES.md)
 are available.
@@ -14,7 +13,7 @@ are available.
 <img src="/screenshots/default.png" width="30%" alt="The default prompt">
 
 * Written in pure `bash` with no dependencies
-* Multiple predefined [themes](/themes.md)
+* Multiple predefined [themes](/THEMES.md)
 * Highly [customisable](/CUSTOMISING.md)
 
 For more information about customisation and creating your own themes, see
