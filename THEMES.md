@@ -120,7 +120,7 @@ Based on the [colorful](#colorful) theme.
 There are both 256-color and true-color versions. The true-color version is
 suffixed by '_tc' as in 'solarized_dark_tc'.
 
-![Solarized Dark theme](/screenshots/solarized_dark.png)
+![Solarized Dark theme](/screenshots/solarized_dark_tc.png)
 
 ### Solarized Light (inspired by the [solarized colorscheme](http://ethanschoonover.com/solarized))
 
@@ -129,4 +129,4 @@ Based on the [colorful](#colorful) theme.
 There are both 256-color and true-color versions. The true-color version is
 suffixed by '_tc' as in 'solarized_light_tc'.
 
-![Solarized Light theme](/screenshots/solarized_light.png)
+![Solarized Light theme](/screenshots/solarized_light_tc.png)
